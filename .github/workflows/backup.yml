@@ -1,0 +1,26 @@
+name: Backup Repository
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 매일 자정에 실행
+  workflow_dispatch: # 수동 실행 가능
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Create backup
+      run: |
+        tar -zcvf repository-backup-$(date +%Y-%m-%d).tar.gz .
+        mkdir -p backup
+        mv repository-backup-*.tar.gz backup/
+
+    - name: Upload backup to repository
+      uses: actions/upload-artifact@v2
+      with:
+        name: repository-backup
+        path: backup/repository-backup-*.tar.gz
