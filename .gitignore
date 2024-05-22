@@ -1,0 +1,12 @@
+# Build directories
+/target/
+
+# Eclipse and IDE-specific files
+.classpath
+.project
+.settings/
+planttycoon/Sangjun/workspace/sts
+
+# Logs and temporary files
+*.log
+
