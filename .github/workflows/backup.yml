@@ -15,7 +15,7 @@ jobs:
 
     - name: Create backup
       run: |
-        tar -zcvf repository-backup-$(date +%Y-%m-%d).tar.gz .
+        tar --ignore-failed-read -zcvf repository-backup-$(date +%Y-%m-%d).tar.gz .
         mkdir -p backup
         mv repository-backup-*.tar.gz backup/
 
