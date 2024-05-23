@@ -46,5 +46,5 @@
 	<!-- <context:component-scan base-package="kr.co.planttycoon.persistence"></context:component-scan>		
 	<context:component-scan base-package="kr.co.planttycoon.service"></context:component-scan>	 -->
 	<context:component-scan base-package="kr.co.planttycoon"></context:component-scan>		
-	<mybatis-spring:scan base-package="kr.co.planttycoon.mapper"/>	
+	<!-- <mybatis-spring:scan base-package="kr.co.planttycoon.mapper"/> -->	
 </beans>

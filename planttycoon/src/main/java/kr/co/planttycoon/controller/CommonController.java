@@ -1,4 +1,4 @@
-package kr.co.planttycoon;
+package kr.co.planttycoon.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,6 +17,21 @@ public class CommonController {
 		log.info("access Denied : " + auth);
 		
 		model.addAttribute("msg", "Access Denied");
+	}
+	
+	@GetMapping("/customLogin")
+	public void loginInput(String error, String logout, Model model) {
+		
+		log.info("error : " + error);
+		log.info("logout : " + logout);
+		
+		if (error != null) {
+			model.addAttribute("error", "Login error. Please check your account.");
+		}
+		
+		if (logout != null) {
+			model.addAttribute("logout", "Logged out.");
+		}
 	}
 	
 }

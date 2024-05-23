@@ -1,4 +1,4 @@
-package kr.co.planttycoon;
+package kr.co.planttycoon.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
