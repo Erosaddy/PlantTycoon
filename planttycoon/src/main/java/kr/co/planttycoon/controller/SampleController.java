@@ -1,4 +1,4 @@
-package kr.co.planttycoon;
+package kr.co.planttycoon.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
