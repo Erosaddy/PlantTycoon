@@ -2,7 +2,7 @@ name: Backup Repository
 
 on:
   schedule:
-    - cron: '0 0 * * *' # 매일 자정에 실행
+    - cron: '0 1 * * *' # 매일 한국 시간 아침 10시에 실행
   workflow_dispatch: # 수동 실행 가능
 
 jobs:
