@@ -7,6 +7,7 @@
 	
 	<bean id="customAccessDenied" class="kr.co.planttycoon.security.CustomAccessDeniedHandler"></bean>
 	<bean id="customLoginSuccess" class="kr.co.planttycoon.security.CustomLoginSuccessHandler"></bean>
+	<bean id="customPasswordEncoder" class="kr.co.planttycoon.security.CustomNoOpPasswordEncoder"></bean>
 
 	<security:http>
 	
@@ -31,6 +32,8 @@
 		<security:authentication-provider>
 		
 			<security:jdbc-user-service data-source-ref="dataSource"/>
+			
+			<security:password-encoder ref="customPasswordEncoder"/>
 		
 		</security:authentication-provider>
 	
