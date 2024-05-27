@@ -1,6 +1,6 @@
 package kr.co.planttycoon.domain;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -13,8 +13,8 @@ public class MemberDTO {
 	private String userName;
 	private boolean enabled;
 	
-	private LocalDate regDate;
-	private LocalDate updateDate;
+	private Date regDate;
+	private Date updateDate;
 	private List<AuthDTO> authList;
 	
 }
