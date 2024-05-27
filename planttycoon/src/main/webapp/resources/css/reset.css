@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+/* 박다혜 reset.css */
+html,body {width: 100%;height: 100%;}
+
+/* common */
+* {margin: 0;padding: 0;font-family: 'Pretendard Variable', 'Pretendard', sans-serif;box-sizing: border-box;word-break: break-all;}
+html,body,div,span,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,p,a,form,fieldset,table,th,td,legend,label,button {margin: 0;padding: 0;border: 0;font-size: 15px;font-family: 'Pretendard Variable', 'Pretendard', sans-serif;color: #000;}
+
+input,textarea,select {margin: 0;padding: 0;font-family: 'Pretendard Variable', 'Pretendard', sans-serif;}
+input,textarea {-webkit-appearance: none !important;}
+select::-ms-expand {display: none;}
+a,button {cursor: pointer;}
+a,a:link {text-decoration: none;}
+body {line-height: 120%;color: #000;letter-spacing: -.04em;-webkit-text-size-adjust: none;}
+h1,h2,h3,h4,h5,h6 {font-size: 100%;font-weight: normal;}
+h1,h2,h3,h4,h5,h6,p {line-height: 1.3em}
+fieldset,img,abbr,acronym,label {border: 0 none;}
+ol,ul,dl {list-style: none;}
+hr {display: none;}
+fieldset {border: 0}
+label,select,input,textarea {vertical-align: middle}
+.d_none {display: none;}
+
+.txt_cut1,.txt_cut2,.txt_cut3,.txt_cut4,.txt_cut5{display:-webkit-box;overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;word-wrap:break-word;}
+.txt_cut1{-webkit-line-clamp:1; white-space: nowrap;/* 라인수 */ display: block;}
+.txt_cut2{-webkit-line-clamp:2;/* 라인수 */ }
+.txt_cut3{-webkit-line-clamp:3;/* 라인수 */ }
+.txt_cut4{-webkit-line-clamp:4;/* 라인수 */ }
+.txt_cut5{-webkit-line-clamp:5;/* 라인수 */ }
+
+
+/* Chrome, Safari용 스크롤 바 */
+::-webkit-scrollbar{width: 6px;}
+::-webkit-scrollbar-track{background: #f0f0f0; border-radius: 5px;}
+::-webkit-scrollbar-thumb{background: #ccc; border-radius: 5px;}
+
+.nowrap::-webkit-scrollbar{display: none;}

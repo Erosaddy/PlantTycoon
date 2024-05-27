@@ -1,0 +1,34 @@
+@charset "utf-8";
+
+.sub_title button{display: flex; align-items: center; justify-content: center; background: none; font-size: 15px; font-weight: 600; margin-top: 8px;}
+.sub_title button span{width: 25px; height: 25px; margin-right: 10px;}
+
+
+.write_form{margin-top: 20px; padding: 30px 25px; width: 100%; display: flex; flex-wrap: wrap; background: #fff; border-radius: 5px; overflow: hidden; box-shadow: 0 0 7px 0 rgba(107, 115, 137, .1);}
+.write_form form{position: relative; width: 100%;}
+
+.write_form .write_box{width: 100%; display: flex; flex-wrap: wrap;}
+.write_form .write_box:not(:first-child){margin-top: 20px;}
+.write_form .write_box p{width: 120px; font-size: 14px; margin-top: 14px;}
+.write_form .write_box input{width: calc(100% - 120px); height: 46px; padding: 0 20px; box-sizing: border-box; border: 1px solid #d4d9dc; background: #fff; font-size: 15px;}
+.write_form .write_box .ck-editor{width: calc(100% - 120px);}
+.ck-editor__editable{height: 500px;}
+
+.write_btn_wrap{position: relative; width: 100%; margin-top: 30px; display: flex; justify-content: center;}
+.write_btn_wrap button{width: 180px; height: 52px; border-radius: 5px; font-size: 18px; font-weight: 600;}
+.write_btn_wrap button:nth-child(even){margin-left: 20px;}
+
+
+
+
+/* 미디어쿼리 800 */
+@media (max-width: 800px){
+    .write_form{padding: 20px;}
+    .write_form .write_box p{width: 100%; margin-top: 0; margin-bottom: 10px;}
+    .write_form .write_box input,
+    .write_form .write_box .ck-editor{width: 100%;}
+    .ck-editor__editable{height: 400px;}
+
+    .write_btn_wrap button{width: calc(50% - 5px);height: 48px;font-size: 16px;}
+    .write_btn_wrap button:nth-child(even){margin-left: 10px;}
+}

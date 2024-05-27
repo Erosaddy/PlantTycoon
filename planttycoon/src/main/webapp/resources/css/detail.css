@@ -1,0 +1,34 @@
+@charset "utf-8";
+
+.sub_title button{display: flex; align-items: center; justify-content: center; background: none; font-size: 15px; font-weight: 600; margin-top: 8px;}
+.sub_title button span{width: 25px; height: 25px; margin-right: 10px;}
+
+.writer_btn_wrap{margin-left: auto; position: relative; display: flex; align-items: center; justify-content: flex-end;}
+.writer_btn_wrap button{width: 60px; height: 30px; border-radius: 5px; font-size: 12px; font-weight: 600; background: #fff;}
+.writer_btn_wrap .btn_edit{border: 1px solid #000; color: #000;}
+.writer_btn_wrap .btn_del{border: 1px solid #f95353; color: #f95353; margin-left: 10px;}
+
+.detail{margin-top: 20px; width: 100%; display: flex; flex-wrap: wrap; background: #fff; border-radius: 5px; overflow: hidden; box-shadow: 0 0 7px 0 rgba(107, 115, 137, .1);}
+.detail .detail_top{width: 100%; padding: 30px 25px; border-bottom: 1px solid #eef2f0;}
+.detail .detail_top h3{width: 100%; font-size: 20px; font-weight: 600;}
+.detail .detail_top .writer_btn_wrap{width: 100%; margin-top: 10px;}
+.detail .detail_top .info{width: 100%; display: flex; flex-wrap: wrap; align-items: center; margin-top: 10px;}
+.detail .detail_top .info .name{font-size: 14px; color: #000; font-weight: 500;}
+.detail .detail_top .info .date{display: flex; align-items: center; font-size: 14px; font-weight: 400; margin-left: 4px; color: #919699;}
+.detail .detail_top .info .date::before{content: '·'; margin-right: 4px; display: flex;}
+.detail .detail_cont{width: 100%; padding: 30px 25px; min-height: 460px;}
+.detail .detail_cont p{font-size: 16px; line-height: 1.5em;}
+.detail .detail_cont img{max-width: 100%;}
+
+
+
+
+
+
+/* 미디어쿼리 800 */
+@media (max-width: 800px){
+    .detail .detail_top,
+    .detail .detail_cont{padding: 20px;}
+
+    .detail .detail_top h3{font-size: 17px;}
+}

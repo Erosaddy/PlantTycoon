@@ -36,4 +36,38 @@ public class HomeController {
 		return "home";
 	}
 	
+//	@RequestMapping(value = "/login", method = RequestMethod.GET)
+//	public String login(Locale locale, Model model) {
+//		return "login";
+//	}
+//	@RequestMapping(value = "/join", method = RequestMethod.GET)
+//	public String join(Locale locale, Model model) {
+//		return "join";
+//	}
+//	
+//	@RequestMapping(value = "/journal/list", method = RequestMethod.GET)
+//	public String journalList(Locale locale, Model model) {
+//		return "/journal/list";
+//	}
+//	@RequestMapping(value = "/journal/detail", method = RequestMethod.GET)
+//	public String journaldetail(Locale locale, Model model) {
+//		return "/journal/detail";
+//	}
+//	@RequestMapping(value = "/journal/write", method = RequestMethod.GET)
+//	public String journalwrite(Locale locale, Model model) {
+//		return "/journal/write";
+//	}
+//	
+//	@RequestMapping(value = "/notice/list", method = RequestMethod.GET)
+//	public String noticeList(Locale locale, Model model) {
+//		return "/notice/list";
+//	}
+//	@RequestMapping(value = "/notice/detail", method = RequestMethod.GET)
+//	public String noticedetail(Locale locale, Model model) {
+//		return "/notice/detail";
+//	}
+//	@RequestMapping(value = "/notice/write", method = RequestMethod.GET)
+//	public String noticewrite(Locale locale, Model model) {
+//		return "/notice/write";
+//	}
 }

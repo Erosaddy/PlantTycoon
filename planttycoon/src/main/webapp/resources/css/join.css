@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+
+.join_wrap{width: 100%; height: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; overflow-x: hidden; overflow-y: auto;}
+.join_wrap .join{position: relative; z-index: 10; display: flex; align-items: center; flex-wrap: wrap; width: 600px; height: auto;}
+
+.join_wrap .join::before{content: ''; clear: both; display: block; width: 640px; height: 800px; position: absolute; top: 50%; left: -640px; transform: translateY(-50%); background: url(../images/login_bg_left.png) center no-repeat;}
+.join_wrap .join::after{content: ''; clear: both; display: block; width: 640px; height: 800px; position: absolute; top: 50%; right: -640px; transform: translateY(-50%); background: url(../images/login_bg_right.png) center no-repeat;}
+
+.join_wrap .join_box{position: relative; z-index: 100; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; width: 100%; height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .2);}
+.join_wrap .join_box .join_top{width: 100%; padding: 60px 0; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center;}
+.join_wrap .join_box .join_top .join_tit{width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;}
+.join_wrap .join_box .join_top .join_tit p{font-size: 16px; color: #969ea5; margin-top: 10px;}
+
+.join_wrap .join_box .join_top form{margin-top: 40px; width: 100%; display: flex; flex-direction: column; align-items: center;}
+.join_wrap .join_box .join_top form > div{max-width: 470px; width: 100%; padding: 0 20px;}
+.join_wrap .join_box .join_top form > div.pw_input,
+.join_wrap .join_box .join_top form > div.pw_input2,
+.join_wrap .join_box .join_top form > div.name_input{margin-top: 25px;}
+.join_wrap .join_box .join_top form > div.join_btn{margin-top: 40px;}
+.join_wrap .join_box .join_top form > div p{font-size: 16px; color: #323942; font-weight: 700; margin-bottom: 10px;}
+.join_wrap .join_box .join_top form > div input{width: 100%; height: 56px; padding: 0 25px; box-sizing: border-box; border: 1px solid #d4d9dc; background: #fff; font-size: 16px;}
+.join_wrap .join_box .join_top form > div span{font-size: 14px; width: 100%; display: flex; margin-top: 8px;}
+.join_wrap .join_box .join_top form > div button{width: 100%; height: 60px; background: #40c866; color: #fff; font-size: 20px; font-weight: 600; border-radius: 8px;}
+
+.join_wrap .join_box .join_bottom{width: 100%; height: 70px; background: #eff2f5; display: flex; align-items: center; justify-content: center;}
+.join_wrap .join_box .join_bottom p{font-size: 14px; color: #969ea5; font-weight: 500; display: flex; align-items: center;}
+.join_wrap .join_box .join_bottom p a {font-size: 14px; color: #40c866; text-decoration: underline; font-weight: 600; margin-left: 6px;}
+
+
+/* 미디어쿼리 700 */
+@media (max-width:700px){
+    .join_wrap .join{width: 100%; height: 100%;}
+    .join_wrap .join_box{border-radius: 0; align-content: space-between; box-shadow: none;}
+
+    .join_wrap .join::before,
+    .join_wrap .join::after{display: none;}
+}

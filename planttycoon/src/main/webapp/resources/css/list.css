@@ -1,0 +1,93 @@
+@charset "utf-8";
+
+
+.list_top{width: 100%; display: flex; flex-wrap: wrap; align-items: flex-end; margin-top: 20px;}
+.list_top .total{font-size: 15px; color: #636e66;}
+.list_top .total span{color: #40c866; font-weight: 600;}
+.list_top .btn_wrap{margin-left: auto; margin-right: 10px;}
+.list_top .btn_wrap .btn_write{width: 130px; height: 46px; display: flex; align-items: center; justify-content: center; border-radius: 5px; background: #40c866; color: #fff; font-weight: 600; box-shadow: 0 0 7px 0 rgba(107, 115, 137, .1);}
+.list_top .btn_wrap .btn_write img{margin-right: 10px;}
+.list_top .search{display: flex; flex-wrap: wrap;  background-color: #fff; border-radius: 5px; box-shadow: 0 0 7px 0 rgba(107, 115, 137, .1);}
+.list_top .search .search_box{position: relative;}
+.list_top .search .search_box select{width: 140px;}
+.list_top .search .search_box input{width: 310px; background: none;}
+.list_top .search .search_box select,
+.list_top .search .search_box input{position: relative; border: 0; height: 46px; padding: 0 20px; font-size: 15px;}
+.list_top .search .search_box input{padding-right: 46px;}
+.list_top .search .search_box:first-child:after{content: ''; display: block; clear: both; position: absolute; top: 50%; right: 0; transform: translateY(-50%); width: 1px; height: 12px; background-color: #e2e3e4;}
+.list_top .search .search_box .btn_search{position: absolute; top: 50%; transform: translateY(-50%); right: 0px; width: 46px; height: 46px; background: url(../images/ic_search.png) 50% 50% no-repeat; background-size: 16px; text-indent: -9999px;}
+
+.list{margin-top: 20px; width: 100%; display: flex; flex-wrap: wrap; background: #fff; border-radius: 5px; overflow: hidden; box-shadow: 0 0 7px 0 rgba(107, 115, 137, .1);}
+.list .list_head{width: 100%; padding: 0 20px; display: flex; flex-wrap: wrap; align-items: center; background: #f1f9f5; height: 50px;}
+.list .list_head li{position: relative; font-size: 14px; color: #90a095; font-weight: 600; text-align: center; padding: 0 10px;}
+.list .list_head li:nth-child(1){width: 20%;}
+.list .list_head li:nth-child(2){width: 60%;}
+.list .list_head li:nth-child(3){width: 20%;}
+
+.list.news .list_head li:nth-child(1){width: 15%;}
+.list.news .list_head li:nth-child(2){width: 55%;}
+.list.news .list_head li:nth-child(3){width: 15%;}
+.list.news .list_head li:nth-child(4){width: 15%;}
+
+
+.list .list_body{width: 100%;}
+.list .list_body li{width: 100%; padding: 0 20px; display: flex; flex-wrap: wrap; align-items: center; border-bottom: 1px solid #eef2f0; height: 60px;}
+.list .list_body li div{position: relative; text-align: center; padding: 0 10px;}
+.list .list_body li div a{text-align: left;}
+.list .list_body li div a:hover{text-decoration: underline;}
+.list .list_body li div:nth-child(1){width: 20%;}
+.list .list_body li div:nth-child(2){width: 60%;}
+.list .list_body li div:nth-child(3){width: 20%;}
+
+.list.news .list_body li div:nth-child(1){width: 15%;}
+.list.news .list_body li div:nth-child(2){width: 55%;}
+.list.news .list_body li div:nth-child(3){width: 15%;}
+.list.news .list_body li div:nth-child(4){width: 15%;}
+
+.list .paging{padding: 20px 0;}
+
+
+/* 미디어쿼리 800 */
+@media (max-width: 800px){
+    .list_top .btn_wrap .btn_write{width: 120px; height: 40px;}
+
+    .list_top{margin-top: 10px;}
+    .list_top .total{order: 0;}
+    .list_top .btn_wrap{order: 1; margin-right: 0;}
+    .list_top .search{order: 2; width: 100%; margin-top: 10px;}
+
+    .list_top .search .search_box:last-child{width: calc(100% - 140px);}
+    .list_top .search .search_box input{width: 100%;}
+
+    .list .list_head li:nth-child(1),
+    .list.news .list_head li:nth-child(3),
+    .list .list_body li div:nth-child(1),
+    .list.news .list_body li div:nth-child(3){display: none;}
+
+    .list .list_head{padding: 0 10px;}
+    .list .list_head li:nth-child(2){width: calc(100% - 110px) !important;}
+    .list .list_head li:nth-child(3),
+    .list.news .list_head li:nth-child(4){width: 110px;}
+
+    .list .list_body li{padding: 0 10px;}
+    .list .list_body li div:nth-child(2){width: calc(100% - 110px) !important;}
+    .list .list_body li div:nth-child(3),
+    .list.news .list_body li div:nth-child(4){width: 110px;}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
