@@ -8,13 +8,12 @@ import lombok.Data;
 @Data
 public class MemberDTO {
 
-	private String userid;
-	private String userpw;
-	private String userName;
+	private String memberId;
+	private String memberPw;
+	private String nickname;
 	private boolean enabled;
 	
-	private Date regDate;
-	private Date updateDate;
-	private List<AuthDTO> authList;
+	private Date lastLogin;
+	private List<AuthorityDTO> authorityList;
 	
 }

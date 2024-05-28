@@ -5,25 +5,24 @@
 <mapper namespace="kr.co.planttycoon.mapper.MemberMapper">
 
 	<resultMap type="kr.co.planttycoon.domain.MemberDTO" id="memberMap">
-		<id property="userid" column="userid"/>
-		<result property="userid" column="userid"/>
-		<result property="userpw" column="userpw"/>
-		<result property="userName" column="userName"/>
-		<result property="regDate" column="regDate"/>
-		<result property="updateDate" column="updateDate"/>
-		<collection property="authList" resultMap="authMap">
+		<id property="memberId" column="memberId"/>
+		<result property="memberId" column="memberId"/>
+		<result property="memberPw" column="memberPw"/>
+		<result property="nickname" column="nickname"/>
+		<result property="lastLogin" column="lastLogin"/>
+		<collection property="authorityList" resultMap="authMap">
 		</collection>
 	</resultMap>
 
 	<resultMap type="kr.co.planttycoon.domain.AuthDTO" id="authMap">
-		<result property="userid" column="userid"/>
-		<result property="auth" column="auth"/>
+		<result property="memberId" column="memberId"/>
+		<result property="authority" column="authority"/>
 	</resultMap>
 	
 	<select id="read" resultMap="memberMap">
-		SELECT	mem.userid, userpw, username, enabled, regdate, updatedate, auth
-		FROM	tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.userid = auth.userid
-		WHERE	mem.userid = #{userid}
+		SELECT	mem.memberId, memberPw, nickname, enabled, lastLogin, authority
+		FROM	member mem LEFT OUTER JOIN memberAuthority auth on mem.memberId = auth.memberId
+		WHERE	mem.memberId = #{memberId}
 	</select>
 	
 </mapper>

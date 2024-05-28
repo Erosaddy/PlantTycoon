@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,21 +37,21 @@ public class HomeController {
 		return "home";
 	}
 	
-//	@RequestMapping(value = "/login", method = RequestMethod.GET)
-//	public String login(Locale locale, Model model) {
+//	@GetMapping("/login")
+//	public String login(Model model) {
 //		return "login";
 //	}
-//	@RequestMapping(value = "/join", method = RequestMethod.GET)
-//	public String join(Locale locale, Model model) {
+//	@GetMapping("/join")
+//	public String join(Model model) {
 //		return "join";
 //	}
 //	
 //	@RequestMapping(value = "/journal/list", method = RequestMethod.GET)
-//	public String journalList(Locale locale, Model model) {
+//	public String journalList(Model model) {
 //		return "/journal/list";
 //	}
 //	@RequestMapping(value = "/journal/detail", method = RequestMethod.GET)
-//	public String journaldetail(Locale locale, Model model) {
+//	public String journaldetail(Model model) {
 //		return "/journal/detail";
 //	}
 //	@RequestMapping(value = "/journal/write", method = RequestMethod.GET)

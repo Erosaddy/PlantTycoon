@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>식물타이쿤</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
@@ -46,18 +46,25 @@
                             </div>
                             <p>Login to your account</p>
                         </div>
-                        <form>
+                        <form method="post" action="/login">
                             <div class="id_input">
                                 <p>Email</p>
-                                <input type="text" placeholder="이메일을 입력하세요">
+                                <input type="text" name="username" placeholder="이메일을 입력하세요">
                             </div>
                             <div class="pw_input">
                                 <p>Password</p>
-                                <input type="text" placeholder="비밀번호를 입력하세요">
+                                <input type="password" name="password" placeholder="비밀번호를 입력하세요">
                             </div>
+                            
+                            <h2><c:out value="${error }" /></h2>
+							<h2><c:out value="${logout }"/></h2>
+							
                             <div class="login_btn">
                                 <button type="submit">로그인</button>
                             </div>
+                            <div>
+								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+							</div>
                         </form>
                     </div>
                     <div class="login_bottom">

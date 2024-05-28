@@ -28,7 +28,7 @@ public class MemberMapperTests {
 		
 		log.info(mDto);
 		
-		mDto.getAuthList().forEach(authDTO -> log.info(authDTO));
+		mDto.getAuthorityList().forEach(authorityDTO -> log.info(authorityDTO));
 		
 	}
 }
