@@ -17,6 +17,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 	
+	// 로그인을 했을 시 해당 회원이 가진 권한에 따라 서로 다른 페이지로 분기하는 클래스
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication auth) throws IOException, ServletException {
@@ -37,6 +38,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		}
 		
 		if (roleNames.contains("ROLE_MEMBER")) {
+			
 			response.sendRedirect("/sample/member");
 			return;
 		}

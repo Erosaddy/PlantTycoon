@@ -29,9 +29,6 @@ public class MemberMapperTests {
 		log.info(mDto);
 		
 		mDto.getAuthList().forEach(authDTO -> log.info(authDTO));
-		/*
-		 * if (mDto != null) { log.info("해당 아이디로 조회한 이름 : " + mDto.getUserName()); }
-		 * else { log.warn("해당 아이디를 가진 사용자가 존재하지 않음"); }
-		 */
+		
 	}
 }
