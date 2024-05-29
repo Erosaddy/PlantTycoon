@@ -45,15 +45,10 @@ public class MemberTests {
 //				
 //				pstmt.setString(2, pwencoder.encode("pw" + i));
 //				
-//				if(i < 80) {
+//				if(i < 90) {
 //					
-//					pstmt.setString(1, "user" + i);
-//					pstmt.setString(3, "일반사용자" + i);
-//					
-//				} else if(i < 90) {
-//					
-//					pstmt.setString(1, "manager" + i);
-//					pstmt.setString(3, "운영자" + i);
+//					pstmt.setString(1, "member" + i);
+//					pstmt.setString(3, "일반회원" + i);
 //					
 //				} else {
 //					
@@ -85,15 +80,10 @@ public class MemberTests {
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(sql);
 				
-				if(i < 80) {
+				if(i < 90) {
 					
-					pstmt.setString(1, "user" + i);
-					pstmt.setString(2, "ROLE_USER");
-					
-				} else if(i < 90) {
-					
-					pstmt.setString(1, "manager" + i);
-					pstmt.setString(2, "ROLE_MANAGER");
+					pstmt.setString(1, "member" + i);
+					pstmt.setString(2, "ROLE_MEMBER");
 					
 				} else {
 					

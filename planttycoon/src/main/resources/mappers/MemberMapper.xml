@@ -25,4 +25,14 @@
 		WHERE	mem.memberId = #{memberId}
 	</select>
 	
+	<insert id="createMember">
+		INSERT INTO member(memberId, memberPw, nickname)
+		VALUES(#{memberId}, #{memberPw}, #{nickname})
+	</insert>
+	
+	<insert id="createMemberAuthority">
+		INSERT INTO memberAuthority(memberAuthorityId, memberId, authority)
+		VALUES(memberAuthority_seq.NEXTVAL, #{memberId}, #{authority})
+	</insert>
+	
 </mapper>
