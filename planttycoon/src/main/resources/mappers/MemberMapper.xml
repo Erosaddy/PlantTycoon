@@ -14,7 +14,7 @@
 		</collection>
 	</resultMap>
 
-	<resultMap type="kr.co.planttycoon.domain.AuthDTO" id="authMap">
+	<resultMap type="kr.co.planttycoon.domain.AuthorityDTO" id="authMap">
 		<result property="memberId" column="memberId"/>
 		<result property="authority" column="authority"/>
 	</resultMap>
