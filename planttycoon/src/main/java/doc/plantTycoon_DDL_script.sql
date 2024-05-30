@@ -157,7 +157,7 @@ ALTER TABLE memberAuthority
 
 COMMIT;
 
-/* 시퀀스 삭제 및 생성 */
+/* Delete and create sequence */
 
 DROP SEQUENCE memberAuthority_seq;
 DROP SEQUENCE journal_seq;
@@ -196,7 +196,7 @@ INCREMENT BY 1
 START WITH 1
 NOMAXVALUE;
 
-/* 권한 종류 설정 */
+/* Configure authorities */
 
 INSERT INTO authority
 VALUES('ROLE_MEMBER');
