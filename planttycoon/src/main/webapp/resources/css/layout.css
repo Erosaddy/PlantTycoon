@@ -7,6 +7,7 @@ input::placeholder{color:#969ea5;}
 input::-webkit-input-placeholder{color:#969ea5;}
 div input:-ms-input-placeholder{color:#969ea5;}
 
+
 .btn_green{background: #40c866; color: #fff;}
 .btn_white{background: #fff; border: 1px solid #d4d9dc;}
 
@@ -26,6 +27,22 @@ input[type=radio]:checked{border: 4px solid #6064d1;}
 
 
 
+/* 내정보 팝업 */
+.my_popup {position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0, 0, 0, 0.5);z-index: 2000; display: none;}
+.my_popup .white_box {position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width: 90%;max-width: 540px;background: #fff; padding: 25px; border-radius: 10px;}
+.my_popup .white_box .popup_title {position: relative;display: flex; align-items: center; font-size: 17px;font-weight: 600;color: #000;}
+.my_popup .white_box .popup_title .popup_close {position: absolute;right: 0px;top: 50%;transform: translateY(-50%);}
+.my_popup .white_box .popup_title .popup_close img {vertical-align: baseline !important;transition: all .2s;}
+.my_popup .white_box .popup_title .popup_close:hover img {transform: rotate(180deg);}
+.my_popup .white_box .myinfo_con {padding-top: 20px;margin: 0 auto;font-size: 0;}
+.my_popup .white_box .myinfo_con form{width: 100%;}
+.my_popup .white_box .myinfo_con form > div{width: 100%; margin-bottom: 20px;}
+.my_popup .white_box .myinfo_con form > div p{font-size: 16px; color: #323942; font-weight: 700; margin-bottom: 10px;}
+.my_popup .white_box .myinfo_con form > div input{width: 100%; height: 60px; padding: 0 25px; box-sizing: border-box; border: 1px solid #d4d9dc; background: #fff; font-size: 16px;}
+.my_popup .white_box .myinfo_con form > div input.readonly{background: #eff2f5; color: #969ea5;}
+.my_popup .white_box .myinfo_con form button{width: 100%; margin-top: 10px; height: 56px; background: #40c866; color: #fff; font-size: 20px; font-weight: 600; border-radius: 8px;}
+
+
 /* header */
 .header{position: relative; width: 100%; height: 86px; padding: 0 30px; display: flex; align-items: center; border-bottom: 1px solid #eff2f5;}
 
@@ -37,7 +54,8 @@ input[type=radio]:checked{border: 4px solid #6064d1;}
 .header .login_info > ul{display: flex; align-items: center;}
 .header .login_info > ul > li{position: relative; display: flex; align-items: center;}
 .header .login_info > ul > li:not(:first-child)::before{content: ''; display: flex; width: 1px; height: 10px; background: #c4cacd; margin: 0 10px;}
-.header .login_info > ul > li a{position: relative; display: flex; align-items: center; justify-content: center; color: #919699;}
+.header .login_info > ul > li a,
+.header .login_info > ul > li button{position: relative; display: flex; align-items: center; justify-content: center; color: #919699; background: none;}
 
 
 /* main */
@@ -353,8 +371,10 @@ input[type=radio]:checked{border: 4px solid #6064d1;}
         .header .mobile_menu .side_menu .menu_wrap .menu_list li .menu_depth1.haslnb.active::before{background: url(../images/side_arrow02.png) no-repeat; background-size: cover; transform: rotate(180deg)  translateY(50%);}
         .header .mobile_menu .side_menu .menu_wrap .menu_list li:nth-child(-n + 4) .menu_depth1{border-bottom: 1px solid #e2e5eb;}
         .header .mobile_menu .side_menu .menu_wrap .menu_list li.btn_zone{display: flex; align-items: center; flex-wrap: wrap;}
-        .header .mobile_menu .side_menu .menu_wrap .menu_list li.btn_zone a{width: calc(50% - 5px); height: 40px; border-radius: 5px; display: flex; align-items: center; justify-content: center;}
-        .header .mobile_menu .side_menu .menu_wrap .menu_list li.btn_zone a:nth-child(odd){margin-right: 10px;}
+        .header .mobile_menu .side_menu .menu_wrap .menu_list li.btn_zone a,
+        .header .mobile_menu .side_menu .menu_wrap .menu_list li.btn_zone form{width: calc(50% - 5px); height: 40px; border-radius: 5px; display: flex; align-items: center; justify-content: center;}
+        .header .mobile_menu .side_menu .menu_wrap .menu_list li.btn_zone form button{width: 100%; height: 100%; border-radius: 5px;}
+        .header .mobile_menu .side_menu .menu_wrap .menu_list li.btn_zone :nth-child(odd){margin-right: 10px;}
         .header .mobile_menu .side_menu .menu_wrap .menu_list li .menu_depth2{padding-top: 0; padding: 10px 0; display: none; font-size: 15px; background: #f8f9fa;}
         .header .mobile_menu .side_menu .menu_wrap .menu_list li .menu_depth2 a{display: block; color: #919699; padding: 10px 20px; font-size: 15px; line-height: 1.3em;}
         .header .mobile_menu .side_menu .menu_wrap .menu_list li .menu_depth2 a:last-child{margin-bottom: 0;}
@@ -364,4 +384,11 @@ input[type=radio]:checked{border: 4px solid #6064d1;}
 /* 미디어쿼리 800 */
 @media (max-width: 800px){
     .sub_title h3{font-size: 26px;}
+}
+
+/* 미디어쿼리 700 */
+@media (max-width:700px){
+    .my_popup .white_box{padding: 20px;}
+    .my_popup .white_box .forgot_password input{margin: 20px 0;}
+
 }

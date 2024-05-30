@@ -18,7 +18,7 @@
                                 <a href="${ctx}/plant/status">온도/습도/조도</a>
                             </li>
                             <li> <!--메뉴 선택 시 on클래스 붙음-->
-                                <a href="${ctx}/plant/watering">관수제어</a>
+                                <a href="${ctx}/plant/watering">급수관리</a>
                             </li>
                         </ul>
                     </li>

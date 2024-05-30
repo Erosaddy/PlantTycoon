@@ -54,4 +54,12 @@ $(function() {
       $('.pw_popup .popup_close').click(function(){
         $('.pw_popup').css('display','none');
       });
+
+      //내정보 팝업
+    $('.myinfo').click(function(){
+        $('.my_popup').css('display','block');
+      });
+      $('.my_popup .popup_close').click(function(){
+        $('.my_popup').css('display','none');
+      });
 });

@@ -17,6 +17,30 @@
 </head>
 <body>
     <div id="wrapper">
+    	<!-- 내정보 팝업 -->
+        <div class="my_popup">
+            <div class="white_box">
+                <div class="popup_title">
+                    내 정보
+                    <a href="#" class="popup_close">
+                        <img src="${ctx}/resources/images/ic_popup_close.png" alt="닫기버튼">
+                    </a>
+                </div>
+                <div class="myinfo_con">
+                    <form>
+                        <div class="id_input">
+                            <p>Email</p>
+                            <input type="text" placeholder="이메일을 입력하세요" value="cheesejelly@gmail.com" class="readonly" readonly>
+                        </div>
+                        <div class="name_input">
+                            <p>Name</p>
+                            <input type="text" placeholder="닉네임을 입력하세요" value="치즈젤리">
+                        </div>
+                        <button type="submit">내 정보 수정</button>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="header">
             <div class="mobile_menu">
                 <div class="header_btn not-active">
@@ -26,14 +50,14 @@
                 </div>
             </div>
             <div class="logo">
-                <a href="javascript:void(0);">
+                <a href="${ctx}/">
                     <img src="${ctx}/resources/images/logo.png" alt="로고">
                 </a>
             </div>
             <div class="login_info">
                 <ul>
                     <li>
-                        <a href="${ctx }/myinfo" class="myinfo">내 정보</a>      
+                        <a href="javascript:void(0);" class="myinfo">내 정보</a>      
                     </li>
                     <li>
                         <form action="/customLogout" method="post">
@@ -55,7 +79,7 @@
                                 <div class="menu_depth2">
                                     <a href="${ctx }/plant/monitoring"><span>실시간 모니터링</span></a>
                                     <a href="${ctx }/plant/status"><span>온도/습도/조도</span></a>
-                                    <a href="${ctx }/plant/watering"><span>관수제어</span></a>
+                                    <a href="${ctx }/plant/watering"><span>급수관리</span></a>
                                 </div>
                             </li>
                             <li>
@@ -68,8 +92,11 @@
                                 <a href="${ctx }/management" class="menu_depth1">회원관리</a>
                             </li>
                             <li class="btn_zone">
-                                <a href="${ctx }/myinfo" class="mypage btn_green">내 정보</a>
-                                <a href="javascript:void(0);" class="logout btn_white">로그아웃</a>
+                                <a href="javascript:void(0);" class="mypage btn_green">내 정보</a>
+                                <form action="/customLogout" method="post">
+									<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
+									<button class="btn_white">로그아웃</button>
+								</form>
                             </li>
                         </ul>
                     </div>

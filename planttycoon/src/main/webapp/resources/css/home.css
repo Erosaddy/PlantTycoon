@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: 'YClover';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('https://cdn.jsdelivr.net/gh/fonts-archive/YClover/YClover-Regular.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/fonts-archive/YClover/YClover-Regular.woff') format('woff'),
+         url('https://cdn.jsdelivr.net/gh/fonts-archive/YClover/YClover-Regular.otf') format('opentype'),
+         url('https://cdn.jsdelivr.net/gh/fonts-archive/YClover/YClover-Regular.ttf') format('truetype');
+}
+
+.home{width: 100%; margin-top: 30px; display: flex; flex-wrap: wrap;}
+
+.home_left{width: 55%;}
+.home_left .plant_emotion{width: 100%; padding: 70px; display: flex; flex-wrap: wrap; justify-content: space-around; background: #fff; border-radius: 5px; overflow: hidden; box-shadow: 0 0 7px 0 rgba(107, 115, 137, .1);}
+.home_left .plant_emotion .plant_bg{position: relative;width: 50%;padding-top: 55%;}
+.home_left .plant_emotion .plant_bg::after{max-width: 310px;width: 100%;max-height: 400px;height: 100%;display: block;content: '';position: absolute;background: url(../images/plant_emotion2.png) center no-repeat;background-size: contain;top: 50%;left: 50%;transform: translate(-50%, -50%);}
+.home_left .plant_emotion.smile .plant_bg::after{background: url(../images/plant_emotion1.png) center no-repeat; background-size: contain;}
+.home_left .plant_emotion .plant_txt{position: relative; width: 50%; display: flex; align-items: center; justify-content: center;}
+.home_left .plant_emotion .plant_txt img{width: 100%; max-width: 300px;}
+.home_left .plant_emotion .plant_txt p{font-family: 'YClover'; font-size: 24px; width: 55%; max-width: 200px; position: absolute; top: 54%; left: 55%; transform: translate(-50%, -50%); text-align: center;}
+
+.home_left .plant_btn {margin-top: 30px; width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between;}
+.home_left .plant_btn button{display: flex; align-items: center; justify-content: center; width: calc(50% - 10px); height: 68px; border-radius: 5px; overflow: hidden; box-shadow: 0 0 7px 0 rgba(107, 115, 137, .1); font-size: 20px; font-weight: 600; transition: all .2s;}
+.home_left .plant_btn button:hover{transform: translateY(-5px);}
+.home_left .plant_btn button:not(:first-child){margin-left: 20px;}
+.home_left .plant_btn button img{margin-left: 10px;}
+
+.home_left .plant_btn button.water{background-color: #477ef9; color: #fff;}
+.home_left .plant_btn button.led{background-color: #e8b417; color: #fff;}
+
+
+.home_right{margin-left: 30px; width: calc(45% - 30px);}
+.home_right .wataring_dday{width: 100%; padding: 50px 0; display: flex; flex-wrap: wrap; background: #fff; border-radius: 5px; overflow: hidden; box-shadow: 0 0 7px 0 rgba(107, 115, 137, .1);}
+.home_right .wataring_dday p{display: flex; flex-wrap: wrap; align-items: center; justify-content: center; line-height: 1.5; text-align: center; width: 100%; font-size: 18px; font-weight: 500;}
+.home_right .wataring_dday p span{font-size: 36px; font-weight: 500; padding: 0 10px;}
+.home_right .wataring_dday p span strong{color: #40c866; font-weight: 700;}
+
+.home_right .watering_log{margin-top: 30px; width: 100%; padding: 30px 25px; display: flex; flex-wrap: wrap; background: #fff; border-radius: 5px; overflow: hidden; box-shadow: 0 0 7px 0 rgba(107, 115, 137, .1);}
+.home_right .watering_log h4{font-size: 16px; font-weight: 600; width: 100%; margin-bottom: 20px;}
+.home_right .watering_log .log_list{width: 100%; position: relative;}
+.home_right .watering_log .log_list .log_head{width: 100%; padding: 0 20px; display: flex; flex-wrap: wrap; align-items: center; background: #f1f9f5; height: 40px;}
+.home_right .watering_log .log_list .log_head li{position: relative; font-size: 14px; color: #90a095; font-weight: 600; text-align: center; padding: 0 10px;}
+.home_right .watering_log .log_list .log_head li:nth-child(1){width: 70%;}
+.home_right .watering_log .log_list .log_head li:nth-child(2){width: 30%;}
+.home_right .watering_log .log_list .log_body{width: 100%;}
+.home_right .watering_log .log_list .log_body li{width: 100%; padding: 0 20px; display: flex; flex-wrap: wrap; align-items: center; border-bottom: 1px solid #eef2f0; height: 40px;}
+.home_right .watering_log .log_list .log_body li div{position: relative; text-align: center; padding: 0 10px;}
+.home_right .watering_log .log_list .log_body li div:nth-child(1){width: 70%;}
+.home_right .watering_log .log_list .log_body li div:nth-child(2){width: 30%;}
+.home_right .watering_log .log_list .paging{margin-top: 20px;}
+
+
+
+/* 미디어쿼리 1500 */
+@media (max-width: 1500px){
+    .home_left{width: 100%;}
+    .home_right{width: 100%; margin-left: 0; margin-top: 30px;}
+
+    .home_left .plant_emotion .plant_txt p{font-size: 22px;}
+
+}
+
+/* 미디어쿼리 800 */
+@media (max-width: 800px){
+    .watering_right,
+    .home_right .wataring_dday,
+    .home_right .watering_log{padding: 20px;}
+
+    .home_left .plant_emotion{padding: 30px;}
+    .home_left .plant_emotion .plant_txt p{font-size: 18px;}
+    
+    .home_left .plant_btn button{height: 54px; font-size: 18px;}
+
+    .home_right .wataring_dday p{font-size: 16px;}
+    .home_right .wataring_dday p span{font-size: 27px;}
+
+    .home_right .watering_log .log_list .log_head,
+    .home_right .watering_log .log_list .log_body li{padding: 0 10px}
+}
+
+/* 미디어쿼리 500 */
+@media (max-width: 500px){
+    .home_left .plant_emotion .plant_bg{width: 100%; order: 1; padding-top: 100%} 
+    .home_left .plant_emotion .plant_txt {width: 100%; order: 0; margin-bottom: 20px;}
+    .home_left .plant_emotion .plant_txt img{display: none;}
+    .home_left .plant_emotion .plant_txt p{position: relative; width: 100%; max-width: 100%; top: 0;left: 0;right: 0; transform: translate(0); padding: 20px 0;}
+}
