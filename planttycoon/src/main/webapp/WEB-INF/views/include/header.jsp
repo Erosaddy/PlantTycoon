@@ -36,7 +36,10 @@
                         <a href="${ctx }/myinfo" class="myinfo">내 정보</a>      
                     </li>
                     <li>
-                        <a href="javascript:void(0);" class="logout">로그아웃</a>
+                        <form action="/customLogout" method="post">
+							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
+							<button>로그아웃</button>
+						</form>
                     </li>
                 </ul>
             </div>
