@@ -72,18 +72,18 @@ public class HomeController {
 //		return "/notice/write";
 //	}
 	
-	@RequestMapping(value = "/plant/monitoring", method = RequestMethod.GET)
-	public String plantmonitoring(Locale locale, Model model) {
-		return "/plant/monitoring";
-	}
-	@RequestMapping(value = "/plant/status", method = RequestMethod.GET)
-	public String plantstatus(Locale locale, Model model) {
-		return "/plant/status";
-	}
-	@RequestMapping(value = "/plant/watering", method = RequestMethod.GET)
-	public String plantwatering(Locale locale, Model model) {
-		return "/plant/watering";
-	}
+//	@RequestMapping(value = "/plant/monitoring", method = RequestMethod.GET)
+//	public String plantmonitoring(Locale locale, Model model) {
+//		return "/plant/monitoring";
+//	}
+//	@RequestMapping(value = "/plant/status", method = RequestMethod.GET)
+//	public String plantstatus(Locale locale, Model model) {
+//		return "/plant/status";
+//	}
+//	@RequestMapping(value = "/plant/watering", method = RequestMethod.GET)
+//	public String plantwatering(Locale locale, Model model) {
+//		return "/plant/watering";
+//	}
 	
 //	@RequestMapping(value = "/management", method = RequestMethod.GET)
 //	public String management(Locale locale, Model model) {
