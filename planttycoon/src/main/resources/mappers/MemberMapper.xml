@@ -31,8 +31,8 @@
 	</insert>
 	
 	<insert id="createMemberAuthority">
-		INSERT INTO memberAuthority(memberAuthorityId, memberId, authority)
-		VALUES(memberAuthority_seq.NEXTVAL, #{memberId}, #{authority})
+		INSERT INTO memberAuthority(memberAuthorityId, memberId)
+		VALUES(memberAuthority_seq.NEXTVAL, #{memberId})
 	</insert>
 	
 </mapper>

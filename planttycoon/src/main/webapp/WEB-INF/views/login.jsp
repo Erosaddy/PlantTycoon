@@ -68,7 +68,7 @@
                         </form>
                     </div>
                     <div class="login_bottom">
-                        <a href="/join">회원가입</a>
+                        <a href="${ctx}/join">회원가입</a>
                         <a href="javascript:void(0);" class="forgot_password_btn">비밀번호 찾기</a>
                     </div>
                 </div>

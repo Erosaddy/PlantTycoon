@@ -27,28 +27,31 @@
                             </div>
                             <p>Register to your account</p>
                         </div>
-                        <form>
+                        <form action="/join" method="post">
                             <div class="id_input">
                                 <p>Email</p>
-                                <input type="text" placeholder="이메일을 입력하세요">
+                                <input type="email" name="memberId" placeholder="이메일을 입력하세요">
                                 <span class="font_red">이미 사용중인 이메일 입니다.</span>
                             </div>
                             <div class="pw_input">
                                 <p>Password</p>
-                                <input type="text" placeholder="비밀번호를 입력하세요">
+                                <input type="password" name="memberPw" placeholder="비밀번호를 입력하세요">
                             </div>
                             <div class="pw_input2">
                                 <p>Confirm Password</p>
-                                <input type="text" placeholder="비밀번호를 다시 입력하세요">
+                                <input type="password" placeholder="비밀번호를 다시 입력하세요">
                                 <span class="font_gray">비밀번호가 일치합니다.</span>
                             </div>
                             <div class="name_input">
                                 <p>Name</p>
-                                <input type="text" placeholder="닉네임을 입력하세요">
+                                <input type="text" name="nickname" placeholder="닉네임을 입력하세요">
                             </div>
                             <div class="join_btn">
                                 <button type="submit">회원가입</button>
                             </div>
+                            <div>
+								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+							</div>
                         </form>
                     </div>
                     <div class="join_bottom">

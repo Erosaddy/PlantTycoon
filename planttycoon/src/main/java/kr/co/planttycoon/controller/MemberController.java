@@ -51,9 +51,10 @@ public class MemberController {
 	
 	@PostMapping("/join")
 	public String join(MemberDTO mDto, RedirectAttributes rttr) {
+		log.info("/join........");
 		service.join(mDto);
 		
-		return "redirect:/journal/list";
+		return "redirect:/login";
 	}
 	
 }
