@@ -39,11 +39,11 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		if (roleNames.contains("ROLE_MEMBER")) {
 			
-			response.sendRedirect("/journal/list");
+			response.sendRedirect("/");
 			return;
 		}
 		
-		response.sendRedirect("/");
+		response.sendRedirect("/accessError");
 	}
 
 }

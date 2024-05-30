@@ -47,7 +47,7 @@
                             </div>
                             <p>Login to your account</p>
                         </div>
-                        <form method="post" action="/login">
+                        <form method="post" action="${ctx}/login">
                         	<sec:csrfInput/>
                             <div class="id_input">
                                 <p>Email</p>

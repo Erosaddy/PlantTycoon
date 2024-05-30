@@ -61,7 +61,7 @@
                         <a href="javascript:void(0);" class="myinfo">내 정보</a>      
                     </li>
                     <li>
-                        <form action="/customLogout" method="post">
+                        <form action="${ctx}/customLogout" method="post">
 							<sec:csrfInput/>
 							<button>로그아웃</button>
 						</form>
@@ -73,28 +73,28 @@
                     <div class="menu_wrap">
                         <ul class="menu_list">
                             <li>
-                                <a href="${ctx }/" class="menu_depth1">홈</a>
+                                <a href="${ctx}/" class="menu_depth1">홈</a>
                             </li>
                             <li>
                                 <p class="menu_depth1 haslnb">식물현황</p>
                                 <div class="menu_depth2">
-                                    <a href="${ctx }/plant/monitoring"><span>실시간 모니터링</span></a>
-                                    <a href="${ctx }/plant/status"><span>온도/습도/조도</span></a>
-                                    <a href="${ctx }/plant/watering"><span>급수관리</span></a>
+                                    <a href="${ctx}/plant/monitoring"><span>실시간 모니터링</span></a>
+                                    <a href="${ctx}/plant/status"><span>온도/습도/조도</span></a>
+                                    <a href="${ctx}/plant/watering"><span>급수관리</span></a>
                                 </div>
                             </li>
                             <li>
-                                <a href="${ctx }/journal/list" class="menu_depth1">관찰일지</a>
+                                <a href="${ctx}/journal/list" class="menu_depth1">관찰일지</a>
                             </li>
                             <li>
-                                <a href="${ctx }/notice/list" class="menu_depth1">공지사항</a>
+                                <a href="${ctx}/notice/list" class="menu_depth1">공지사항</a>
                             </li>
                             <li>
-                                <a href="${ctx }/management" class="menu_depth1">회원관리</a>
+                                <a href="${ctx}/management" class="menu_depth1">회원관리</a>
                             </li>
                             <li class="btn_zone">
                                 <a href="javascript:void(0);" class="mypage btn_green">내 정보</a>
-                                <form action="/customLogout" method="post">
+                                <form action="${ctx}/customLogout" method="post">
 									<sec:csrfInput/>
 									<button class="btn_white">로그아웃</button>
 								</form>
