@@ -18,7 +18,7 @@
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<!-- 아래 내용은 새로운 원격 DB에 맞게 재설정해야 한다. -->
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.0.219:1521:XE"></property>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.0.209:1521:XE"></property>
 		<property name="username" value="scott"></property>
 		<property name="password" value="tiger"></property>
 	</bean>
