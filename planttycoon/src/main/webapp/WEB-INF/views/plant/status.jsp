@@ -226,6 +226,11 @@ function createChart(ctx, label, timeLabels, data, backgroundColor, borderColor)
         },
         options: {
             maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false // 라벨을 표시하지 않음
+                }
+            },
             scales: {
                 y: {
                     beginAtZero: true
