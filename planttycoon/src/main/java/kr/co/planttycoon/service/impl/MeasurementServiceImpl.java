@@ -19,6 +19,11 @@ public class MeasurementServiceImpl implements IMeasurementService {
     }
 	
 	@Override
+    public MeasurementDTO getLatestMeasurement() {
+        return mapper.getLatestMeasurement();
+    }
+	
+	@Override
 	public List<MeasurementDTO> getRecentMeasurements() {
 		return mapper.getRecentMeasurements();
 	}

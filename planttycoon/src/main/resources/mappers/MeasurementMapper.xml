@@ -4,6 +4,15 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.planttycoon.mapper.MeasurementMapper">
 
+	<select id="getLatestMeasurement" resultType="kr.co.planttycoon.domain.MeasurementDTO">
+	  <![CDATA[
+	    SELECT *
+	    FROM measurement
+	    ORDER BY measurementRegdate DESC
+	    FETCH FIRST 1 ROWS ONLY
+	  ]]>
+	</select>
+  
 	<select id="getRecentMeasurements" resultType="kr.co.planttycoon.domain.MeasurementDTO">
 		<![CDATA[
 	        SELECT *
