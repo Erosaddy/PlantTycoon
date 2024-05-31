@@ -86,25 +86,25 @@
                             <div class="status_chart">
                                 <h4>온도</h4>
                                 <div class="chart">
-                                    <canvas id="myChart"></canvas>
+                                    <canvas id="temperatureChart"></canvas>
                                 </div>
                             </div>
                             <div class="status_chart">
                                 <h4>대기 습도</h4>
                                 <div class="chart">
-                                    <!-- 차트 들어갈 영역 -->
+                                    <canvas id="humidityChart"></canvas>
                                 </div>
                             </div>
                             <div class="status_chart">
                                 <h4>조도</h4>
                                 <div class="chart">
-                                    <!-- 차트 들어갈 영역 -->
+                                    <canvas id="lightChart"></canvas>
                                 </div>
                             </div>
                             <div class="status_chart">
                                 <h4>토양 습도</h4>
                                 <div class="chart">
-                                    <!-- 차트 들어갈 영역 -->
+                                    <canvas id="soilMoistureChart"></canvas>
                                 </div>
                             </div>
                        </div>
@@ -114,41 +114,69 @@
         </div>
     </div>
 <script>
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
+$(document).ready(function() {
+    $.ajax({
+        url: '${ctx}/api/measurements',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // 등록된 시간 정보를 추출하고 Date 객체로 변환
+            const timeLabels = data.map(item => new Date(item.measurementRegdate));
+
+            // 온도, 대기 습도, 조도, 토양 습도 데이터 추출
+            const temperatureData = data.map(item => Math.round(item.temperature));
+			const humidityData = data.map(item => Math.round(item.humidity));
+            const lightData = data.map(item => item.illuminance);
+            const soilMoistureData = data.map(item => item.soilMoisture);
+
+            // 차트 생성
+            const temperatureCtx = document.getElementById('temperatureChart').getContext('2d');
+            createChart(temperatureCtx, '온도', timeLabels, temperatureData, 'rgba(254, 97, 130, 0.5)', 'rgba(254, 97, 130, 1)');
+
+            const humidityCtx = document.getElementById('humidityChart').getContext('2d');
+            createChart(humidityCtx, '대기 습도', timeLabels, humidityData, 'rgba(48, 160, 234, 0.5)', 'rgba(48, 160, 234, 1)');
+
+            const lightCtx = document.getElementById('lightChart').getContext('2d');
+            createChart(lightCtx, '조도', timeLabels, lightData, 'rgba(254, 202, 80, 0.5)', 'rgba(254, 202, 80, 1)');
+
+            const soilMoistureCtx = document.getElementById('soilMoistureChart').getContext('2d');
+            createChart(soilMoistureCtx, '토양 습도', timeLabels, soilMoistureData, 'rgba(75, 192, 192, 0.5)', 'rgba(75, 192, 192, 1)');
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('AJAX error:', textStatus, errorThrown);
+        }
+    });
+});
+
+// createChart 함수 정의
+function createChart(ctx, label, timeLabels, data, backgroundColor, borderColor) {
+    return new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: timeLabels.map(time => {
+            	const options = { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
+                const formattedDate = new Intl.DateTimeFormat('ko-KR', options).format(time);
+                const [month, day, datetime] = formattedDate.split('. '); // '05. 30. 09:00'을 분리하여 월, 일, 시간으로 나눔
+                return month+"/"+day+" "+datetime; // 월/일 시간 형식으로 조합하여 반환
+            }),
+            datasets: [{
+                label: label,
+                data: data,
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
+                borderWidth: 2
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
             }
         }
-    }
-});
+    });
+}
 </script>
 </body>
 </html>

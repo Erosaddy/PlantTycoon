@@ -75,8 +75,7 @@
 .status_bottom .status_chart:nth-child(odd){margin-right: 20px;}
 .status_bottom .status_chart:nth-child(-n + 2) {margin-bottom: 20px;}
 .status_bottom .status_chart h4{font-size: 16px; font-weight: 600; width: 100%; margin-bottom: 20px;}
-.status_bottom .status_chart .chart{width: 100%; overflow: hidden; height: 280px; background: #000;}
-
+.status_bottom .status_chart .chart{width: 100%; overflow: hidden; height: 280px;}
 
 
 /* 미디어쿼리 1500 */
