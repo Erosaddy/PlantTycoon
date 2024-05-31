@@ -13,8 +13,7 @@ import kr.co.planttycoon.service.IMemberService;
 import lombok.Setter;
 
 @Service
-//@Primary // 어떤 이유에서인지 IMemberService와 MemberServiceImpl 두 개의 빈이 있어서 어떤 것을 의존성으로 주입해야 할지 모르겠다는 에러가 난다.
-		 // 이 문제를 해결하기 위해 @Primary 어노테이션으로 구현체에 우선순위를 부여했다.
+
 public class MemberServiceImpl implements IMemberService {
 	
 	private final MemberMapper mapper;
