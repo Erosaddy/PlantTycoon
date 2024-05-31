@@ -44,13 +44,13 @@
                             <div class="pw_input2">
                                 <p>Confirm Password</p>
                                 <input id="passwordCheck" type="password" placeholder="비밀번호를 다시 입력하세요">
-                                <span class="font_gray">비밀번호가 일치합니다.</span>
+                                <span id="join_password_error_message"></span>
                             </div>
                             <div class="name_input">
                                 <p>Name</p>
                                 <input id="nickname" type="text" name="nickname" placeholder="닉네임을 입력하세요">
                             </div>
-                            <span id="signup-error-message" class="font_red"></span>
+                            <span id="signup-error-message" class="font_red" style="width: 100%; margin-top: 20px; text-align: center; font-size: 15px;"></span>
                             <div class="join_btn">
                                 <button id="join" type="button">회원가입</button>
                             </div>
@@ -68,122 +68,122 @@
     </div>
     
     <script>
-    	
-    	let idIsAvailable = false;	// 추후 signup 버튼을 눌렀을 때 활용
-    	
-    	function getCsrfToken() {
-    	    return $('meta[name="_csrf"]').attr('content');
-    	}
-
-    	function getCsrfHeader() {
-    	    return $('meta[name="_csrf_header"]').attr('content');
-    	}
     
-	    function checkId() {
-	    	const idRegEx = /^(?=.{1,254}$)(?=.{1,64}@.{1,253}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})?$/;
-
-	        const inputEmail = $('#email').val();
-	        $.ajax({
-	            url:'${ctx}/idCheck', // Controller에서 요청 받을 주소
-	            type:'post',
-	            data:{memberId: inputEmail},
-	            // 시큐리티를 사용하고 있기 때문에, GET을 제외한 POST, PUT, PATCH, DELETE의 상태 변경 API를 사용할 경우 토큰을 함께 보내지 않는다면 요청에 응하지 않는다.
-	            beforeSend: function(xhr) {
-	                xhr.setRequestHeader(getCsrfHeader(), getCsrfToken());
-	            },
-	            success:function(cnt){ // 컨트롤러에서 넘어온 cnt값을 받음 
-	                if(cnt == 0){ // cnt가 1이 아니면(=0일 경우) -> 사용 가능한 이메일
-	                	if (inputEmail == "") {
-	                		$('#join_id_error_message').text('');
-	                	} else if (!idRegEx.test(inputEmail)) {
-	                		$('#join_id_error_message').text('올바른 이메일 형식을 입력해 주세요.');
-	                	} else {
-	                		$('#join_id_error_message').text('사용 가능한 이메일입니다.').attr('class', 'font_green');
-	                		idIsAvailable = true;
-	                	}
-	                } else { // cnt가 1일 경우 -> 이미 존재하는 이메일
-	                	$('#join_id_error_message').text('이미 사용중인 이메일입니다.');
-	                }
-	            },
-	            error:function(){
-	                alert("에러입니다");
-	            }
+	    $(document).ready(function() {
+	        $('#password, #passwordCheck').on('blur', async function() {
+	            const password = $('#password').val();
+	            const passwordCheck = $('#passwordCheck').val();
+	
+	            // 비동기 함수 호출
+	            await checkPasswords(password, passwordCheck);
 	        });
-	    };
-	  	
-		// 회원가입
-		$("#join").click(function() {
-		    // 사용자 입력 값 가져오기
-		    let inputEmail = $('#email').val();
-		    let inputPassword = $('#password').val();
-		    let inputPasswordCheck = $('#passwordCheck').val();
-		    let inputNickname = $('#nickname').val();
-		    
-		    const pwCharLenRegEx = /^[A-Za-z\d@$!%*#?&]{7,60}$/; // 알파벳 대소문자, 숫자, 특수문자만 사용 가능하며 7~60자리 사이일 것
-		    const pwRequirementsRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{7,}$/; // 알파벳, 숫자, 특수문자 적어도 하나씩 사용해야 함
-		    const nicknameRegEx = /^[a-zA-Z0-9\uAC00-\uD7A3_-]{3,15}$/; // 알파벳 대소문자, 한글, 숫자, 밑줄(_), 하이픈(-)만 허용, 최소 3자 ~ 최대 15자
-		    
-		    let msg = $('#signup-error-message');
+	
+	        async function checkPasswords(password, passwordCheck) {
+	            return new Promise((resolve) => {
+	                setTimeout(() => {
+	                	if (passwordCheck === '') {
+	                		$('#join_password_error_message').text('');
+	                	} else {
+		                    if (password === passwordCheck) {
+		                        $('#join_password_error_message').text('비밀번호가 일치합니다.').attr('class', 'font_green');
+		                    } else {
+		                        $('#join_password_error_message').text('비밀번호가 일치하지 않습니다.').attr('class', 'font_red');
+		                    }
+		                    resolve();
+	                	}
+	                		
+	                }, 500); // 0.5초 후에 비밀번호 비교 결과 출력
+	            });
+	        }
+	        
+	        let idIsAvailable = false;	// 추후 signup 버튼을 눌렀을 때 활용
+	    	
+	    	function getCsrfToken() {
+	    	    return $('meta[name="_csrf"]').attr('content');
+	    	}
 
-		    // 빈값이 없도록 제한
-		    if (inputEmail == '') {
-		        msg.text('이메일을 입력해 주세요.');
-		        $('#email').focus();
-		        return;
-		    } else if (inputPassword == '') {
-		        msg.text('비밀번호를 입력해 주세요.');
-		        $('#password').val('').focus();
-		        $('#passwordCheck').val('');
-		        return;
-		    } else if (inputPasswordCheck == '') {
-		        msg.text('비밀번호 확인을 입력해 주세요.');
-		        $('#passwordCheck').focus();
-		        return;
-		    } else if (inputNickname == '') {
-		        msg.text('닉네임을 입력해 주세요.');
-		        $('#nickname').focus();
-		        return;
-		    }
-		    
-		    // 이메일 검사
-		    else if (!idIsAvailable) {
-		        msg.text('이메일을 다시 확인해 주세요.');
-		        $('#email').focus();
-		        return;
-		    }
-		    // 비밀번호 확인 체크
-		    else if (inputPassword != inputPasswordCheck) {
-		        msg.text('확인용 비밀번호가 입력한 비밀번호와 일치하지 않습니다.');
-		        $('#password').val('').focus();
-		        $('#passwordCheck').val('');
-		        return;
-		    }
-		    // 비밀번호 길이, 사용가능 문자
-		    else if (!pwCharLenRegEx.test(inputPassword)) {
-		        msg.text('비밀번호는 알파벳 대소문자, 숫자, 특수문자만 사용 가능하며, 7~60자 사이여야 합니다.');
-		        $('#password').val('').focus();
-		        $('#passwordCheck').val('');
-		        return;
-		    }
-		    // 비밀번호 필수로 들어가야 하는 문자들 지정
-		    else if (!pwRequirementsRegEx.test(inputPassword)) {
-		        msg.text('비밀번호는 각각 적어도 하나의 영문자, 숫자, 특수문자(@$!%*#?&)를 포함해야 합니다.');
-		        $('#password').val('')focus();
-		        $('#passwordCheck').val('');
-		        return;
-		    }
-		    // 닉네임 유효성 검사
-		    else if (!nicknameRegEx.test(inputNickname)) {
-		        msg.text('닉네임은 알파벳 대소문자, 한글, 숫자, 밑줄(_), 하이픈(-)만 사용 가능하며, 3~15자 사이여야 합니다.');
-		        $('#nickname').val('');
-		        $('#nickname').focus();
-		        return;
-		    }
-		    
-		    $('form[name="joinForm"]').submit();
-		});
+	    	function getCsrfHeader() {
+	    	    return $('meta[name="_csrf_header"]').attr('content');
+	    	}
+	    	
+	    	$('#email').on('blur', function() {
+		    	const idRegEx = /^(?=.{1,254}$)(?=.{1,64}@.{1,253}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})?$/;
 
-	  	
+		        const inputEmail = $('#email').val();
+		        $.ajax({
+		            url:'${ctx}/idCheck', // Controller에서 요청 받을 주소
+		            type:'post',
+		            data:{memberId: inputEmail},
+		            // 시큐리티를 사용하고 있기 때문에, GET을 제외한 POST, PUT, PATCH, DELETE의 상태 변경 API를 사용할 경우 토큰을 함께 보내지 않는다면 요청에 응하지 않는다.
+		            beforeSend: function(xhr) {
+		                xhr.setRequestHeader(getCsrfHeader(), getCsrfToken());
+		            },
+		            success:function(cnt){ // 컨트롤러에서 넘어온 cnt값을 받음 
+		                if(cnt == 0){ // cnt가 1이 아니면(=0일 경우) -> 사용 가능한 이메일
+		                	if (inputEmail == "") {
+		                		$('#join_id_error_message').text('');
+		                	} else if (!idRegEx.test(inputEmail)) {
+		                		$('#join_id_error_message').text('올바른 이메일 형식을 입력해 주세요.');
+		                	} else {
+		                		$('#join_id_error_message').text('사용 가능한 이메일입니다.').attr('class', 'font_green');
+		                		idIsAvailable = true;
+		                	}
+		                } else { // cnt가 1일 경우 -> 이미 존재하는 이메일
+		                	$('#join_id_error_message').text('이미 사용중인 이메일입니다.');
+		                }
+		            },
+		            error:function(){
+		                alert("에러입니다");
+		            }
+		        });
+	    	});
+		   
+		    const pwCharLenRegEx = /^[A-Za-z\d@$!%*#?&]{7,60}$/;	// 알파벳 대소문자, 숫자, 특수문자만 사용 가능하며 7~60자리 사이일 것
+		    const pwRequirementsRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).*$/	// 알파벳, 숫자, 특수문자 적어도 하나씩 사용해야 함
+		    const nicknameRegEx = /^[a-zA-Z0-9\uAC00-\uD7A3_-]{3,15}$/;	// 알파벳 대소문자, 한글, 숫자, 밑줄(_), 하이픈(-)만 허용, 최소 3자 ~ 최대 15자
+
+		    function showError(message, focusSelector) {
+		        $('#signup-error-message').text(message);
+		        if (focusSelector) {
+		            $(focusSelector).focus();
+		        }
+		    }
+
+		    $("#join").click(function() {
+		        // 사용자 입력 값 가져오기
+		        const inputEmail = $('#email').val();
+		        const inputPassword = $('#password').val();
+		        const inputPasswordCheck = $('#passwordCheck').val();
+		        const inputNickname = $('#nickname').val();
+
+		        if (!inputEmail) {
+		            showError('이메일을 입력해 주세요.', '#email');
+		        } else if (!inputPassword) {
+		            showError('비밀번호를 입력해 주세요.', '#password');
+		            $('#passwordCheck').val('');
+		        } else if (!inputPasswordCheck) {
+		            showError('비밀번호 확인을 입력해 주세요.', '#passwordCheck');
+		        } else if (!inputNickname) {
+		            showError('닉네임을 입력해 주세요.', '#nickname');
+		        } else if (!idIsAvailable) {
+		            showError('이메일을 다시 확인해 주세요.', '#email');
+		        } else if (inputPassword !== inputPasswordCheck) {
+		            showError('확인용 비밀번호가 입력한 비밀번호와 일치하지 않습니다.', '#password');
+		            $('#passwordCheck').val('');
+		        } else if (!pwCharLenRegEx.test(inputPassword)) {
+		            showError('비밀번호는 알파벳 대소문자, 숫자, 특수문자만 사용 가능하며, 7~60자 사이여야 합니다.', '#password');
+		            $('#passwordCheck').val('');
+		        } else if (!pwRequirementsRegEx.test(inputPassword)) {
+		            showError('비밀번호는 각각 적어도 하나의 영문자, 숫자, 특수문자(@$!%*#?&)를 포함해야 합니다.', '#password');
+		            $('#passwordCheck').val('');
+		        } else if (!nicknameRegEx.test(inputNickname)) {
+		            showError('닉네임은 알파벳 대소문자, 한글, 숫자, 밑줄(_), 하이픈(-)만 사용 가능하며, 3~15자 사이여야 합니다.', '#nickname');
+		        } else {
+		            $('form[name="joinForm"]').submit();
+		        }
+		    });
+	        
+	    });
     </script>
     
 </body>

@@ -1,5 +1,5 @@
 /**
- * Checks if email or password window is empty in login page.
+ * 로그인 페이지에서 이메일 혹은 패스워드 입력창이 비어있는지 확인
  */
 
 function validateAndSubmit() {
