@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.planttycoon.domain.MemberDTO;
@@ -55,6 +57,14 @@ public class MemberController {
 		service.join(mDto);
 		
 		return "redirect:/login";
+	}
+	
+	@PostMapping("/idCheck")
+	@ResponseBody
+	public int idCheck(@RequestParam("memberId") String memberId) throws Exception {
+		int cnt = service.idCheck(memberId);
+		
+		return cnt;
 	}
 	
 }

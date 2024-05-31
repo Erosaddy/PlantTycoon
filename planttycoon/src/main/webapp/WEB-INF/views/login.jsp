@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>식물타이쿤</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
+	<c:set var="ctx" value="${pageContext.request.contextPath == '/' ? '': pageContext.request.contextPath}" scope="application"/>
     <link rel="stylesheet" href="${ctx}/resources/css/reset.css">
     <link rel="stylesheet" href="${ctx}/resources/css/layout.css">
     <link rel="stylesheet" href="${ctx}/resources/css/login.css">
@@ -17,7 +18,6 @@
     <script src="${ctx}/resources/script/main.js"></script>
 </head>
 <body>
-	<c:set var="ctx" value="${pageContext.request.contextPath == '/' ? '': pageContext.request.contextPath}" scope="application"/>
     <div id="wrapper">
         <!-- 비밀번호 찾기 팝업 -->
         <div class="pw_popup">
@@ -47,22 +47,23 @@
                             </div>
                             <p>Login to your account</p>
                         </div>
-                        <form method="post" action="${ctx}/login">
+                        <form name="loginForm" action="${ctx}/login" method="post">
                         	<sec:csrfInput/>
                             <div class="id_input">
                                 <p>Email</p>
-                                <input type="text" name="username" placeholder="이메일을 입력하세요">
+                                <input id="inputEmail" type="text" name="username" placeholder="이메일을 입력하세요" autocomplete="off">
                             </div>
                             <div class="pw_input">
                                 <p>Password</p>
-                                <input type="password" name="password" placeholder="비밀번호를 입력하세요">
+                                <input id="inputPassword" type="password" name="password" placeholder="비밀번호를 입력하세요" autocomplete="off">
                             </div>
                             
-                            <h2><c:out value="${error }" /></h2>
-							<h2><c:out value="${logout }"/></h2>
+                            <p id="loginErrorMessage" class="font_red" style="width: 100%; margin-top: 20px; text-align: center; font-size: 15px;"></p>
+                            <%-- <h2><c:out value="${error }" /></h2>
+							<h2><c:out value="${logout }"/></h2> --%>
 							
                             <div class="login_btn">
-                                <button type="submit">로그인</button>
+                                <button id="login" type="button">로그인</button>
                             </div>
                         </form>
                     </div>
@@ -74,5 +75,8 @@
             </div>
         </div>
     </div>
+    
+    <script src="${ctx}/resources/script/login.js"></script>
+    
 </body>
 </html>

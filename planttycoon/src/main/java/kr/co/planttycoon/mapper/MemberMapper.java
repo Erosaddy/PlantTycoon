@@ -12,5 +12,6 @@ public interface MemberMapper {
 	public MemberDTO read(String memberId);
 	public int createMember(MemberDTO mDto);
 	public int createMemberAuthority(String memberId);
+	public int idCheck(String memberId);
 	
 }

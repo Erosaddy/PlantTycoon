@@ -35,4 +35,11 @@
 		VALUES(memberAuthority_seq.NEXTVAL, #{memberId})
 	</insert>
 	
+	<!-- 이메일 중복 체크 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		SELECT	COUNT(memberId)
+		FROM	member
+		WHERE	memberId = #{memberId}
+	</select>
+	
 </mapper>
