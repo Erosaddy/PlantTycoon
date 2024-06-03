@@ -1,7 +1,5 @@
 package kr.co.planttycoon.mapper;
 
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.planttycoon.domain.AuthorityDTO;
@@ -13,5 +11,6 @@ public interface MemberMapper {
 	public int createMember(MemberDTO mDto);
 	public int createMemberAuthority(String memberId);
 	public int idCheck(String memberId);
+	public int modifyNickname(MemberDTO mDto);
 	
 }

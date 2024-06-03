@@ -42,4 +42,10 @@
 		WHERE	memberId = #{memberId}
 	</select>
 	
+	<update id="modifyNickname">
+		UPDATE	member
+		SET		nickname = #{nickname}
+		WHERE	memberId = #{memberId}
+	</update>
+	
 </mapper>

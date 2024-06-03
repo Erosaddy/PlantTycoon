@@ -6,5 +6,6 @@ public interface IMemberService {
 
 	public int join(MemberDTO mDto);
 	public int idCheck(String memberId);
+	public int modifyNickname(MemberDTO mDto);
 	
 }

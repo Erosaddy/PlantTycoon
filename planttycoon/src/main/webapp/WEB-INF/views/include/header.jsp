@@ -16,6 +16,22 @@
     <link rel="stylesheet" href="${ctx}/resources/css/layout.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="${ctx}/resources/script/main.js"></script>
+    
+    <script type="text/javascript">
+        window.onload = function() {
+            <c:if test="${not empty modifyNicknameResult}">
+                <c:choose>
+                    <c:when test="${modifyNicknameResult == 'success'}">
+                        alert('닉네임이 성공적으로 수정되었습니다.');
+                    </c:when>
+                    <c:otherwise>
+                        alert('닉네임 수정에 실패했습니다.');
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+        }
+    </script>
+    
 </head>
 <body>
     <div id="wrapper">
@@ -29,14 +45,15 @@
                     </a>
                 </div>
                 <div class="myinfo_con">
-                    <form>
+                    <form action="${ctx}/modifyNickname" method="post">
+                    	<sec:csrfInput/>
                         <div class="id_input">
                             <p>Email</p>
-                            <input type="text" placeholder="이메일을 입력하세요" value="cheesejelly@gmail.com" class="readonly" readonly>
+                            <input type="text" name="memberId" placeholder="이메일을 입력하세요" value='<sec:authentication property="principal.member.memberId"/>' class="readonly" readonly>
                         </div>
                         <div class="name_input">
                             <p>Name</p>
-                            <input type="text" placeholder="닉네임을 입력하세요" value="치즈젤리">
+                            <input type="text" name="nickname" placeholder="닉네임을 입력하세요" value='<sec:authentication property="principal.member.nickname"/>'>
                         </div>
                         <button type="submit">내 정보 수정</button>
                     </form>

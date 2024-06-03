@@ -50,5 +50,10 @@ public class MemberServiceImpl implements IMemberService {
 		return mapper.idCheck(memberId);
 	}
 
+	@Override
+	public int modifyNickname(MemberDTO mDto) {
+		return mapper.modifyNickname(mDto);
+	}
+
 
 }
