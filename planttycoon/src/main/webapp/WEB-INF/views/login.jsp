@@ -29,8 +29,8 @@
                     </a>
                 </div>
                 <div class="forgot_password">
-                    <form>
-                        <p>기존에 가입하신 이메일을 입력하시면, 비밀번호 변경 메일을 발송해드립니다.</p>
+                    <form action="${ctx}/getAuthNum">
+                        <p>기존에 가입한 이메일을 입력하면 인증용 이메일을 보내드립니다.</p>
                         <input type="text" placeholder="이메일을 입력하세요">
                         <button type="submit">비밀번호 변경 이메일 받기</button>
                     </form>

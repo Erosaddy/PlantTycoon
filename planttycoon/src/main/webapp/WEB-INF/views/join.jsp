@@ -12,13 +12,13 @@
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <title>식물타이쿤</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
+	<c:set var="ctx" value="${pageContext.request.contextPath == '/' ? '': pageContext.request.contextPath}" scope="application"/>
     <link rel="stylesheet" href="${ctx}/resources/css/reset.css">
     <link rel="stylesheet" href="${ctx}/resources/css/layout.css">
     <link rel="stylesheet" href="${ctx}/resources/css/join.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
-	<c:set var="ctx" value="${pageContext.request.contextPath == '/' ? '': pageContext.request.contextPath}" scope="application"/>
     <div id="wrapper">
         <div class="join_wrap">
             <div class="join">
@@ -172,6 +172,7 @@
 		            $('#passwordCheck').val('');
 		        } else if (!pwCharLenRegEx.test(inputPassword)) {
 		            showError('비밀번호는 알파벳 대소문자, 숫자, 특수문자만 사용 가능하며, 7~60자 사이여야 합니다.', '#password');
+		            $('#password').val('');
 		            $('#passwordCheck').val('');
 		        } else if (!pwRequirementsRegEx.test(inputPassword)) {
 		            showError('비밀번호는 각각 적어도 하나의 영문자, 숫자, 특수문자(@$!%*#?&)를 포함해야 합니다.', '#password');
@@ -184,7 +185,8 @@
 		    });
 	        
 	    });
+	    
+	    
     </script>
-    
 </body>
 </html>
