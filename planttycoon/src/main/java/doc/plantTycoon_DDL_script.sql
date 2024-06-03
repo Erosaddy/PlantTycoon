@@ -59,7 +59,7 @@ CREATE TABLE member
 (
 	memberId varchar2(100),
 	memberPw varchar2(300) NOT NULL,
-	nickname varchar2(30) NOT NULL,
+	nickname varchar2(100) NOT NULL,
 	enabled char DEFAULT '1' NOT NULL,
 	lastLogin date DEFAULT SYSDATE NOT NULL,
 	CONSTRAINT member_memberId_PK PRIMARY KEY (memberId)
@@ -97,6 +97,12 @@ CREATE TABLE wateringRecord
 );
 
 
+CREATE TABLE persistent_logins (
+    username    VARCHAR2(64) NOT NULL,
+    series      VARCHAR2(64) PRIMARY KEY,
+    token       VARCHAR2(64) NOT NULL,
+    last_used   TIMESTAMP NOT NULL
+);
 
 
 
@@ -157,7 +163,7 @@ ALTER TABLE memberAuthority
 
 COMMIT;
 
-/* Delete and create sequence */
+/* 시퀀스 삭제 및 생성 */
 
 DROP SEQUENCE memberAuthority_seq;
 DROP SEQUENCE journal_seq;
@@ -196,7 +202,7 @@ INCREMENT BY 1
 START WITH 1
 NOMAXVALUE;
 
-/* Configure authorities */
+/* 권한 종류 설정 */
 
 INSERT INTO authority
 VALUES('ROLE_MEMBER');
