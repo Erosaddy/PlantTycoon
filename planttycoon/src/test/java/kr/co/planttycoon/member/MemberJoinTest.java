@@ -67,10 +67,10 @@ public class MemberJoinTest {
 	@Test
 	public void joinTest() {
 		MemberDTO mDto = new MemberDTO();
-		mDto.setMemberId("butcher");
-		mDto.setMemberPw(pwencoder.encode("333333"));
+		mDto.setMemberId("testaccount");
+		mDto.setMemberPw(pwencoder.encode("1111"));
 		log.info("인코딩된 비밀번호.......... : " + mDto.getMemberPw());
-		mDto.setNickname("okButcher");
+		mDto.setNickname("testaccount");
 		
 		int result = memberServiceImpl.join(mDto);
 		

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.planttycoon.mapper.MemberMapper">
+<mapper namespace="kr.co.planttycoon.mapper.JournalMapper">
 	
 	<resultMap type="kr.co.planttycoon.domain.JournalDTO" id="journalResultMap">
 		<result property="journalId" column = "journalid"/>
@@ -11,5 +11,26 @@
 		<result property="memberId" column = "memberid"/>
 		<result property="journalRegdate" column = "journalregdate"/>
 	</resultMap>
+	
+ <select id="getListWithPaging" resultMap="journalResultMap">
+    SELECT *
+    FROM (
+        SELECT /*+ INDEX_DESC(journal JOURNAL_JOURNAL_PK) */ ROWNUM rn, journal.*
+        FROM journal
+        WHERE memberid = #{memberId}
+        <if test="cri.type != null and cri.type != ''">
+            <choose>
+                <when test='cri.type == "T"'>
+                    AND journaltitle LIKE '%' || #{cri.keyword} || '%'
+                </when>
+                <when test='cri.type == "C"'>
+                    AND journalcontent LIKE '%' || #{cri.keyword} || '%'
+                </when>
+            </choose>
+        </if>
+        AND ROWNUM &lt;= #{cri.pageNum} * #{cri.amount}
+    )
+    WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}
+</select> 
 	
 </mapper>

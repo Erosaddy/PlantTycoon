@@ -9,12 +9,15 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.JournalDTO;
 
 @Mapper
 public interface JournalMapper {
 	
-	@Select ("SELECT * FROM ORDER BY journalid DESC")
+	List<JournalDTO> getListWithPaging(@Param("memberId") String memberId, @Param("cri") Criteria cri);
+	
+	@Select ("SELECT * FROM journal ORDER BY journalid DESC")
 	List<JournalDTO> listAll(@Param("memberId") String memberId);
 	
 	@Select ("SELECT * FROM journal WHERE journalid = #{journalId}")
@@ -28,4 +31,12 @@ public interface JournalMapper {
 	
 	@Delete ("DELETE FROM journal WHERE journalid = #{journalId}")
 	void delete (@Param("journalId") int journalId);
+	
+	@Select("SELECT count(*) FROM journal WHERE memberid = #{memberId}")
+    int getTotalCount(@Param("memberId") String memberId, @Param("cri") Criteria cri);
+
+    
+    
+	
+	
 }
