@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <link rel="stylesheet" href="${ctx}/resources/css/plant.css">   
+<script src="${ctx}/resources/script/html2canvas.js"></script>
             <div class="side">
                 <ul class="gnb">
                     <li> <!--메뉴 선택 시 on클래스 붙음-->
@@ -41,8 +42,9 @@
                     <div class="monitoring">
                        <div class="monitoring_left">
                             <h4>실시간 모니터링</h4>
-                            <div class="cam">
+                            <div class="cam" id="capture_area">
                                 <!-- 카메라 들어갈 영역 -->
+                            	<p>흠흠</p>
                             </div>
                        </div>
                        <div class="monitoring_right">
@@ -91,7 +93,7 @@
                             <div class="click_btn">
                                 <button type="button" class="water">물주기<img src="${ctx}/resources/images/ic_water.png" alt="물주기 아이콘"></button>
                                 <button type="button" class="led">조명켜기<img src="${ctx}/resources/images/ic_led.png" alt="조명켜기 아이콘"></button>
-                                <button type="button" class="img">촬영하기<img src="${ctx}/resources/images/ic_img.png" alt="촬영하기 아이콘"></button>
+                                <button type="button" class="img btn_download">촬영하기<img src="${ctx}/resources/images/ic_img.png" alt="촬영하기 아이콘"></button>
                             </div>
                        </div>
                     </div>
@@ -99,5 +101,17 @@
             </div>
         </div>
     </div>
+<script>
+$(function(){
+    $(".btn_download").click(function(e){
+        html2canvas(document.getElementById("capture_area")).then(function(canvas) {
+            var el = document.createElement("a")
+            el.href = canvas.toDataURL("image/jpeg")
+            el.download = 'image.jpg' //다운로드 할 파일명 설정
+            el.click()
+        })
+    })
+})
+</script>
 </body>
 </html>

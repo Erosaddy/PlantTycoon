@@ -6,7 +6,7 @@
 /* 실시간 모니터링 */
 .monitoring_left{width: 60%; padding: 30px 25px; display: flex; flex-wrap: wrap; background: #fff; border-radius: 5px; overflow: hidden; box-shadow: 0 0 7px 0 rgba(107, 115, 137, .1);}
 .monitoring_left h4{font-size: 16px; font-weight: 600; width: 100%; margin-bottom: 20px;}
-.monitoring_left .cam{width: 100%; padding-top: 56.26%;; background: #000;}
+.monitoring_left .cam{width: 100%; padding-top: 56.26%; position: relative;}
 
 .monitoring_right{margin-left: 30px; width: calc(40% - 30px); display: flex; flex-direction: column;}
 .monitoring_right .status_wrap{display: flex; flex-wrap: wrap; background: #fff; border-radius: 5px; overflow: hidden; box-shadow: 0 0 7px 0 rgba(107, 115, 137, .1);}
