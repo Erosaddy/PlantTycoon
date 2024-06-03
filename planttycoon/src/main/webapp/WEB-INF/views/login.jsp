@@ -58,6 +58,12 @@
                                 <p>Password</p>
                                 <input id="inputPassword" type="password" name="password" placeholder="비밀번호를 입력하세요" autocomplete="off">
                             </div>
+                            <div class="remember_me">
+                            	<label>
+                            		<input type="checkbox" name="remember-me">
+                            		로그인 상태 유지
+                            	</label>
+                            </div>
                             
                             <p id="loginErrorMessage" class="font_red" style="width: 100%; margin-top: 20px; text-align: center; font-size: 15px;"></p>
                             <%-- <h2><c:out value="${error }" /></h2>
