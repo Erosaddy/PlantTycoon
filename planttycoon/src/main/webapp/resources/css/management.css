@@ -20,8 +20,9 @@
 .list .list_head li:nth-child(1){width: 15%;}
 .list .list_head li:nth-child(2){width: 30%;}
 .list .list_head li:nth-child(3){width: 10%;}
-.list .list_head li:nth-child(4){width: 25%;}
-.list .list_head li:nth-child(5){width: 20%;}
+.list .list_head li:nth-child(4){width: 15%;}
+.list .list_head li:nth-child(5){width: 15%;}
+.list .list_head li:nth-child(6){width: 15%;}
 
 .list .list_body{width: 100%;}
 .list .list_body li{width: 100%; padding: 0 20px; display: flex; flex-wrap: wrap; align-items: center; border-bottom: 1px solid #eef2f0; height: 60px;}
@@ -29,8 +30,9 @@
 .list .list_body li div:nth-child(1){width: 15%;}
 .list .list_body li div:nth-child(2){width: 30%;}
 .list .list_body li div:nth-child(3){width: 10%;}
-.list .list_body li div:nth-child(4){width: 25%;}
-.list .list_body li div:nth-child(5){width: 20%;}
+.list .list_body li div:nth-child(4){width: 15%;}
+.list .list_body li div:nth-child(5){width: 15%;}
+.list .list_body li div:nth-child(6){width: 15%;}
 
 
 .list .paging{padding: 20px 0;}
@@ -89,14 +91,16 @@
     .list .list_head li:nth-child(2){width: 50%;}
     .list .list_head li:nth-child(3){width: 20%;}
     .list .list_head li:nth-child(4),
-    .list .list_head li:nth-child(5){display: none;}
+    .list .list_head li:nth-child(5),
+    .list .list_head li:nth-child(6){display: none;}
 
     .list .list_body li{padding: 0 10px;}
     .list .list_body li div:nth-child(1){width: 30%;}
     .list .list_body li div:nth-child(2){width: 50%;}
     .list .list_body li div:nth-child(3){width: 20%;}
     .list .list_body li div:nth-child(4),
-    .list .list_body li div:nth-child(5){display: none;}
+    .list .list_body li div:nth-child(5),
+    .list .list_body li div:nth-child(6){display: none;}
     
 }
 

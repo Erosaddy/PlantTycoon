@@ -75,6 +75,7 @@
                            <li>활성화 여부</li> 
                         </ul>
                         <ul class="list_body">
+                        
                         	<c:forEach items="${memberList}" var="member">
                         		<li>
                         			<div>${member.nickname}</div>
@@ -97,119 +98,6 @@
                         		</li>
                         	</c:forEach>
                      
-                        
-                        <!-- 
-                            <li>
-                                <div class="name">치즈젤리</div>
-                                <div class="email">cheesejelly@gmail.com</div>
-                                <div class="grade">회원</div>
-                                <div class="last_login">2024.05.23 18:12:06</div>
-                                <div class="use">
-                                    <label for="toggle" class="toggleSwitch active">
-                                        <span class="toggleButton"></span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="name">치즈젤리</div>
-                                <div class="email">cheesejelly@gmail.com</div>
-                                <div class="grade">회원</div>
-                                <div class="last_login">2024.05.23 18:12:06</div>
-                                <div class="use">
-                                    <label for="toggle" class="toggleSwitch active">
-                                        <span class="toggleButton"></span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="name">치즈젤리</div>
-                                <div class="email">cheesejelly@gmail.com</div>
-                                <div class="grade">회원</div>
-                                <div class="last_login">2024.05.23 18:12:06</div>
-                                <div class="use">
-                                    <label for="toggle" class="toggleSwitch">
-                                        <span class="toggleButton"></span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="name">치즈젤리</div>
-                                <div class="email">cheesejelly@gmail.com</div>
-                                <div class="grade">회원</div>
-                                <div class="last_login">2024.05.23 18:12:06</div>
-                                <div class="use">
-                                    <label for="toggle" class="toggleSwitch active">
-                                        <span class="toggleButton"></span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="name">치즈젤리</div>
-                                <div class="email">cheesejelly@gmail.com</div>
-                                <div class="grade">회원</div>
-                                <div class="last_login">2024.05.23 18:12:06</div>
-                                <div class="use">
-                                    <label for="toggle" class="toggleSwitch">
-                                        <span class="toggleButton"></span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="name">치즈젤리</div>
-                                <div class="email">cheesejelly@gmail.com</div>
-                                <div class="grade">회원</div>
-                                <div class="last_login">2024.05.23 18:12:06</div>
-                                <div class="use">
-                                    <label for="toggle" class="toggleSwitch active">
-                                        <span class="toggleButton"></span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="name">치즈젤리</div>
-                                <div class="email">cheesejelly@gmail.com</div>
-                                <div class="grade">회원</div>
-                                <div class="last_login">2024.05.23 18:12:06</div>
-                                <div class="use">
-                                    <label for="toggle" class="toggleSwitch active">
-                                        <span class="toggleButton"></span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="name">치즈젤리</div>
-                                <div class="email">cheesejelly@gmail.com</div>
-                                <div class="grade">회원</div>
-                                <div class="last_login">2024.05.23 18:12:06</div>
-                                <div class="use">
-                                    <label for="toggle" class="toggleSwitch active">
-                                        <span class="toggleButton"></span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="name">치즈젤리</div>
-                                <div class="email">cheesejelly@gmail.com</div>
-                                <div class="grade">회원</div>
-                                <div class="last_login">2024.05.23 18:12:06</div>
-                                <div class="use">
-                                    <label for="toggle" class="toggleSwitch">
-                                        <span class="toggleButton"></span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="name">치즈젤리</div>
-                                <div class="email">cheesejelly@gmail.com</div>
-                                <div class="grade">회원</div>
-                                <div class="last_login">2024.05.23 18:12:06</div>
-                                <div class="use">
-                                    <label for="toggle" class="toggleSwitch active">
-                                        <span class="toggleButton"></span>
-                                    </label>
-                                </div>
-                            </li>
-                             -->
                         </ul>
                         <div class="paging">
                             <p>
