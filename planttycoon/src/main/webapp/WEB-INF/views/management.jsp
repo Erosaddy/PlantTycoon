@@ -42,11 +42,22 @@
                         <div class="total">총 <span>81</span>명</div>
                         <div class="search">
                             <div class="search_box">
-                                <select>
-                                    <option value="0">전체</option>
-                                    <option value="1">닉네임</option>
-                                    <option value="2">이메일</option>
-                                </select>
+                            
+	                            <form id="searchForm" action="${ctx}/management" method="get">
+									<select name="type">
+										<option value=""
+											<c:out value="${pageMaker.cri.type == null ? 'selected' : ''}" />>전체</option>
+										<option value="N"
+											<c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : ''}" />>닉네임</option>
+										<option value="E"
+											<c:out value="${pageMaker.cri.type eq 'E' ? 'selected' : ''}" />>이메일</option>
+									</select>
+										<input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
+										<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
+										<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+									<button class="btn btn-default">Search</button>
+								</form>
+                            
                             </div>
                             <div class="search_box">
                                 <input type="search" placeholder="검색어를 입력하세요">
@@ -59,10 +70,35 @@
                            <li>닉네임</li> 
                            <li>이메일</li> 
                            <li>회원등급</li> 
+                           <li>가입일</li>
                            <li>마지막 로그인</li> 
                            <li>활성화 여부</li> 
                         </ul>
                         <ul class="list_body">
+                        	<c:forEach items="${memberList}" var="member">
+                        		<li>
+                        			<div>${member.nickname}</div>
+                        			<div>${member.memberId}</div>
+                        			<c:choose>
+                        				<c:when test="${member.authorityList[0].authority eq 'ROLE_ADMIN'}">
+                        					<div>관리자</div>
+                        				</c:when>
+                        				<c:otherwise>
+                        					<div>일반 회원</div>
+                        				</c:otherwise>
+                        			</c:choose>
+                        			<div>${member.regDate}</div>
+                        			<div>${member.lastLogin}</div>
+                        			<div>
+	                        			<label for="toggle" class="toggleSwitch active">
+	                                        <span class="toggleButton"></span>
+	                                    </label>
+                                    </div>
+                        		</li>
+                        	</c:forEach>
+                     
+                        
+                        <!-- 
                             <li>
                                 <div class="name">치즈젤리</div>
                                 <div class="email">cheesejelly@gmail.com</div>
@@ -173,7 +209,7 @@
                                     </label>
                                 </div>
                             </li>
-                            
+                             -->
                         </ul>
                         <div class="paging">
                             <p>

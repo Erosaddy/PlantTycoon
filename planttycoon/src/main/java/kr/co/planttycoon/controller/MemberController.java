@@ -1,8 +1,6 @@
 package kr.co.planttycoon.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.MemberDTO;
+import kr.co.planttycoon.domain.PageDTO;
 import kr.co.planttycoon.service.IMemberService;
 import lombok.extern.log4j.Log4j;
 
@@ -82,5 +82,26 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+	
+//	@GetMapping("/management")
+//	public void getMemberList(Criteria cri, Model model) {
+//		
+////		model.addAttribute("memberList", service.memberList(cri));
+//	}
+	
+	
+	@GetMapping("/management")
+	public void getMemberList(Criteria cri, Model model) {
+		log.info("show all members.................");
+		
+		model.addAttribute("memberList", service.memberList(cri));
+		
+		int total = service.getTotalCnt();
+	    log.info("total : " + total);
+
+	    model.addAttribute("pageMaker", new PageDTO(total, cri));
+	}
+	
+	
 	
 }

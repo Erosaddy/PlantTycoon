@@ -10,6 +10,7 @@
 		<result property="memberPw" column="memberPw"/>
 		<result property="nickname" column="nickname"/>
 		<result property="lastLogin" column="lastLogin"/>
+		<result property="regDate" column="regDate"/>
 		<collection property="authorityList" resultMap="authMap">
 		</collection>
 	</resultMap>
@@ -20,7 +21,7 @@
 	</resultMap>
 	
 	<select id="read" resultMap="memberMap">
-		SELECT	mem.memberId, memberPw, nickname, enabled, lastLogin, authority
+		SELECT	mem.memberId, memberPw, nickname, enabled, lastLogin, regDate, authority
 		FROM	member mem LEFT OUTER JOIN memberAuthority auth on mem.memberId = auth.memberId
 		WHERE	mem.memberId = #{memberId}
 	</select>
@@ -47,5 +48,57 @@
 		SET		nickname = #{nickname}
 		WHERE	memberId = #{memberId}
 	</update>
+	
+    <select id="memberList" resultMap="memberMap">
+        <![CDATA[
+        SELECT * FROM (
+            SELECT rownum as rn, mem.memberId, 
+                   mem.memberPw, 
+                   mem.nickname, 
+                   mem.enabled,
+                   mem.lastLogin,
+                   mem.regDate,
+                   (SELECT authority 
+                    FROM (SELECT authority, ROW_NUMBER() OVER (ORDER BY CASE authority WHEN 'ROLE_ADMIN' THEN 1 WHEN 'ROLE_MEMBER' THEN 2 ELSE 3 END) as rnk
+                          FROM memberAuthority auth 
+                          WHERE auth.memberId = mem.memberId)
+                    WHERE rnk = 1) as authority
+            FROM (
+                SELECT mem.memberId, 
+                       mem.memberPw, 
+                       mem.nickname, 
+                       mem.enabled,
+                       mem.lastLogin,
+                       mem.regDate
+                FROM member mem
+                ORDER BY mem.memberId DESC
+            ) mem
+            WHERE
+        ]]>
+
+		<include refid="searchCriteria"></include>
+		
+		<![CDATA[
+            rownum <= #{pageNum} * #{amount}
+	        )
+	        WHERE rn > (#{pageNum} - 1) * #{amount}
+        ]]>
+    </select>
+    
+    <select id="getTotalCnt" resultType="int">
+		SELECT	count(*)
+		FROM	member
+	</select>
+	
+	<sql id="searchCriteria">
+		<choose>
+			<when test="type == 'N'.toString()">
+				nickname LIKE '%'||#{keyword}||'%' AND
+			</when>
+			<when test="type == 'E'.toString()">
+				memberId LIKE '%'||#{keyword}||'%' AND
+			</when>
+		</choose>
+	</sql>
 	
 </mapper>

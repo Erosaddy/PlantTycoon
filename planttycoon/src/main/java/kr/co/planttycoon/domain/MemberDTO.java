@@ -14,6 +14,7 @@ public class MemberDTO {
 	private boolean enabled;
 	
 	private Date lastLogin;
+	private Date regDate;
 	private List<AuthorityDTO> authorityList;
 	
 }

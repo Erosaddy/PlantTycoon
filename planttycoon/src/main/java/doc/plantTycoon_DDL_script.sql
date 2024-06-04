@@ -62,6 +62,7 @@ CREATE TABLE member
 	nickname varchar2(100) NOT NULL,
 	enabled char DEFAULT '1' NOT NULL,
 	lastLogin date DEFAULT SYSDATE NOT NULL,
+    regDate date DEFAULT SYSDATE NOT NULL,
 	CONSTRAINT member_memberId_PK PRIMARY KEY (memberId)
 );
 
