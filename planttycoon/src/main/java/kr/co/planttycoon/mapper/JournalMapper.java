@@ -29,8 +29,8 @@ public interface JournalMapper {
 	@Update ("UPDATE journal SET journaltitle = #{journalTitle}, journal_content = #{journalContent} WHERE journalid = #{journalId}")
 	void update (JournalDTO jDto);
 	
-	@Delete ("DELETE FROM journal WHERE journalid = #{journalId}")
-	void delete (@Param("journalId") int journalId);
+	@Delete("DELETE FROM journal WHERE journalid = #{journalId}")
+    int delete(int journalId);
 	
 	@Select("SELECT count(*) FROM journal WHERE memberid = #{memberId}")
     int getTotalCount(@Param("memberId") String memberId, @Param("cri") Criteria cri);

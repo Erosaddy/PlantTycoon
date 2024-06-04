@@ -24,6 +24,18 @@
 		    });
 		});
 		</script>
+		<c:if test="${not empty result}"> <%-- result 값이 존재하는 경우에만 실행 --%>
+		    <script>
+		        var result = '${result}';
+		        if (result === 'success') {
+		            alert('삭제되었습니다.');
+		        } else if (result === 'fail') {
+		            alert('삭제 실패했습니다.');
+		        } else if (result === 'notAuthorized') {
+		            alert('삭제 권한이 없습니다.');
+		        }
+		    </script>
+		</c:if>
             <div class="side">
                 <ul class="gnb">
                     <li> <!--메뉴 선택 시 on클래스 붙음-->
@@ -72,7 +84,7 @@
 								<div class="search">
 									<div class="search_box">
 										<select name="type">
-											<option value="" ${cri.type == '' ? 'selected' : ''}>전체</option> <%-- 전체 검색 옵션 추가 --%>
+											<option value="" ${cri.type == '' ? 'selected' : ''}>전체</option>
 											<option value="T" ${cri.type == 'T' ? 'selected' : ''}>제목</option>
 											<option value="C" ${cri.type == 'C' ? 'selected' : ''}>내용</option>
 										</select>

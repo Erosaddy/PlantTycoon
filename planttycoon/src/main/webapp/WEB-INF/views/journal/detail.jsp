@@ -4,6 +4,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp" %>
 <link rel="stylesheet" href="${ctx}/resources/css/detail.css">
+			<script>
+				function confirmDelete(journalId) {
+				    if (confirm("정말 삭제하시겠습니까?")) {
+				        location.href = "${ctx}/journal/remove?journalId=" + journalId;
+				    }
+				}
+			</script>			
             <div class="side">
                 <ul class="gnb">
                     <li> <!--메뉴 선택 시 on클래스 붙음-->
@@ -47,8 +54,10 @@
                             	목록으로 돌아가기
                         	</button> --%>
                             <div class="writer_btn_wrap">
-				                <a href="${ctx}/journal/modify?journalId=${journal.journalId}" class="btn_edit">수정</a>
-				                <a href="${ctx}/journal/remove?journalId=${journal.journalId}" class="btn_del">삭제</a>
+                            	<button type="button" class="btn_edit" onclick="location.href='${ctx}/journal/modify?journalId=${journal.journalId}'">수정</button>
+								<button type="button" class="btn_del" onclick="confirmDelete(${journal.journalId})">삭제</button>
+<%-- 				            <a href="${ctx}/journal/modify?journalId=${journal.journalId}" class="btn_edit">수정</a> --%>
+<%-- 				            <a href="${ctx}/journal/remove?journalId=${journal.journalId}" class="btn_del">삭제</a> --%>
 				            </div>
 <!--                         <div class="writer_btn_wrap">
 	                            <button type="button" class="btn_edit">수정</button>

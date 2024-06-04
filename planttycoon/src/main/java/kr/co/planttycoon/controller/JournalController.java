@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.JournalDTO;
@@ -42,6 +43,11 @@ public class JournalController {
 	    // 페이징 처리
 	    PageDTO pageDTO = new PageDTO(total, cri); 
 	    List<JournalDTO> list = Service.getListWithPaging(memberId, cri); 
+	    
+	    // 검색 조건이 비어있는 경우 전체 검색으로 설정
+	    if (cri.getType() == null || cri.getType().isEmpty()) {
+	        cri.setType(""); // 빈 문자열로 설정
+	    }
 
 	    model.addAttribute("list", list);
 	    model.addAttribute("pageMaker", pageDTO);  // pageMaker 속성으로 PageDTO 객체 전달
@@ -49,6 +55,7 @@ public class JournalController {
 	    model.addAttribute("total", total); // total 속성으로 전체 게시글 수 전달
 
 	    return "journal/list";
+	    
 	}
 	
 //    @GetMapping("/journal/list")
@@ -130,13 +137,31 @@ public class JournalController {
 		return "redirect:/journal/list";
 	}
 	
-	@GetMapping("/journal/delete")
-	public String delete(@PathVariable int journalId, HttpSession session) {
-		JournalDTO jDto = Service.get(journalId);
-		String memberId = (String) session.getAttribute("memberId");
-		if(jDto != null && jDto.getMemberId().equals(memberId)) {
-			Service.remove(journalId);
-		}
-		return "redirect:/journal/list";
-	}
+    @GetMapping("/journal/remove") // GET 방식으로 삭제 요청 처리
+    public String remove(@RequestParam("journalId") int journalId, RedirectAttributes rttr, Principal principal) {
+        String memberId = principal.getName(); // 로그인 사용자 정보 가져오기
+        JournalDTO journal = Service.get(journalId);
+
+        if (journal != null && journal.getMemberId().equals(memberId)) { // 작성자 확인
+            if (Service.remove(journalId)) { // 삭제 성공 시
+                rttr.addFlashAttribute("result", "success");
+            } else {
+                rttr.addFlashAttribute("result", "fail");
+            }
+        } else {
+            rttr.addFlashAttribute("result", "notAuthorized"); // 삭제 권한 없음
+        }
+
+        return "redirect:/journal/list"; // 목록 페이지로 리다이렉트
+    }
+    
+//	@GetMapping("/journal/delete")
+//	public String delete(@PathVariable int journalId, HttpSession session) {
+//		JournalDTO jDto = Service.get(journalId);
+//		String memberId = (String) session.getAttribute("memberId");
+//		if(jDto != null && jDto.getMemberId().equals(memberId)) {
+//			Service.remove(journalId);
+//		}
+//		return "redirect:/journal/list";
+//	}
 }

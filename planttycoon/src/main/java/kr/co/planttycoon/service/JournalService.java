@@ -35,9 +35,13 @@ public class JournalService {
 		Mapper.update(jDto);
 	}
 	
-	public void remove(int journalId) {
-		Mapper.delete(journalId);
-	}
+	public boolean remove(int journalId) {
+        return Mapper.delete(journalId) == 1; // 삭제 성공 시 1 반환
+    }
+	
+//	public void remove(int journalId) {
+//		Mapper.remove(journalId);
+//	}
 	
     public int getTotalCount(String memberId, Criteria cri) {
         return Mapper.getTotalCount(memberId, cri);
