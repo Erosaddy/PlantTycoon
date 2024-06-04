@@ -46,4 +46,12 @@ public class JournalService {
     public List<JournalDTO> getListWithPaging(String memberId, Criteria cri) {
         return Mapper.getListWithPaging(memberId, cri);
     }
+    
+    public List<JournalDTO> getList(Criteria cri, String memberId) {
+        return Mapper.getList(cri, memberId); // 검색 조건 적용하여 목록 가져오기
+    }
+
+    public int getTotalCount(Criteria cri, String memberId) {
+        return Mapper.getTotalCount(cri, memberId); // 검색 조건 적용하여 총 개수 가져오기
+    }
 }

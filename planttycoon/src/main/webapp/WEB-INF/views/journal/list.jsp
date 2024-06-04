@@ -3,7 +3,27 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../include/header.jsp" %>
 <link rel="stylesheet" href="${ctx}/resources/css/list.css">
-<script src="${ctx}/resources/script/list.js"></script>
+		<script>
+		document.addEventListener('DOMContentLoaded', function () {
+		    var listBody = document.querySelector('.list_body');
+		    var listItems = listBody.querySelectorAll('li');
+		    var num = ${total} - ((${pageMaker.cri.pageNum} - 1) * ${pageMaker.cri.amount});
+
+		    listItems.forEach(function (item) {
+		        const numElement = item.querySelector('.num');
+		        numElement.textContent = num;
+		        numElement.classList.add('js-numbered');
+		        num--;
+		    });
+
+		    const searchButtons = document.querySelectorAll('.btn_search'); 
+		    searchButtons.forEach(function (button) {
+		        button.addEventListener('click', function () {
+		            this.closest('form').submit(); 
+		        });
+		    });
+		});
+		</script>
             <div class="side">
                 <ul class="gnb">
                     <li> <!--메뉴 선택 시 on클래스 붙음-->
@@ -48,18 +68,21 @@
                                 작성하기
                             </button>
                         </div>
-	                        <div class="search">
-							    <div class="search_box">
-							        <select name="type">
-							            <option value="T" ${cri.type == 'T' ? 'selected' : ''}>제목</option>
-							            <option value="C" ${cri.type == 'C' ? 'selected' : ''}>내용</option>
-							        </select> 
-							    </div>
-							    <div class="search_box">
-							        <input type="search" name="keyword" value="${cri.keyword}" placeholder="검색어를 입력하세요">
-							        <button type="submit" class="btn_search">검색</button>
-							    </div>
-							</div>
+							<form action="${ctx}/journal/list" method="get"> <%-- 폼 태그 추가 --%>
+								<div class="search">
+									<div class="search_box">
+										<select name="type">
+											<option value="" ${cri.type == '' ? 'selected' : ''}>전체</option> <%-- 전체 검색 옵션 추가 --%>
+											<option value="T" ${cri.type == 'T' ? 'selected' : ''}>제목</option>
+											<option value="C" ${cri.type == 'C' ? 'selected' : ''}>내용</option>
+										</select>
+									</div>
+									<div class="search_box">
+										<input type="text" name="keyword" value="${cri.keyword}" placeholder="검색어를 입력하세요">
+										<button type="submit" class="btn_search">검색</button>
+									</div>
+								</div>
+							</form>
 <!--                         <div class="search"> -->
 <!--                             <div class="search_box"> -->
 <!--                                 <select> -->
@@ -165,8 +188,8 @@
 			                    </c:if>
 			
 			                    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num">
-			                        <span class="Present ${pageMaker.cri.pageNum == num ? 'on' : ''}">
-			                            <a href="${ctx}/journal/list?pageNum=${num}&amount=${pageMaker.cri.amount}">${num}</a>
+			                        <span class="${pageMaker.cri.pageNum == num ? 'Present' : ''}">
+			                            <a href="${ctx}/journal/list?pageNum=${num}&amount=${pageMaker.cri.amount}" class= "${pageMaker.cri.pageNum == num ? 'on' : ''}">${num}</a>
 			                        </span>
 			                    </c:forEach>
 			

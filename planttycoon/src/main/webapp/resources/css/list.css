@@ -44,6 +44,22 @@
 .list.news .list_body li div:nth-child(3){width: 15%;}
 .list.news .list_body li div:nth-child(4){width: 15%;}
 
+/* list.css */
+.list_body li .num { /* 기존 스타일 */
+    font-size: 14px;
+    color: #333;
+    /* ... */
+}
+
+/* JavaScript로 번호를 설정할 요소에 대한 스타일 */
+.list_body li .num.js-numbered { /* 새로운 클래스 추가 */
+    counter-increment: none; /* 카운터 증가 비활성화 */
+}
+
+.list_body li .num.js-numbered::before {
+    content: ''; /* 가상 요소 내용 제거 */
+}
+
 .list .paging{padding: 20px 0;}
 
 

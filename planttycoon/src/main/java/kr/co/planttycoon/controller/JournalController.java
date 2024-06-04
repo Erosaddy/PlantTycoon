@@ -31,24 +31,44 @@ public class JournalController {
 		this.Service = Service;
 	}
 	
-    @GetMapping("/journal/list")
-    public String list(Criteria cri, Model model, Principal principal) {
-        
-        String memberId = principal.getName(); // 로그인 사용자 정보 가져오기
-        int total = Service.getTotalCount(memberId, cri);
-        
-        // 페이징 처리
-        PageDTO pageDTO = new PageDTO(Service.getTotalCount(memberId, cri), cri); 
-        List<JournalDTO> list = Service.getListWithPaging(memberId, cri); 
-        
-        model.addAttribute("list", list);
-        model.addAttribute("pageMaker", pageDTO);
-        
-        // 검색 조건 유지
-        model.addAttribute("cri", cri);
+	@GetMapping("/journal/list")
+	public String list(Criteria cri, Model model, Principal principal) {
+	    String memberId = principal.getName(); // 로그인 사용자 정보 가져오기
 
-        return "journal/list";
-    }
+	    // 전체 게시글 수 조회 (한 번만 호출)
+	    int total = Service.getTotalCount(memberId, cri); 
+
+	    // 페이징 처리
+	    PageDTO pageDTO = new PageDTO(total, cri); 
+	    List<JournalDTO> list = Service.getListWithPaging(memberId, cri); 
+
+	    model.addAttribute("list", list);
+	    model.addAttribute("pageMaker", pageDTO);  // pageMaker 속성으로 PageDTO 객체 전달
+	    model.addAttribute("cri", cri); // 검색 조건 유지
+	    model.addAttribute("total", total); // total 속성으로 전체 게시글 수 전달
+
+	    return "journal/list";
+	}
+	
+//    @GetMapping("/journal/list")
+//    public String list(Criteria cri, Model model, Principal principal) {
+//        
+//        String memberId = principal.getName(); // 로그인 사용자 정보 가져오기
+//        int total = Service.getTotalCount(memberId, cri);
+//        
+//        // 페이징 처리
+//        PageDTO pageDTO = new PageDTO(Service.getTotalCount(memberId, cri), cri); 
+//        List<JournalDTO> list = Service.getListWithPaging(memberId, cri); 
+//        model.addAttribute("total", String.valueOf(total));
+//        
+//        model.addAttribute("list", list);
+//        model.addAttribute("pageMaker", pageDTO);
+//        
+//        // 검색 조건 유지
+//        model.addAttribute("cri", cri);
+//
+//        return "journal/list";
+//    }
 	
 	@GetMapping("/journal/detail/{journalId}")
 	public String detail(@PathVariable int journalId, Model model, HttpSession session) {

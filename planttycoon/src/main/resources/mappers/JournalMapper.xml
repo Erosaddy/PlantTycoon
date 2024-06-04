@@ -11,26 +11,64 @@
 		<result property="memberId" column = "memberid"/>
 		<result property="journalRegdate" column = "journalregdate"/>
 	</resultMap>
-	
- <select id="getListWithPaging" resultMap="journalResultMap">
+
+<select id="getListWithPaging" resultMap="journalResultMap">
     SELECT *
     FROM (
-        SELECT /*+ INDEX_DESC(journal JOURNAL_JOURNAL_PK) */ ROWNUM rn, journal.*
-        FROM journal
-        WHERE memberid = #{memberId}
-        <if test="cri.type != null and cri.type != ''">
-            <choose>
-                <when test='cri.type == "T"'>
-                    AND journaltitle LIKE '%' || #{cri.keyword} || '%'
-                </when>
-                <when test='cri.type == "C"'>
-                    AND journalcontent LIKE '%' || #{cri.keyword} || '%'
-                </when>
-            </choose>
-        </if>
-        AND ROWNUM &lt;= #{cri.pageNum} * #{cri.amount}
+        SELECT ROWNUM rn, journal.*
+        FROM (
+            SELECT * 
+            FROM journal
+            WHERE memberid = #{memberId}
+            <if test="cri.type != null and cri.type != ''">
+                <choose>
+                    <when test='cri.type == "T"'>
+                        AND journaltitle LIKE '%' || #{cri.keyword} || '%'
+                    </when>
+                    <when test='cri.type == "C"'>
+                        AND journalcontent LIKE '%' || #{cri.keyword} || '%'
+                    </when>
+                </choose>
+            </if>
+            ORDER BY journalid DESC -- 안쪽 쿼리에서 정렬
+        ) journal
+        WHERE ROWNUM &lt;= #{cri.pageNum} * #{cri.amount}
     )
     WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}
-</select> 
+</select>	
+
+
+<select id="getList" resultMap="journalResultMap">
+    SELECT *
+    FROM journal
+    WHERE memberid = #{memberId}
+    <if test="cri.type != null and cri.type != ''">
+        <choose>
+            <when test='cri.type == "T"'>
+                AND journaltitle LIKE '%' || #{cri.keyword} || '%'
+            </when>
+            <when test='cri.type == "C"'>
+                AND journalcontent LIKE '%' || #{cri.keyword} || '%'
+            </when>
+        </choose>
+    </if>
+    ORDER BY journalid DESC
+</select>
+
+<!-- <select id="getTotalCount" resultType="int">
+    SELECT count(*)
+    FROM journal
+    WHERE memberid = #{memberId}
+    <if test="cri.type != null and cri.type != ''">
+        <choose>
+            <when test='cri.type == "T"'>
+                AND journaltitle LIKE '%' || #{cri.keyword} || '%'
+            </when>
+            <when test='cri.type == "C"'>
+                AND journalcontent LIKE '%' || #{cri.keyword} || '%'
+            </when>
+        </choose>
+    </if>
+</select> -->
 	
 </mapper>
