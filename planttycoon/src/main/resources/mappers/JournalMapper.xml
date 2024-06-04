@@ -22,9 +22,6 @@
             WHERE memberid = #{memberId}
             <if test="cri.type != null and cri.type != ''">
                 <choose>
-                	<when test='cri.type == ""'>
-                        AND journaltitle LIKE '%' || #{cri.keyword} || '%'
-                    </when>
                     <when test='cri.type == "T"'>
                         AND journaltitle LIKE '%' || #{cri.keyword} || '%'
                     </when>

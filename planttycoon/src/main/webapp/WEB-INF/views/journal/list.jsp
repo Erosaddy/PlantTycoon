@@ -86,7 +86,7 @@
 								<div class="search">
 									<div class="search_box">
 										<select name="type">
-											<option value="" ${cri.type == '' ? 'selected' : ''}>전체</option>
+											<%-- <option value="" ${cri.type == '' ? 'selected' : ''}>전체</option> --%>
 											<option value="T" ${cri.type == 'T' ? 'selected' : ''}>제목</option>
 											<option value="C" ${cri.type == 'C' ? 'selected' : ''}>내용</option>
 										</select>

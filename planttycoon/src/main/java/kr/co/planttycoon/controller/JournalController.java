@@ -44,11 +44,6 @@ public class JournalController {
 	    PageDTO pageDTO = new PageDTO(total, cri); 
 	    List<JournalDTO> list = Service.getListWithPaging(memberId, cri); 
 	    
-	    // 검색 조건이 비어있는 경우 전체 검색으로 설정
-	    if (cri.getType() == null || cri.getType().isEmpty()) {
-	        cri.setType(""); // 빈 문자열로 설정
-	    }
-
 	    model.addAttribute("list", list);
 	    model.addAttribute("pageMaker", pageDTO);  // pageMaker 속성으로 PageDTO 객체 전달
 	    model.addAttribute("cri", cri); // 검색 조건 유지
