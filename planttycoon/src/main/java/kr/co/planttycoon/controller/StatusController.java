@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import kr.co.planttycoon.domain.MeasurementDTO;
 import kr.co.planttycoon.service.IMeasurementService;
@@ -22,10 +24,15 @@ public class StatusController {
     public StatusController(IMeasurementService service) {
        this.service = service;
     }
+	
+	@PostMapping("/api/data")
+    public void createMeasurement(@RequestBody MeasurementDTO measurement) {
+		service.saveMeasurement(measurement);
+    }
 
 	@GetMapping("/plant/status")
 	public String plantstatus(Model model) {
-		 // 최근 측정값을 가져와서 모델에 추가
+		// 최근 측정값을 가져와서 모델에 추가
         MeasurementDTO latestMeasurement = service.getLatestMeasurement();
         model.addAttribute("latestMeasurement", latestMeasurement);
 
