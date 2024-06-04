@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.JournalDTO;
@@ -69,18 +70,32 @@ public class JournalController {
 //
 //        return "journal/list";
 //    }
-	
-	@GetMapping("/journal/detail/{journalId}")
-	public String detail(@PathVariable int journalId, Model model, HttpSession session) {
-		JournalDTO jDto = Service.detail(journalId);
-		String memberId = (String) session.getAttribute("memberId");
-		if(jDto != null && jDto.getMemberId().equals(memberId)) {
-			model.addAttribute("jDto", jDto);
-			return "journal/detail";
-		} else {
-			return "redirect:/journal/list";
-		}
+
+	@GetMapping("/journal/get")
+	public String get(@RequestParam("journalId") int journalId, Model model, Principal principal) {
+	    String memberId = principal.getName(); // 로그인 사용자 정보 가져오기
+	    JournalDTO journal = Service.get(journalId);
+
+	    if (journal != null && journal.getMemberId().equals(memberId)) { // 작성자 확인
+	        model.addAttribute("journal", journal);
+	        return "journal/detail";
+	    } else {
+	        // 작성자가 아니거나 게시글이 존재하지 않는 경우 처리
+	        return "redirect:/journal/list"; 
+	    }
 	}
+	
+//	@GetMapping("/journal/detail/{journalId}")
+//	public String detail(@PathVariable int journalId, Model model, HttpSession session) {
+//		JournalDTO jDto = Service.detail(journalId);
+//		String memberId = (String) session.getAttribute("memberId");
+//		if(jDto != null && jDto.getMemberId().equals(memberId)) {
+//			model.addAttribute("jDto", jDto);
+//			return "journal/detail";
+//		} else {
+//			return "redirect:/journal/list";
+//		}
+//	}
 	
 	@GetMapping("/journal/write")
 	public String writeForm(Model model) {
@@ -97,7 +112,7 @@ public class JournalController {
 	
 	@GetMapping("/journal/modify/{journalId}")
 	public String modifyForm(@PathVariable int journalId, Model model, HttpSession session) {
-		JournalDTO jDto =  Service.detail(journalId);
+		JournalDTO jDto =  Service.get(journalId);
 		String memberId = (String) session.getAttribute("memberId");
 		if(jDto != null && jDto.getMemberId().equals(memberId)) {
 			model.addAttribute("jDto", jDto);
@@ -117,7 +132,7 @@ public class JournalController {
 	
 	@GetMapping("/journal/delete")
 	public String delete(@PathVariable int journalId, HttpSession session) {
-		JournalDTO jDto = Service.detail(journalId);
+		JournalDTO jDto = Service.get(journalId);
 		String memberId = (String) session.getAttribute("memberId");
 		if(jDto != null && jDto.getMemberId().equals(memberId)) {
 			Service.remove(journalId);

@@ -34,7 +34,7 @@ public class JournalTest {
 		
 		Service.create(jDto);
 		
-		JournalDTO createJournal = Mapper.detail(jDto.getJournalId());
+		JournalDTO createJournal = Mapper.get(jDto.getJournalId());
 	}
 
 }

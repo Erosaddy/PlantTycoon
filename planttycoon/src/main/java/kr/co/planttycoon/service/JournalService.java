@@ -23,8 +23,8 @@ public class JournalService {
 		return Mapper.listAll(memberId);
 	}
 	
-	public JournalDTO detail(int journalId) {
-		return Mapper.detail(journalId);
+	public JournalDTO get(int journalId) {
+		return Mapper.get(journalId);
 	}
 	
 	public void create(JournalDTO jDto) {

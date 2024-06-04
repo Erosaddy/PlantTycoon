@@ -21,7 +21,7 @@ public interface JournalMapper {
 	List<JournalDTO> listAll(@Param("memberId") String memberId);
 	
 	@Select ("SELECT * FROM journal WHERE journalid = #{journalId}")
-	JournalDTO detail(@Param("journalId") int journalId);
+	JournalDTO get(@Param("journalId") int journalId);
 	
 	@Insert ("INSERT INTO journal (journalid, journaltitle, journalcontent, memberid, journalregdate) VALUES (journal_seq.nextval, #{journalTitle}, #{journalContent}, #{memberId}, SYSDATE)")
 	void insert(JournalDTO jDto);
