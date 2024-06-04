@@ -4,6 +4,16 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.planttycoon.mapper.MeasurementMapper">
 
+	<insert id="insertMeasurement">
+        INSERT INTO measurement (measurementId, memberId, temperature, humidity, illuminance, soilMoisture, measurementRegdate)
+        VALUES (measurement_seq.nextval, #{memberId}, #{temperature}, #{humidity}, #{illuminance}, #{soilMoisture}, SYSDATE)
+    </insert>
+    
+    <select id="getAllMembers" resultType="kr.co.planttycoon.domain.MemberDTO">
+        SELECT * 
+        FROM member
+    </select>
+
 	<select id="getLatestMeasurement" resultType="kr.co.planttycoon.domain.MeasurementDTO">
 	  <![CDATA[
 	    SELECT *
