@@ -27,9 +27,11 @@
                     <li> <!--메뉴 선택 시 on클래스 붙음-->
                         <a href="${ctx}/notice/list" class="menu4 nolnb">공지사항</a>
                     </li>
-                    <li> <!--메뉴 선택 시 on클래스 붙음-->
-                        <a href="${ctx}/management" class="menu5 nolnb">회원관리</a>
-                    </li>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+	                    <li> <!--메뉴 선택 시 on클래스 붙음-->
+	                        <a href="${ctx}/management" class="menu5 nolnb">회원관리</a>
+	                    </li>
+                    </sec:authorize>
                 </ul>
             </div>
             <div class="container">

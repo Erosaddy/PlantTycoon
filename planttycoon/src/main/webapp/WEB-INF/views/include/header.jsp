@@ -107,9 +107,11 @@
                             <li>
                                 <a href="${ctx}/notice/list" class="menu_depth1">공지사항</a>
                             </li>
-                            <li>
-                                <a href="${ctx}/management" class="menu_depth1">회원관리</a>
-                            </li>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+			                    <li> <!--메뉴 선택 시 on클래스 붙음-->
+			                        <a href="${ctx}/management" class="menu_depth1">회원관리</a>
+			                    </li>
+		                    </sec:authorize>
                             <li class="btn_zone">
                                 <a href="javascript:void(0);" class="mypage btn_green">내 정보</a>
                                 <form action="${ctx}/customLogout" method="post">
