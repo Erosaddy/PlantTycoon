@@ -23,9 +23,9 @@
 			    });
 			});
 			
-			function updateListNumbers() {
-			    // ... (기존 글 번호 재정렬 로직) ...
-			}
+// 			function updateListNumbers() {
+			   
+// 			}
 			</script>
 			
 			<c:if test="${not empty result}">
