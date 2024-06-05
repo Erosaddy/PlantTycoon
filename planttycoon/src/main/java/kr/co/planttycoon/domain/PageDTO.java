@@ -41,5 +41,9 @@ public class PageDTO {
 		public int getNextPageNum() {
 	        return endPage < realEnd ? endPage + 1 : realEnd; 
 	    }
+		
+		public int getPrevPageNum() {
+	        return startPage > 1 ? startPage - 1 : 1;
+	    }
 
 }

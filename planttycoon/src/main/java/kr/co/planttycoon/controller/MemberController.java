@@ -1,5 +1,7 @@
 package kr.co.planttycoon.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,7 +72,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/modifyNickname")
-	public String modifyNickname(MemberDTO mDto, RedirectAttributes rttr) {
+	public String modifyNickname(MemberDTO mDto, RedirectAttributes rttr, HttpServletRequest request) {
 		
 		int result = service.modifyNickname(mDto);
 		
@@ -80,7 +82,16 @@ public class MemberController {
 			rttr.addFlashAttribute("modifyNicknameResult", "failure");
 		}
 		
-		return "redirect:/";
+		// Referer 헤더 값 가져오기
+        String referer = request.getHeader("Referer");
+        
+        // Referer 값이 있는 경우 해당 페이지로 리다이렉트
+        if (referer != null && !referer.isEmpty()) {
+            return "redirect:" + referer;
+        }
+        
+        // Referer 값이 없는 경우 기본 페이지로 리다이렉트
+        return "redirect:/defaultPage";
 	}
 	
 //	@GetMapping("/management")
