@@ -45,8 +45,7 @@
                        <div class="monitoring_left">
                             <h4>실시간 모니터링</h4>
                             <div class="cam" id="capture_area">
-                                <!-- 카메라 들어갈 영역 -->
-                            	<p>흠흠</p>
+<!--                                 <img src="http://192.168.0.192:91/stream"> -->
                             </div>
                        </div>
                        <div class="monitoring_right">
@@ -95,7 +94,7 @@
                             <div class="click_btn">
                                 <button type="button" class="water">물주기<img src="${ctx}/resources/images/ic_water.png" alt="물주기 아이콘"></button>
                                 <button type="button" class="led">조명켜기<img src="${ctx}/resources/images/ic_led.png" alt="조명켜기 아이콘"></button>
-                                <button type="button" class="img btn_download">촬영하기<img src="${ctx}/resources/images/ic_img.png" alt="촬영하기 아이콘"></button>
+                                <button type="button" class="img" id="btn_download">촬영하기<img src="${ctx}/resources/images/ic_img.png" alt="촬영하기 아이콘"></button>
                             </div>
                        </div>
                     </div>
@@ -103,17 +102,33 @@
             </div>
         </div>
     </div>
+
 <script>
-$(function(){
-    $(".btn_download").click(function(e){
-        html2canvas(document.getElementById("capture_area")).then(function(canvas) {
-            var el = document.createElement("a")
-            el.href = canvas.toDataURL("image/jpeg")
-            el.download = 'image.jpg' //다운로드 할 파일명 설정
-            el.click()
-        })
-    })
-})
+document.getElementById('btn_download').addEventListener('click', function() {
+    html2canvas(document.getElementById('capture_area'), {
+        useCORS: true,
+        allowTaint: false,
+        logging: true
+    }).then(function(canvas) {
+        // 이미지 데이터를 얻어와서 다운로드
+        let link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = 'image.png';
+        link.click();
+    }).catch(function(error) {
+        console.error('캡처 중 오류 발생:', error);
+    });
+});
+// $(function(){
+//     $(".btn_download").click(function(e){
+//         html2canvas(document.getElementById("capture_area")).then(function(canvas) {
+//             var el = document.createElement("a")
+//             el.href = canvas.toDataURL("image/jpeg")
+//             el.download = 'image.jpg' //다운로드 할 파일명 설정
+//             el.click()
+//         })
+//     })
+// })
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
