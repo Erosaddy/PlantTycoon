@@ -64,8 +64,8 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public int getTotalCnt() {
-	    return mapper.getTotalCnt();
+	public int getTotalCnt(Criteria cri) {
+	    return mapper.getTotalCnt(cri);
 	}
 
 

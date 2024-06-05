@@ -11,5 +11,5 @@ public interface IMemberService {
 	public int idCheck(String memberId);
 	public int modifyNickname(MemberDTO mDto);
 	public List<MemberDTO> memberList(Criteria cri);
-	public int getTotalCnt();
+	public int getTotalCnt(Criteria cri);
 }

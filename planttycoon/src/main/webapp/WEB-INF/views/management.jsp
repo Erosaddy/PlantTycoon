@@ -2,26 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="include/header.jsp" %>
 <link rel="stylesheet" href="${ctx}/resources/css/management.css">
-			<script>
-			document.addEventListener('DOMContentLoaded', function () {
-			    updateListNumbers(); // 초기 로드 시 번호 업데이트
-			
-			    const searchForm = document.querySelector('.search');
-			    searchForm.addEventListener('submit', updateListNumbers); 
-			
-			    const pagingLinks = document.querySelectorAll('.paging a');
-			    pagingLinks.forEach(link => {
-			        link.addEventListener('click', function(event) {
-			            event.preventDefault();
-			            const url = new URL(this.href); // 클릭한 링크의 URL 가져오기
-			            
-			            // 페이지 이동 및 검색 조건 유지
-			            location.href = url.toString();
-			            updateListNumbers(); // 페이지 이동 후 번호 업데이트
-			        });
-			    });
-			});
-			</script>
+<style>
+	.paging p span a {
+	
+	}
+</style>
             <div class="side">
                 <ul class="gnb">
                     <li> <!--메뉴 선택 시 on클래스 붙음-->
@@ -59,41 +44,21 @@
                         <h3>회원관리</h3>
                     </div>
                     <div class="list_top">
-                        <div class="total">총 <span>81</span>명</div>
+                        <div class="total">총 <span>${pageMaker.total}</span>명</div>
                         <div class="search">
                             <div class="search_box">
                             
-                            
-	                            <form action="${ctx}/management" method="get"> <%-- 폼 태그 추가 --%>
-									<div class="search">
-										<div class="search_box">
-											<select name="type">
-												<option value="" ${cri.type == '' ? 'selected' : ''}>전체</option>
-												<option value="N" ${cri.type == 'N' ? 'selected' : ''}>제목</option>
-												<option value="E" ${cri.type == 'E' ? 'selected' : ''}>내용</option>
-											</select>
-										</div>
-										<div class="search_box">
-											<input type="text" name="keyword" value="${cri.keyword}" placeholder="검색어를 입력하세요">
-											<button type="submit" class="btn_search">검색</button>
-										</div>
-									</div>
-								</form>
-                            
-	                            <%-- <form id="searchForm" action="${ctx}/management" method="get">
+	                            <form id="searchForm" action="${ctx}/management" method="get">
 									<select name="type">
-										<option value=""
-											<c:out value="${pageMaker.cri.type eq null ? 'selected' : ''}" />>전체</option>
-										<option value="N"
-											<c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : ''}" />>닉네임</option>
-										<option value="E"
-											<c:out value="${pageMaker.cri.type eq 'E' ? 'selected' : ''}" />>이메일</option>
+										<option value=""   <c:out value="${pageMaker.cri.type == null ? 'selected' : ''}" />>-------</option>
+										<option value="N"  <c:out value="${pageMaker.cri.type eq 'N'  ? 'selected' : ''}" />>닉네임</option>
+										<option value="E"  <c:out value="${pageMaker.cri.type eq 'E'  ? 'selected' : ''}" />>이메일</option>
 									</select>
 									<input type="text" name="keyword" placeholder="검색어를 입력하세요" value="${pageMaker.cri.keyword }">
 									<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
 									<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-									<button type="submit" class="btn_search">Search</button>
-								</form> --%>
+									<button class="btn_search">Search</button>
+								</form>
                             
                             </div>
                             <div class="search_box">
@@ -139,50 +104,34 @@
                         </ul>
                         <div class="paging">
 			                <p>
+	                            	
+                           		<c:if test="${pageMaker.prev }">
+                           			<span class="paginate_button numPN over left">
+                           				<a href="${pageMaker.startPage - 1}"> 
+											<img src="${ctx}/resources/images/ic_prev.png" alt="이전 페이지">
+										</a>
+                           			</span>
+                           		</c:if>
+                           		
+                        		<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+                        			<span class="paginate_button ${pageMaker.cri.pageNum == num ? 'Present' : '' }"><a href="${num }">${num }</a></span>
+                        		</c:forEach>
+                          			
+                          		<c:if test="${pageMaker.next }">
+                           			<span class="paginate_button numPN over right">
+                           				<a href="${pageMaker.endPage + 1}"> 
+											<img src="${ctx}/resources/images/ic_next.png" alt="다음 페이지">
+										</a>
+                           			</span>
+                           		</c:if>
 			                
-			                	<c:if test="${pageMaker.prev}">
-						            <span class="numPN over left">
-						                <a href="${ctx}/management?pageNum=${pageMaker.prevPageNum}&amount=${pageMaker.cri.amount}&type=${cri.type}&keyword=${cri.keyword}" title="이전 페이지로 이동하기">
-						                    <img src="${ctx}/resources/images/ic_prev.png" alt="이전 페이지">
-						                </a>
-						            </span>
-						        </c:if>
-						
-						        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num">
-						            <span class="Present ${pageMaker.cri.pageNum == num ? 'on' : ''}">
-						                <a href="${ctx}/management?pageNum=${num}&amount=${pageMaker.cri.amount}&type=${cri.type}&keyword=${cri.keyword}">${num}</a>
-						            </span>
-						        </c:forEach>
-						
-						        <c:if test="${pageMaker.next}">
-						            <span class="numPN over right">
-						                <a href="${ctx}/management?pageNum=${pageMaker.nextPageNum}&amount=${pageMaker.cri.amount}&type=${cri.type}&keyword=${cri.keyword}" title="다음 페이지로 이동하기">
-						                    <img src="${ctx}/resources/images/ic_next.png" alt="다음 페이지">
-						                </a>
-						            </span>
-						        </c:if>
+			                	<form id="actionForm" action="${ctx }/management" method="get">
+									<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">                            
+									<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+									<input type="hidden" name="type" value="${pageMaker.cri.type }">
+	                            	<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">                           
+	                            </form>
 			                
-			                    <%-- <c:if test="${pageMaker.prev}">
-			                        <span class="numPN over left">
-			                            <a href="${ctx}/management?pageNum=${pageMaker.startPage - 1}&amount=${pageMaker.cri.amount}" title="이전 페이지로 이동하기">
-			                                <img src="${ctx}/resources/images/ic_prev.png" alt="이전 페이지">
-			                            </a>
-			                        </span>
-			                    </c:if>
-			
-			                    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num">
-			                        <span class="${pageMaker.cri.pageNum == num ? 'Present' : ''}">
-			                            <a href="${ctx}/management?pageNum=${num}&amount=${pageMaker.cri.amount}" class= "${pageMaker.cri.pageNum == num ? 'on' : ''}">${num}</a>
-			                        </span>
-			                    </c:forEach>
-			
-			                    <c:if test="${pageMaker.next}">
-			                        <span class="numPN over right">
-			                            <a href="${ctx}/management?pageNum=${pageMaker.endPage + 1}&amount=${pageMaker.cri.amount}" title="다음 페이지로 이동하기">
-			                                <img src="${ctx}/resources/images/ic_next.png" alt="다음 페이지">
-			                            </a>
-			                        </span>
-			                    </c:if> --%>
 			                </p>
 			            </div>
                     </div>
@@ -198,6 +147,40 @@
                 $toggle.classList.toggle('active');
             }
         });
+    </script>
+    <script>
+    $(document).ready(function() {
+	    var actionForm = $("#actionForm");
+		
+		$(".paginate_button a").on("click", function(e) {
+			e.preventDefault();
+			
+			console.log("click");
+			
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			actionForm.submit();
+		});
+		
+		var searchForm = $("#searchForm");
+		$("#searchForm button").on("click", function(e) {
+			if(!searchForm.find("option:selected").val()) {
+				alert("검색 종류를 선택하세요");
+				
+				return false;
+			}
+			
+			if(!searchForm.find("input[name='keyword']").val()) {
+				alert("검색어를 입력하세요");
+				
+				return false;
+			}
+			
+			searchForm.find("input[name='pageNum']").val("1");
+			
+			e.preventDefault();
+			searchForm.submit();
+		});
+    })
     </script>
 </body>
 </html>

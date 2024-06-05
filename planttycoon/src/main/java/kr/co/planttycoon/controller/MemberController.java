@@ -94,21 +94,13 @@ public class MemberController {
         return "redirect:/defaultPage";
 	}
 	
-//	@GetMapping("/management")
-//	public void getMemberList(Criteria cri, Model model) {
-//		
-////		model.addAttribute("memberList", service.memberList(cri));
-//	}
-	
-	
 	@GetMapping("/management")
 	public void getMemberList(Criteria cri, Model model) {
 		log.info("show all members.................");
 		
 		model.addAttribute("memberList", service.memberList(cri));
 		
-		int total = service.getTotalCnt();
-	    log.info("total : " + total);
+		int total = service.getTotalCnt(cri);
 
 	    model.addAttribute("pageMaker", new PageDTO(total, cri));
 	}

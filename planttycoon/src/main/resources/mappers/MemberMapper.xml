@@ -71,34 +71,38 @@
                        mem.lastLogin,
                        mem.regDate
                 FROM member mem
+        ]]>
+        
+        <where>
+	        <include refid="criteria"/>
+        </where>
+        
+        <![CDATA[
                 ORDER BY mem.memberId DESC
             ) mem
-            WHERE
-        ]]>
-
-		<include refid="searchCriteria"></include>
-		
-		<![CDATA[
-            rownum <= #{pageNum} * #{amount}
-	        )
-	        WHERE rn > (#{pageNum} - 1) * #{amount}
+            WHERE rownum <= #{pageNum} * #{amount}
+        )
+        WHERE rn > (#{pageNum} - 1) * #{amount}
         ]]>
     </select>
     
     <select id="getTotalCnt" resultType="int">
 		SELECT	count(*)
 		FROM	member
+		<where>
+			<include refid="criteria"></include>
+		</where>	
 	</select>
 	
-	<sql id="searchCriteria">
-		<choose>
-			<when test="type == 'N'.toString()">
-				nickname LIKE '%'||#{keyword}||'%' AND
-			</when>
-			<when test="type == 'E'.toString()">
-				memberId LIKE '%'||#{keyword}||'%' AND
-			</when>
-		</choose>
+	<sql id="criteria">
+        <choose>
+            <when test="type == 'N'.toString()">
+                nickname LIKE '%' || #{keyword} || '%'
+            </when>
+            <when test="type == 'E'.toString()">
+                memberId LIKE '%' || #{keyword} || '%'
+            </when>
+        </choose>
 	</sql>
 	
 </mapper>
