@@ -32,12 +32,12 @@ public interface JournalMapper {
 	@Delete("DELETE FROM journal WHERE journalid = #{journalId}")
     int delete(int journalId);
 	
-	@Select("SELECT count(*) FROM journal WHERE memberid = #{memberId}")
+//	@Select("SELECT count(*) FROM journal WHERE memberid = #{memberId}")
     int getTotalCount(@Param("memberId") String memberId, @Param("cri") Criteria cri);
 
 	List<JournalDTO> getList(@Param("cri") Criteria cri, @Param("memberId") String memberId);
 
-    int getTotalCount(@Param("cri") Criteria cri, @Param("memberId") String memberId);
+//    int getTotalCount(@Param("cri") Criteria cri, @Param("memberId") String memberId);
     
 	
 	

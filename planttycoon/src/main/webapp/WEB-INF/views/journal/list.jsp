@@ -3,39 +3,43 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../include/header.jsp" %>
 <link rel="stylesheet" href="${ctx}/resources/css/list.css">
-		<script>
-		document.addEventListener('DOMContentLoaded', function () {
-		    var listBody = document.querySelector('.list_body');
-		    var listItems = listBody.querySelectorAll('li');
-		    var num = ${total} - ((${pageMaker.cri.pageNum} - 1) * ${pageMaker.cri.amount});
-
-		    listItems.forEach(function (item) {
-		        const numElement = item.querySelector('.num');
-		        numElement.textContent = num;
-		        numElement.classList.add('js-numbered');
-		        num--;
-		    });
-
-		    const searchButtons = document.querySelectorAll('.btn_search'); 
-		    searchButtons.forEach(function (button) {
-		        button.addEventListener('click', function () {
-		            this.closest('form').submit(); 
-		        });
-		    });
-		});
-		</script>
-		<c:if test="${not empty result}"> <%-- result 값이 존재하는 경우에만 실행 --%>
-		    <script>
-		        var result = '${result}';
-		        if (result === 'success') {
-		            alert('삭제되었습니다.');
-		        } else if (result === 'fail') {
-		            alert('삭제 실패했습니다.');
-		        } else if (result === 'notAuthorized') {
-		            alert('삭제 권한이 없습니다.');
-		        }
-		    </script>
-		</c:if>
+			<script>
+			document.addEventListener('DOMContentLoaded', function () {
+			    updateListNumbers(); // 초기 로드 시 번호 업데이트
+			
+			    const searchForm = document.querySelector('.search');
+			    searchForm.addEventListener('submit', updateListNumbers); 
+			
+			    const pagingLinks = document.querySelectorAll('.paging a');
+			    pagingLinks.forEach(link => {
+			        link.addEventListener('click', function(event) {
+			            event.preventDefault();
+			            const url = new URL(this.href); // 클릭한 링크의 URL 가져오기
+			            
+			            // 페이지 이동 및 검색 조건 유지
+			            location.href = url.toString();
+			            updateListNumbers(); // 페이지 이동 후 번호 업데이트
+			        });
+			    });
+			});
+			
+			function updateListNumbers() {
+			    // ... (기존 글 번호 재정렬 로직) ...
+			}
+			</script>
+			
+			<c:if test="${not empty result}">
+			    <script>
+			        var result = '${result}';
+			        if (result === 'success') {
+			            alert('삭제되었습니다.');
+			        } else if (result === 'fail') {
+			            alert('삭제 실패했습니다.');
+			        } else if (result === 'notAuthorized') {
+			            alert('삭제 권한이 없습니다.');
+			        }
+			    </script>
+			</c:if> 
             <div class="side">
                 <ul class="gnb">
                     <li> <!--메뉴 선택 시 on클래스 붙음-->
@@ -192,30 +196,55 @@
 <!--                             </li> -->
                         </ul>
                         <div class="paging">
-			                <p>
-			                    <c:if test="${pageMaker.prev}">
-			                        <span class="numPN over left">
-			                            <a href="${ctx}/journal/list?pageNum=${pageMaker.startPage - 1}&amount=${pageMaker.cri.amount}" title="이전 페이지로 이동하기">
-			                                <img src="${ctx}/resources/images/ic_prev.png" alt="이전 페이지">
-			                            </a>
-			                        </span>
-			                    </c:if>
+						    <p>
+						        <c:if test="${pageMaker.prev}">
+						            <span class="numPN over left">
+						                <a href="${ctx}/journal/list?pageNum=${pageMaker.prevPageNum}&amount=${pageMaker.cri.amount}&type=${cri.type}&keyword=${cri.keyword}" title="이전 페이지로 이동하기">
+						                    <img src="${ctx}/resources/images/ic_prev.png" alt="이전 페이지">
+						                </a>
+						            </span>
+						        </c:if>
+						
+						        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num">
+						            <span class="Present ${pageMaker.cri.pageNum == num ? 'on' : ''}">
+						                <a href="${ctx}/journal/list?pageNum=${num}&amount=${pageMaker.cri.amount}&type=${cri.type}&keyword=${cri.keyword}">${num}</a>
+						            </span>
+						        </c:forEach>
+						
+						        <c:if test="${pageMaker.next}">
+						            <span class="numPN over right">
+						                <a href="${ctx}/journal/list?pageNum=${pageMaker.nextPageNum}&amount=${pageMaker.cri.amount}&type=${cri.type}&keyword=${cri.keyword}" title="다음 페이지로 이동하기">
+						                    <img src="${ctx}/resources/images/ic_next.png" alt="다음 페이지">
+						                </a>
+						            </span>
+						        </c:if>
+						    </p>
+						</div>
+<!--                         <div class="paging"> -->
+<!-- 			                <p> -->
+<%-- 			                    <c:if test="${pageMaker.prev}"> --%>
+<!-- 			                        <span class="numPN over left"> -->
+<%-- 			                            <a href="${ctx}/journal/list?pageNum=${pageMaker.startPage - 1}&amount=${pageMaker.cri.amount}" title="이전 페이지로 이동하기"> --%>
+<%-- 			                                <img src="${ctx}/resources/images/ic_prev.png" alt="이전 페이지"> --%>
+<!-- 			                            </a> -->
+<!-- 			                        </span> -->
+<%-- 			                    </c:if> --%>
 			
-			                    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num">
-			                        <span class="${pageMaker.cri.pageNum == num ? 'Present' : ''}">
-			                            <a href="${ctx}/journal/list?pageNum=${num}&amount=${pageMaker.cri.amount}" class= "${pageMaker.cri.pageNum == num ? 'on' : ''}">${num}</a>
-			                        </span>
-			                    </c:forEach>
+<%-- 			                    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num"> --%>
+<%-- 			                        <span class="${pageMaker.cri.pageNum == num ? 'Present' : ''}"> --%>
+<%-- 			                            <a href="${ctx}/journal/list?pageNum=${num}&amount=${pageMaker.cri.amount}" class= "${pageMaker.cri.pageNum == num ? 'on' : ''}">${num}</a> --%>
+<!-- 			                        </span> -->
+<%-- 			                    </c:forEach> --%>
 			
-			                    <c:if test="${pageMaker.next}">
-			                        <span class="numPN over right">
-			                            <a href="${ctx}/journal/list?pageNum=${pageMaker.endPage + 1}&amount=${pageMaker.cri.amount}" title="다음 페이지로 이동하기">
-			                                <img src="${ctx}/resources/images/ic_next.png" alt="다음 페이지">
-			                            </a>
-			                        </span>
-			                    </c:if>
-			                </p>
-			            </div>
+<%-- 			                    <c:if test="${pageMaker.next}"> --%>
+<!-- 			                        <span class="numPN over right"> -->
+<%-- 			                            <a href="${ctx}/journal/list?pageNum=${pageMaker.endPage + 1}&amount=${pageMaker.cri.amount}" title="다음 페이지로 이동하기"> --%>
+<%-- 			                                <img src="${ctx}/resources/images/ic_next.png" alt="다음 페이지"> --%>
+<!-- 			                            </a> -->
+<!-- 			                        </span> -->
+<%-- 			                    </c:if> --%>
+<!-- 			                </p> -->
+<!-- 			            </div> -->
 <!--                         <div class="paging"> -->
 <!--                             <p> -->
 <!--                                 <span class="numPN m_ar"><a href="#" data-page="1" title="처음 페이지로 이동하기"><img src="image/ic_prev2.png" alt="처음 페이지"></a></span> -->
