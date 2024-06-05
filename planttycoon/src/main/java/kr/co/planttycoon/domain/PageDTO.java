@@ -11,6 +11,8 @@ public class PageDTO {
 	private int total;
 	private Criteria cri;
 	
+	private int realEnd; // realEnd 필드 추가
+	
 	public PageDTO(int total, Criteria cri) {
 		this.total = total;
 		this.cri = cri;
@@ -22,7 +24,7 @@ public class PageDTO {
 		this.startPage = this.endPage - 9;
 		
 		//찐 끝페이지
-		int realEnd = (int) (Math.ceil((total * 1.0) / cri.getAmount()));
+		this.realEnd = (int) (Math.ceil((total * 1.0) / cri.getAmount()));
 		
 		//찐 끝페이지 보정
 		if(realEnd < this.endPage) {
@@ -34,5 +36,10 @@ public class PageDTO {
 		
 		//다음페이지 버튼 유무
 		this.next = this.endPage < realEnd;
-	}
+		}
+		
+		public int getNextPageNum() {
+	        return endPage < realEnd ? endPage + 1 : realEnd; 
+	    }
+
 }
