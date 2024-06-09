@@ -107,6 +107,8 @@ public class MemberController {
 	
 	// Easter Egg
 	
-	// Anothe Easter Egg
+	// Another Easter Egg
+	
+	// This is a work from 1-find-password-via-email branch.
 	
 }
