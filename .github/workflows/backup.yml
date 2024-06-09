@@ -11,16 +11,28 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+
+    - name: Create temporary directory
+      run: mkdir backup_temp
+
+    - name: Copy files to temporary directory
+      run: rsync -a --exclude='.git' . backup_temp/
+
+    - name: Debug - List files in temporary directory
+      run: ls -la backup_temp
 
     - name: Create backup
       run: |
-        tar --ignore-failed-read -zcvf repository-backup-$(date +%Y-%m-%d).tar.gz .
+        tar --ignore-failed-read -zcvf repository-backup-$(date +%Y-%m-%d).tar.gz -C backup_temp .
         mkdir -p backup
         mv repository-backup-*.tar.gz backup/
 
+    - name: Debug - List files after creating backup
+      run: ls -la backup
+
     - name: Upload backup to repository
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: repository-backup
         path: backup/repository-backup-*.tar.gz
