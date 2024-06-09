@@ -105,10 +105,6 @@ public class MemberController {
 	    model.addAttribute("pageMaker", new PageDTO(total, cri));
 	}
 	
-	// Easter Egg
-	
-	// Another Easter Egg
-	
-	// This is a work from 1-find-password-via-email branch.
+	// All is Well. I wish the github flow pull request goes as planned.
 	
 }
