@@ -105,6 +105,6 @@ public class MemberController {
 	    model.addAttribute("pageMaker", new PageDTO(total, cri));
 	}
 	
-	
+	// Easter Egg
 	
 }
