@@ -93,13 +93,23 @@
                         			<div>${member.regDate}</div>
                         			<div>${member.lastLogin}</div>
                         			<div>
-	                        			<label for="toggle" class="toggleSwitch active">
-	                                        <span class="toggleButton"></span>
-	                                    </label>
+                        				<c:choose>
+                        					<c:when test="${member.enabled eq '1'}">
+                        						<label for="toggle" class="toggleSwitch active">
+			                                        <span class="toggleButton"></span>
+			                                        ${member.enabled }
+			                                    </label>
+                        					</c:when>
+                        					<c:otherwise>
+                        						<label for="toggle" class="toggleSwitch">
+			                                        <span class="toggleButton"></span>
+			                                        ${member.enabled }
+			                                    </label>
+                        					</c:otherwise>
+                        				</c:choose>
                                     </div>
                         		</li>
                         	</c:forEach>
-                     
                         </ul>
                         <div class="paging">
 			                <p>

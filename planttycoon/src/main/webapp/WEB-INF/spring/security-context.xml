@@ -14,6 +14,7 @@
 	<security:http>
 		
 		<security:intercept-url pattern="/sample/all"	 access="isAnonymous()"/>
+		<security:intercept-url pattern="/api/data" 	 access="permitAll" />
 		
 		<security:intercept-url pattern="/"				 access="hasRole('ROLE_MEMBER')"/>
  		<security:intercept-url pattern="/journal/list"	 access="hasRole('ROLE_MEMBER')"/>
