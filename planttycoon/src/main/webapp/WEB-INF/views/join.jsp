@@ -68,7 +68,6 @@
     </div>
     
     <script>
-    
 	    $(document).ready(function() {
 	        $('#password, #passwordCheck').on('blur', async function() {
 	            const password = $('#password').val();
@@ -96,7 +95,7 @@
 	            });
 	        }
 	        
-	        let idIsAvailable = false;	// 추후 signup 버튼을 눌렀을 때 활용
+	        let idIsAvailable = false;	// signup 버튼을 눌렀을 때 아이디가 적절한지 검사하는 용도
 	    	
 	    	function getCsrfToken() {
 	    	    return $('meta[name="_csrf"]').attr('content');
@@ -134,7 +133,7 @@
 		                }
 		            },
 		            error:function(){
-		                alert("에러입니다");
+		                alert("에러가 발생했습니다.");
 		            }
 		        });
 	    	});
@@ -184,10 +183,7 @@
 		            $('form[name="joinForm"]').submit();
 		        }
 		    });
-	        
 	    });
-	    
-	    
     </script>
 </body>
 </html>
