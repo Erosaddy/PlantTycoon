@@ -3,6 +3,8 @@ package kr.co.planttycoon.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -101,14 +103,20 @@ public class MemberController {
 		model.addAttribute("memberList", service.memberList(cri));
 		
 		int total = service.getTotalCnt(cri);
-
+		
 	    model.addAttribute("pageMaker", new PageDTO(total, cri));
 	}
 	
-	// All is Well. I wish the github flow pull request goes as planned.
-	
-	// All is Well. Now the approval
-	
-	// Hello!!!
+	@PostMapping("/toggleEnabled")
+	@ResponseBody
+	public int toggleEnabled(@RequestParam("enabled") String enabled, 
+							 @RequestParam("memberId") String memberId) throws Exception {
+		log.info("enabled................... -> " + enabled);
+		log.info("memberId................... -> " + memberId);
+		
+		int cnt = service.modifyEnabled(enabled, memberId);
+		
+		return cnt; 
+	}
 	
 }

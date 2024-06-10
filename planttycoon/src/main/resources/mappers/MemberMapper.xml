@@ -9,6 +9,7 @@
 		<result property="memberId" column="memberId"/>
 		<result property="memberPw" column="memberPw"/>
 		<result property="nickname" column="nickname"/>
+		<result property="enabled" column="enabled"/>
 		<result property="lastLogin" column="lastLogin"/>
 		<result property="regDate" column="regDate"/>
 		<collection property="authorityList" resultMap="authMap">
@@ -93,6 +94,12 @@
 			<include refid="criteria"></include>
 		</where>	
 	</select>
+	
+	<update id="modifyEnabled">
+		UPDATE	member
+		SET		enabled = #{enabled}
+		WHERE	memberId = #{memberId}
+	</update>
 	
 	<sql id="criteria">
         <choose>

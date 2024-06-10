@@ -58,8 +58,6 @@
                             </div>
                             <div class="search_box">
                             	
-                                <!-- <input type="search" placeholder="검색어를 입력하세요">
-                                <button type="button" class="btn_search">검색</button> -->
                             </div>
                         </div>
                     </div>
@@ -94,16 +92,14 @@
                         			<div>${member.lastLogin}</div>
                         			<div>
                         				<c:choose>
-                        					<c:when test="${member.enabled eq '1'}">
-                        						<label for="toggle" class="toggleSwitch active">
+                        					<c:when test="${member.enabled}">
+                        						<label for="toggle" class="toggleSwitch active" data-member-id="${member.memberId}" >
 			                                        <span class="toggleButton"></span>
-			                                        ${member.enabled }
 			                                    </label>
                         					</c:when>
                         					<c:otherwise>
-                        						<label for="toggle" class="toggleSwitch">
+                        						<label for="toggle" class="toggleSwitch" data-member-id="${member.memberId}">
 			                                        <span class="toggleButton"></span>
-			                                        ${member.enabled }
 			                                    </label>
                         					</c:otherwise>
                         				</c:choose>
@@ -148,15 +144,7 @@
             </div>
         </div>
     </div>
-    <script>
-        const toggleList = document.querySelectorAll(".toggleSwitch");
 
-        toggleList.forEach(($toggle) => {
-            $toggle.onclick = () => {
-                $toggle.classList.toggle('active');
-            }
-        });
-    </script>
     <script>
     $(document).ready(function() {
 	    var actionForm = $("#actionForm");
@@ -189,7 +177,45 @@
 			e.preventDefault();
 			searchForm.submit();
 		});
-    })
+		
+		function getCsrfToken() {
+    	    return $('meta[name="_csrf"]').attr('content');
+    	}
+
+    	function getCsrfHeader() {
+    	    return $('meta[name="_csrf_header"]').attr('content');
+    	}
+		
+		$('.toggleSwitch').on('click', function() {
+	        var $toggle = $(this);
+	        var enabled = $toggle.hasClass('active') ? '0' : '1';
+	        var memberId = String($toggle.data('member-id'));
+	        
+	        $.ajax({
+	            url: '${ctx}/toggleEnabled',
+	            type: 'post',
+	            data: {
+	            	enabled: enabled,
+	                memberId: memberId
+	            },
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader(getCsrfHeader(), getCsrfToken());
+	                console.log("successfully got past this point");
+	            },
+	            success: function(cnt) {
+	            	console.log("cnt : " + cnt);
+	                if (cnt == "1") {
+	                    $toggle.toggleClass('active');
+	                } else {
+	                    alert("변경에 실패했습니다.");
+	                }
+	            },
+	            error: function() {
+	                alert("에러입니다");
+	            }
+	        });
+	    });
+    });
     </script>
 </body>
 </html>

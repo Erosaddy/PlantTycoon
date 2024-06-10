@@ -12,4 +12,5 @@ public interface IMemberService {
 	public int modifyNickname(MemberDTO mDto);
 	public List<MemberDTO> memberList(Criteria cri);
 	public int getTotalCnt(Criteria cri);
+	public int modifyEnabled(String enabled, String memberId);
 }

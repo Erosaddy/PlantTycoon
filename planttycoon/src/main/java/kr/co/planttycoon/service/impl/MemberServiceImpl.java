@@ -3,20 +3,18 @@ package kr.co.planttycoon.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.co.planttycoon.domain.AuthorityDTO;
 import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.MemberDTO;
 import kr.co.planttycoon.mapper.MemberMapper;
 import kr.co.planttycoon.service.IMemberService;
-import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 
 @Service
-
+@Log4j
 public class MemberServiceImpl implements IMemberService {
 	
 	private final MemberMapper mapper;
@@ -68,5 +66,11 @@ public class MemberServiceImpl implements IMemberService {
 	    return mapper.getTotalCnt(cri);
 	}
 
-
+	@Override
+	public int modifyEnabled(String enabled, String memberId) {
+		log.info("ServiceImpl enabled ...... " + enabled);
+		log.info("ServiceImpl memberId ...... " + memberId);
+		return mapper.modifyEnabled(enabled, memberId);
+	}
+	
 }

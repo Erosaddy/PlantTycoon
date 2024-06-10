@@ -2,10 +2,8 @@ package kr.co.planttycoon.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import kr.co.planttycoon.domain.AuthorityDTO;
 import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.MemberDTO;
 
@@ -18,5 +16,6 @@ public interface MemberMapper {
 	public int modifyNickname(MemberDTO mDto);
 	public List<MemberDTO> memberList(Criteria cri);
 	public int getTotalCnt(Criteria cri);
+	public int modifyEnabled(@Param("enabled") String enabled, @Param("memberId") String memberId);
 	
 }

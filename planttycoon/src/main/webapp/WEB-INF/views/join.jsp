@@ -110,6 +110,7 @@
 		    	const idRegEx = /^(?=.{1,254}$)(?=.{1,64}@.{1,253}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})?$/;
 
 		        const inputEmail = $('#email').val();
+		        
 		        $.ajax({
 		            url:'${ctx}/idCheck', // Controller에서 요청 받을 주소
 		            type:'post',
