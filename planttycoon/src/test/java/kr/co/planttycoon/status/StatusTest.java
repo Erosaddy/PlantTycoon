@@ -59,6 +59,7 @@ public class StatusTest {
 	
 	 @Test
 	    public void testCreateMeasurement() throws Exception {
+		 
 	        // 테스트용 데이터 생성
 	        MeasurementDTO measurement = new MeasurementDTO();
 	        measurement.setTemperature(22.5);
