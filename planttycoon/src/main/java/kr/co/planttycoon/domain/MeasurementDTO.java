@@ -14,3 +14,4 @@ public class MeasurementDTO {
 	private int soilMoisture;
 	private Date measurementRegdate;
 }
+// 월요일시러
