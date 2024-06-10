@@ -2,11 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="include/header.jsp" %>
 <link rel="stylesheet" href="${ctx}/resources/css/management.css">
-<style>
-	.paging p span a {
-	
-	}
-</style>
             <div class="side">
                 <ul class="gnb">
                     <li> <!--메뉴 선택 시 on클래스 붙음-->
@@ -78,7 +73,11 @@
                            <li>활성화 여부</li> 
                         </ul>
                         <ul class="list_body">
-                        
+                        	<c:if test="${empty memberList}">
+                        		<li class="no_result">
+                        			<p>회원 정보가 존재하지 않습니다.</p>
+                        		</li>
+                        	</c:if>
                         	<c:forEach items="${memberList}" var="member">
                         		<li>
                         			<div>${member.nickname}</div>
