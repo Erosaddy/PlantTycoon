@@ -65,9 +65,10 @@
                             	</label>
                             </div>
                             
-                            <p id="loginErrorMessage" class="font_red" style="width: 100%; margin-top: 20px; text-align: center; font-size: 15px;"></p>
-                            <%-- <h2><c:out value="${error }" /></h2>
-							<h2><c:out value="${logout }"/></h2> --%>
+                            <p id="loginErrorMessage" class="font_red" style="width: 100%; margin-top: 20px; text-align: center; font-size: 15px;">
+	                            <c:out value="${error }" />
+								<c:out value="${logout }"/>
+                            </p>
 							
                             <div class="login_btn">
                                 <button id="login" type="button">로그인</button>
