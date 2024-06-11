@@ -37,11 +37,11 @@ public class MemberController {
 		log.info("logout : " + logout);
 		
 		if (error != null) {
-			model.addAttribute("error", "Login error. Please check your account.");
+			model.addAttribute("error", "아이디 혹은 비밀번호가 일치하지 않습니다.");
 		}
 		
 		if (logout != null) {
-			model.addAttribute("logout", "Logged out.");
+			model.addAttribute("logout", "로그아웃 되었습니다.");
 		}
 	}
 	
