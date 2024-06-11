@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -23,8 +24,8 @@ public interface JournalMapper {
 	@Select ("SELECT * FROM journal WHERE journalid = #{journalId}")
 	JournalDTO get(@Param("journalId") int journalId);
 	
-	@Insert ("INSERT INTO journal (journalid, journaltitle, journalcontent, memberid, journalregdate) VALUES (journal_seq.nextval, #{journalTitle}, #{journalContent}, #{memberId}, SYSDATE)")
-	void insert(JournalDTO jDto);
+	/*@Insert ("INSERT INTO journal (journalid, journaltitle, journalcontent, memberid, journalregdate) VALUES (journal_seq.nextval, #{journalTitle}, #{journalContent}, #{memberId}, SYSDATE)")
+	void insert(JournalDTO jDto);*/
 	
 	@Update ("UPDATE journal SET journaltitle = #{journalTitle}, journal_content = #{journalContent} WHERE journalid = #{journalId}")
 	void update (JournalDTO jDto);
@@ -38,7 +39,13 @@ public interface JournalMapper {
 	List<JournalDTO> getList(@Param("cri") Criteria cri, @Param("memberId") String memberId);
 
 //    int getTotalCount(@Param("cri") Criteria cri, @Param("memberId") String memberId);
+	
+    @Insert("INSERT INTO journal (journalid, journaltitle, journalcontent, memberid, journalregdate) " +
+            "VALUES (journal_seq.nextval, #{journalTitle}, #{journalContent}, #{memberId}, SYSDATE)")
+    @Options(useGeneratedKeys = true, keyProperty = "journalId", keyColumn = "journalid") // keyColumn 추가
+    int insert(JournalDTO jDto);
+}
     
 	
 	
-}
+

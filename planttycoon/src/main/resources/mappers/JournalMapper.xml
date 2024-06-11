@@ -4,14 +4,14 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.planttycoon.mapper.JournalMapper">
 	
-	<resultMap type="kr.co.planttycoon.domain.JournalDTO" id="journalResultMap">
-		<result property="journalId" column = "journalid"/>
-		<result property="journalTitle" column = "journaltitle"/>
-		<result property="journalContent" column = "journalcontent"/>
-		<result property="memberId" column = "memberid"/>
-		<result property="journalRegdate" column = "journalregdate"/>
-	</resultMap>
-
+		<resultMap id="journalResultMap" type="kr.co.planttycoon.domain.JournalDTO">
+		    <id property="journalId" column="journalid"/> 
+		    <result property="journalTitle" column="journaltitle" jdbcType="VARCHAR"/>
+		    <result property="journalContent" column="journalcontent" jdbcType="CLOB"/>
+		    <result property="memberId" column="memberid" jdbcType="VARCHAR"/>
+		    <result property="journalRegdate" column="journalregdate" jdbcType="DATE"/>
+		</resultMap>
+		
 <select id="getListWithPaging" resultMap="journalResultMap">
     SELECT *
     FROM (

@@ -4,58 +4,49 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.JournalDTO;
 import kr.co.planttycoon.mapper.JournalMapper;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class JournalService {
-	
-	private final JournalMapper Mapper;
-	
-	@Autowired
-    public JournalService(JournalMapper Mapper) {
-		this.Mapper = Mapper;
-	}
-	
-	public List<JournalDTO> listAll(String memberId) {
-		return Mapper.listAll(memberId);
-	}
-	
-	public JournalDTO get(int journalId) {
-		return Mapper.get(journalId);
-	}
-	
-	public void create(JournalDTO jDto) {
-		Mapper.insert(jDto);
-	}
-	
-	public void modify(JournalDTO jDto) {
-		Mapper.update(jDto);
-	}
-	
-	public boolean remove(int journalId) {
-        return Mapper.delete(journalId) == 1; // 삭제 성공 시 1 반환
+
+    private final JournalMapper mapper;
+
+    @Transactional
+    public void register(JournalDTO jDto) {
+        mapper.insert(jDto);
     }
-	
-//	public void remove(int journalId) {
-//		Mapper.remove(journalId);
-//	}
-	
-    public int getTotalCount(String memberId, Criteria cri) {
-        return Mapper.getTotalCount(memberId, cri);
+
+    public List<JournalDTO> listAll(String memberId) {
+        return mapper.listAll(memberId);
+    }
+
+    public JournalDTO get(int journalId) {
+        return mapper.get(journalId);
+    }
+
+    public void modify(JournalDTO jDto) {
+        mapper.update(jDto);
+    }
+
+    public boolean remove(int journalId) {
+        return mapper.delete(journalId) == 1;
+    }
+
+    public int getTotalCount(String memberId, Criteria cri) { // 메서드 통합
+        return mapper.getTotalCount(memberId, cri);
     }
 
     public List<JournalDTO> getListWithPaging(String memberId, Criteria cri) {
-        return Mapper.getListWithPaging(memberId, cri);
-    }
-    
-    public List<JournalDTO> getList(Criteria cri, String memberId) {
-        return Mapper.getList(cri, memberId); // 검색 조건 적용하여 목록 가져오기
+        return mapper.getListWithPaging(memberId, cri);
     }
 
-//    public int getTotalCount(Criteria cri, String memberId) {
-//        return Mapper.getTotalCount(cri, memberId); // 검색 조건 적용하여 총 개수 가져오기
-//    }
+    public List<JournalDTO> getList(Criteria cri, String memberId) {
+        return mapper.getList(cri, memberId);
+    }
 }

@@ -32,7 +32,7 @@ public class JournalTest {
 		jDto.setJournalContent("테스트임2");
 		jDto.setMemberId("testaccount");
 		
-		Service.create(jDto);
+		Service.register(jDto);
 		
 		JournalDTO createJournal = Mapper.get(jDto.getJournalId());
 	}

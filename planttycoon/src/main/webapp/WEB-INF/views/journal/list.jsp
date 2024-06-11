@@ -81,16 +81,22 @@
                     <div class="list_top">
                         <div class="total">총 <span>${total}</span>건</div>
                         <div class="btn_wrap">
-                            <button type="button" class="btn_write">
+                        	<div class="btn_wrap">
+							    <a href="${ctx}/journal/register" class="btn_write"> <%-- a 태그로 변경 --%>
+							        <img src="${ctx}/resources/images/ic_write.png" alt="작성하기 버튼 아이콘">
+							        작성하기
+							    </a>
+							</div>
+                      <%--  <button type="button" class="btn_write">
                                 <img src="${ctx}/resources/images/ic_write.png" alt="작성하기 버튼 아이콘">
                                 작성하기
-                            </button>
+                            </button> --%>
                         </div>
 							<form action="${ctx}/journal/list" method="get"> <%-- 폼 태그 추가 --%>
 								<div class="search">
 									<div class="search_box">
 										<select name="type">
-											<option value="" ${cri.type == '' ? 'selected' : ''}>전체</option>
+											<%-- <option value="" ${cri.type == '' ? 'selected' : ''}>전체</option> --%>
 											<option value="T" ${cri.type == 'T' ? 'selected' : ''}>제목</option>
 											<option value="C" ${cri.type == 'C' ? 'selected' : ''}>내용</option>
 										</select>

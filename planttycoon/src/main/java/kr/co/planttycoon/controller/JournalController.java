@@ -99,16 +99,30 @@ public class JournalController {
 //		}
 //	}
 	
-	@GetMapping("/journal/write")
+	@GetMapping("/journal/register")
 	public String writeForm(Model model) {
-		return "journalwrite";
-	}
-	
+        return "journal/register"; // 뷰 이름은 그대로 유지 (register.jsp)
+    }
+
+    @PostMapping("/journal/register")
+    public String registerPOST(JournalDTO journal, RedirectAttributes rttr, Principal principal) {
+        log.info("journalDTO: " + journal);
+
+        String memberId = principal.getName(); // 로그인된 사용자 ID 가져오기
+        journal.setMemberId(memberId); // JournalDTO에 memberId 설정
+
+        Service.register(journal); // 게시글 등록 서비스 호출
+
+        rttr.addFlashAttribute("result", "register success"); // 등록 성공 메시지
+
+        return "redirect:/journal/list"; // 목록 페이지로 리다이렉트
+    }
+    
 	@PostMapping("/journal/modify/{journalId}")
 	public String write(@ModelAttribute JournalDTO jDto, HttpSession session) {
 		String memberId = (String)session.getAttribute("memberId");
 		jDto.setMemberId(memberId);
-		Service.create(jDto);
+		Service.register(jDto);
 		return "redirect:/journal/list";
 	}
 	
