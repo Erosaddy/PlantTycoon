@@ -10,9 +10,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Access Denied Page</h1>
+	<h1>권한 불충분</h1>
 	
-	<h2><c:out value="${SPRING_SECURITY_403_EXCEPTION.getMessage() }"></c:out></h2>
-	<h2><c:out value="${msg }"></c:out></h2>
+	<h2><c:out value="${SPRING_SECURITY_403_EXCEPTION.getMessage() }"/></h2>
+	<h2><c:out value="${msg }"/></h2>
+	<a href="${ctx }/">메인 페이지로 돌아가기</a>
 </body>
 </html>

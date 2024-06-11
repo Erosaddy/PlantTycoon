@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import kr.co.planttycoon.service.IMemberService;
 import lombok.extern.log4j.Log4j;
 
-//@Controller
+@Controller
 @Log4j
 public class CommonController {
 	
@@ -26,29 +26,7 @@ public class CommonController {
 		
 		log.info("access Denied : " + auth);
 		
-		model.addAttribute("msg", "Access Denied");
+		model.addAttribute("msg", "해당 페이지에 대한 권한이 없습니다.");
 	}
-	
-	@GetMapping("/login")
-	public void loginInput(String error, String logout, Model model) {
-		
-		log.info("error : " + error);
-		log.info("logout : " + logout);
-		
-		if (error != null) {
-			model.addAttribute("error", "Login error. Please check your account.");
-		}
-		
-		if (logout != null) {
-			model.addAttribute("logout", "Logged out.");
-		}
-	}
-	
-	@GetMapping("/customLogout")
-	public void logoutGET() {
-		
-		log.info("custom logout");
-	}
-	
 	
 }
