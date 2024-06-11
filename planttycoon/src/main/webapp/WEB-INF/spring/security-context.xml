@@ -17,7 +17,6 @@
 		<security:intercept-url pattern="/api/data" 	 access="permitAll" />
 		
 		<security:intercept-url pattern="/"				 access="hasRole('ROLE_MEMBER')"/>
- 		<security:intercept-url pattern="/journal/list"	 access="hasRole('ROLE_MEMBER')"/>
  			
 		<security:intercept-url pattern="/management"	 access="hasRole('ROLE_ADMIN')"/>
 	

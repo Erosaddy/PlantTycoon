@@ -88,21 +88,23 @@
                         					<div>일반 회원</div>
                         				</c:otherwise>
                         			</c:choose>
-                        			<div>${member.regDate}</div>
-                        			<div>${member.lastLogin}</div>
+                        			<div><fmt:formatDate pattern="yyyy.MM.dd" value="${member.regDate}" /></div>
+                        			<div><fmt:formatDate pattern="yyyy.MM.dd" value="${member.lastLogin}" /></div>
                         			<div>
-                        				<c:choose>
-                        					<c:when test="${member.enabled}">
-                        						<label for="toggle" class="toggleSwitch active" data-member-id="${member.memberId}" >
-			                                        <span class="toggleButton"></span>
-			                                    </label>
-                        					</c:when>
-                        					<c:otherwise>
-                        						<label for="toggle" class="toggleSwitch" data-member-id="${member.memberId}">
-			                                        <span class="toggleButton"></span>
-			                                    </label>
-                        					</c:otherwise>
-                        				</c:choose>
+                        				<c:if test="${member.authorityList[0].authority eq 'ROLE_MEMBER'}">
+	                        				<c:choose>
+	                        					<c:when test="${member.enabled}">
+	                        						<label for="toggle" class="toggleSwitch active" data-member-id="${member.memberId}" >
+				                                        <span class="toggleButton"></span>
+				                                    </label>
+	                        					</c:when>
+	                        					<c:otherwise>
+	                        						<label for="toggle" class="toggleSwitch" data-member-id="${member.memberId}">
+				                                        <span class="toggleButton"></span>
+				                                    </label>
+	                        					</c:otherwise>
+	                        				</c:choose>
+                        				</c:if>
                                     </div>
                         		</li>
                         	</c:forEach>
@@ -200,10 +202,8 @@
 	            },
 	            beforeSend: function(xhr) {
 	                xhr.setRequestHeader(getCsrfHeader(), getCsrfToken());
-	                console.log("successfully got past this point");
 	            },
 	            success: function(cnt) {
-	            	console.log("cnt : " + cnt);
 	                if (cnt == "1") {
 	                    $toggle.toggleClass('active');
 	                } else {
