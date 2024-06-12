@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.planttycoon.domain.MeasurementDTO;
 import kr.co.planttycoon.domain.MemberDTO;
@@ -22,6 +23,7 @@ public class MeasurementServiceImpl implements IMeasurementService {
     }
 	
 	// 일정 시간마다 모든 사용자에게 데이터 등록
+	@Transactional
 	@Override
 	public void saveMeasurement(MeasurementDTO measurement) {
 		List<MemberDTO> members = mapper.getAllMembers();
