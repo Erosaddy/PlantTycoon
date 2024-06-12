@@ -1,0 +1,122 @@
+[
+    {
+        "plant_name": "산세비에리아 (Snake Plant)",
+        "watering_cycle_days": 14,
+        "min_temperature_celcius": 15,
+        "max_temperature_celcius": 30,
+        "min_humidity_percentage": 30,
+        "max_humidity_percentage": 50,
+        "min_light_lux": 1000,
+        "max_light_lux": 5000,
+        "min_soil_moisture_percentage": 20,
+        "max_soil_moisture_percentage": 40
+    },
+    {
+        "plant_name": "알로에 베라 (Aloe Vera)",
+        "watering_cycle_days": 21,
+        "min_temperature_celcius": 13,
+        "max_temperature_celcius": 27,
+        "min_humidity_percentage": 30,
+        "max_humidity_percentage": 50,
+        "min_light_lux": 2000,
+        "max_light_lux": 10000,
+        "min_soil_moisture_percentage": 10,
+        "max_soil_moisture_percentage": 20
+    },
+    {
+        "plant_name": "필로덴드론 (Philodendron)",
+        "watering_cycle_days": 7,
+        "min_temperature_celcius": 16,
+        "max_temperature_celcius": 24,
+        "min_humidity_percentage": 60,
+        "max_humidity_percentage": 80,
+        "min_light_lux": 1000,
+        "max_light_lux": 5000,
+        "min_soil_moisture_percentage": 40,
+        "max_soil_moisture_percentage": 60
+    },
+    {
+        "plant_name": "몬스테라 델리시오사 (Swiss Cheese Plant)",
+        "watering_cycle_days": 10,
+        "min_temperature_celcius": 18,
+        "max_temperature_celcius": 27,
+        "min_humidity_percentage": 60,
+        "max_humidity_percentage": 80,
+        "min_light_lux": 1500,
+        "max_light_lux": 5000,
+        "min_soil_moisture_percentage": 40,
+        "max_soil_moisture_percentage": 60
+    },
+    {
+        "plant_name": "스파이더 플랜트 (Spider Plant)",
+        "watering_cycle_days": 7,
+        "min_temperature_celcius": 13,
+        "max_temperature_celcius": 27,
+        "min_humidity_percentage": 40,
+        "max_humidity_percentage": 60,
+        "min_light_lux": 1000,
+        "max_light_lux": 5000,
+        "min_soil_moisture_percentage": 20,
+        "max_soil_moisture_percentage": 40
+    },
+    {
+        "plant_name": "평화 백합 (Peace Lily)",
+        "watering_cycle_days": 7,
+        "min_temperature_celcius": 18,
+        "max_temperature_celcius": 27,
+        "min_humidity_percentage": 60,
+        "max_humidity_percentage": 80,
+        "min_light_lux": 500,
+        "max_light_lux": 3000,
+        "min_soil_moisture_percentage": 40,
+        "max_soil_moisture_percentage": 60
+    },
+    {
+        "plant_name": "포토스 (Pothos)",
+        "watering_cycle_days": 7,
+        "min_temperature_celcius": 18,
+        "max_temperature_celcius": 24,
+        "min_humidity_percentage": 40,
+        "max_humidity_percentage": 60,
+        "min_light_lux": 500,
+        "max_light_lux": 3000,
+        "min_soil_moisture_percentage": 40,
+        "max_soil_moisture_percentage": 60
+    },
+    {
+        "plant_name": "떡갈 고무나무 (Fiddle Leaf Fig)",
+        "watering_cycle_days": 10,
+        "min_temperature_celcius": 18,
+        "max_temperature_celcius": 24,
+        "min_humidity_percentage": 60,
+        "max_humidity_percentage": 80,
+        "min_light_lux": 1000,
+        "max_light_lux": 10000,
+        "min_soil_moisture_percentage": 40,
+        "max_soil_moisture_percentage": 60
+    },
+    {
+        "plant_name": "드라세나 (Dracaena)",
+        "watering_cycle_days": 14,
+        "min_temperature_celcius": 18,
+        "max_temperature_celcius": 27,
+        "min_humidity_percentage": 40,
+        "max_humidity_percentage": 60,
+        "min_light_lux": 500,
+        "max_light_lux": 5000,
+        "min_soil_moisture_percentage": 20,
+        "max_soil_moisture_percentage": 40
+    },
+    {
+        "plant_name": "금전수 (ZZ Plant)",
+        "watering_cycle_days": 21,
+        "min_temperature_celcius": 18,
+        "max_temperature_celcius": 30,
+        "min_humidity_percentage": 30,
+        "max_humidity_percentage": 50,
+        "min_light_lux": 500,
+        "max_light_lux": 5000,
+        "min_soil_moisture_percentage": 20,
+        "max_soil_moisture_percentage": 40
+    }
+]
