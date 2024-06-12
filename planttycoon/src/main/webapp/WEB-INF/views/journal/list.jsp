@@ -139,7 +139,7 @@
 						        </c:if>
 						
 						        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num">
-						            <span class="Present ${pageMaker.cri.pageNum == num ? 'on' : ''}">
+						            <span class="paginate_button ${pageMaker.cri.pageNum == num ? 'Present' : ''}"> <%-- 클래스 수정 --%>
 						                <a href="${ctx}/journal/list?pageNum=${num}&amount=${pageMaker.cri.amount}&type=${cri.type}&keyword=${cri.keyword}">${num}</a>
 						            </span>
 						        </c:forEach>

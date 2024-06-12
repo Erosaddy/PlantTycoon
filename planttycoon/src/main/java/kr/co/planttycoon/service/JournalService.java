@@ -27,7 +27,7 @@ public class JournalService {
     }
 
     public JournalDTO get(int journalId) {
-        return mapper.get(journalId);
+    	return mapper.getWithNickname(journalId);
     }
 
     public void modify(JournalDTO jDto) {
