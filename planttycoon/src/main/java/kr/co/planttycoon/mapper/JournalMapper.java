@@ -44,6 +44,11 @@ public interface JournalMapper {
             "VALUES (journal_seq.nextval, #{journalTitle}, #{journalContent}, #{memberId}, SYSDATE)")
     @Options(useGeneratedKeys = true, keyProperty = "journalId", keyColumn = "journalid") // keyColumn 추가
     int insert(JournalDTO jDto);
+    
+    @Select("SELECT j.*, m.nickname " +
+            "FROM journal j JOIN member m ON j.memberid = m.memberid " +
+            "WHERE j.journalid = #{journalId}")
+    JournalDTO getWithNickname(@Param("journalId") int journalId);
 }
     
 	

@@ -10,6 +10,7 @@
 		    <result property="journalContent" column="journalcontent" jdbcType="CLOB"/>
 		    <result property="memberId" column="memberid" jdbcType="VARCHAR"/>
 		    <result property="journalRegdate" column="journalregdate" jdbcType="DATE"/>
+		    <result property="nickname" column="nickname" /> 
 		</resultMap>
 		
 <select id="getListWithPaging" resultMap="journalResultMap">

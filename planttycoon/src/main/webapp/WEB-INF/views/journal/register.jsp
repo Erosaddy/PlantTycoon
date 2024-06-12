@@ -78,10 +78,19 @@
     <!-- 헤더 연결 div 마무리 -->
     <script>
 	    ClassicEditor
-	        .create( document.querySelector( '#editor' ) )
-	        .catch( error => {
-	            console.error( error );
-	        } );
+	    .create(document.querySelector('#editor'), {
+	    	 ckfinder: {
+	             uploadUrl: '${ctx}/journal/upload/image',
+	             withCredentials: true, // CSRF 토큰을 쿠키로 전송하도록 설정
+	             headers: {
+	            	  '${_csrf.headerName}': document.querySelector('meta[name="_csrf"]').getAttribute('content') // CSRF 토큰 헤더 추가
+	                /*  'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').getAttribute('content') // CSRF 토큰 헤더 추가 */
+	             }
+	         }
+	     })
+	    .catch(error => {
+	        console.error(error);
+	    });
 	</script>
 </body>
 </html>

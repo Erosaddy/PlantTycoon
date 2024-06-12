@@ -11,4 +11,5 @@ public class JournalDTO {
 	private String journalContent;
 	private String memberId;
 	private Date journalRegdate;
+	private String nickname;
 }

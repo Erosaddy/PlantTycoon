@@ -70,7 +70,7 @@
 				            <div class="detail_top">
 				                <h3>${journal.journalTitle}</h3>
 				                <div class="info">
-				                    <span class="name">${journal.memberId}</span>
+				                    <span class="name">${journal.nickname}</span> <%-- nickname 출력 --%>
 				                    <span class="date"><fmt:formatDate pattern="yyyy.MM.dd HH:mm:ss" value="${journal.journalRegdate}" /></span>
 				                </div>
 				            </div>
