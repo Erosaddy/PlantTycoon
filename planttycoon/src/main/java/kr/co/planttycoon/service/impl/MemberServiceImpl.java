@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.planttycoon.domain.Criteria;
+import kr.co.planttycoon.domain.LedcontrolDTO;
 import kr.co.planttycoon.domain.MemberDTO;
+import kr.co.planttycoon.mapper.LedcontrolMapper;
 import kr.co.planttycoon.mapper.MemberMapper;
 import kr.co.planttycoon.service.IMemberService;
 import lombok.extern.log4j.Log4j;
@@ -21,10 +23,13 @@ public class MemberServiceImpl implements IMemberService {
 	
 	private final PasswordEncoder pwencoder;
 	
+	private final LedcontrolMapper ledmapper;
+	
 	@Autowired
-	public MemberServiceImpl(MemberMapper mapper, PasswordEncoder pwencoder) {
+	public MemberServiceImpl(MemberMapper mapper, PasswordEncoder pwencoder, LedcontrolMapper ledmapper) {
 		this.mapper = mapper;
 		this.pwencoder = pwencoder;
+		this.ledmapper = ledmapper;
 	}
 
 	@Transactional
@@ -37,6 +42,12 @@ public class MemberServiceImpl implements IMemberService {
             mapper.createMember(mDto);
             
             int result = mapper.createMemberAuthority(mDto.getMemberId());
+            
+            // LED 상태 추가
+            LedcontrolDTO ledControlDTO = new LedcontrolDTO();
+            ledControlDTO.setMemberId(mDto.getMemberId());
+            //ledControlDTO.setLedStatus("F"); // 초기 LED 상태 설정
+            ledmapper.insertLedControl(ledControlDTO);
             
             return result;
         } catch (Exception e) {
