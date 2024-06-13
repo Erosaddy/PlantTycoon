@@ -62,6 +62,7 @@ public class MemberController {
 		log.info("/join........");
 		service.join(mDto);
 		
+		
 		return "redirect:/login";
 	}
 	
