@@ -11,6 +11,7 @@ public class MemberDTO {
 	private String memberId;
 	private String memberPw;
 	private String nickname;
+	private String plant;
 	private boolean enabled;
 	
 	private Date lastLogin;
