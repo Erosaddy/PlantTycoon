@@ -3,6 +3,8 @@ package kr.co.planttycoon.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,12 +28,14 @@ public class MemberServiceImpl implements IMemberService {
 	
 	private final LedcontrolMapper ledmapper;
 	
+	private final SessionRegistry sessionRegistry;
 	
 	@Autowired
-	public MemberServiceImpl(MemberMapper mapper, PasswordEncoder pwencoder, LedcontrolMapper ledmapper) {
+	public MemberServiceImpl(MemberMapper mapper, PasswordEncoder pwencoder, LedcontrolMapper ledmapper, SessionRegistry sessionRegistry) {
 		this.mapper = mapper;
 		this.pwencoder = pwencoder;
 		this.ledmapper = ledmapper;
+		this.sessionRegistry = sessionRegistry;
 	}
 
 	@Transactional
@@ -53,7 +57,7 @@ public class MemberServiceImpl implements IMemberService {
             
             return result;
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getStackTrace();
             throw new RuntimeException("회원가입 중 예외가 발생했습니다.");
         }
 		
@@ -66,7 +70,22 @@ public class MemberServiceImpl implements IMemberService {
 
 	@Override
 	public int modifyMemberInfo(MemberDTO mDto) {
-		return mapper.modifyMemberInfo(mDto);
+	    
+	    try {
+            
+	        int result = mapper.modifyMemberInfo(mDto);
+	        
+	        if (result == 1) {
+	            SecurityContextHolder.clearContext();
+	            sessionRegistry.getAllSessions(mDto.getMemberId(), false).forEach(SessionInformation::expireNow);
+	        }
+	        
+	        return result;
+	        
+        } catch (Exception e) {
+            e.getStackTrace();
+            throw new RuntimeException("회원 정보 수정 중 예외가 발생했습니다.");
+        }
 	}
 	
 	@Override

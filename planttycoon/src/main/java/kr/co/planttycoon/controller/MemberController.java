@@ -33,9 +33,6 @@ public class MemberController {
 	@GetMapping("/login")
 	public void loginInput(String error, String logout, Model model) {
 		
-		log.info("error : " + error);
-		log.info("logout : " + logout);
-		
 		if (error != null) {
 			model.addAttribute("error", "아이디 혹은 비밀번호가 일치하지 않습니다.");
 		}
@@ -85,16 +82,7 @@ public class MemberController {
 			rttr.addFlashAttribute("modifyMemberInfoResult", "failure");
 		}
 		
-		// Referer 헤더 값 가져오기
-        String referer = request.getHeader("Referer");
-        
-        // Referer 값이 있는 경우 해당 페이지로 리다이렉트
-        if (referer != null && !referer.isEmpty()) {
-            return "redirect:" + referer;
-        }
-        
-        // Referer 값이 없는 경우 기본 페이지로 리다이렉트
-        return "redirect:/";
+        return "redirect:/login";
 	}
 	
 	@GetMapping("/management")
