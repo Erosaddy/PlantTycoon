@@ -41,11 +41,9 @@
                     <div class="sub_title">
                         <h3>식물현황</h3>
                     </div>
-                    <label for="plants">식물 종류</label>
-                    <select name="plants" id="plant-select">
-						<option value="">식물을 선택하세요.</option>
-					</select>
-                    
+                    <div>
+                    	<sec:authentication property="principal.member.plant"/>
+                    </div>
                     <div class="status">
                        <div class="status_top">
                             <div class="status_con">
@@ -128,8 +126,8 @@
             </div>
         </div>
     </div>
-<!-- <script>
-document.addEventListener('DOMContentLoaded', function() {
+<script>
+/* document.addEventListener('DOMContentLoaded', function() {
     // 온도
     const temperature = parseInt(document.getElementById('temperatureValue').textContent);
     const temperatureStatus = document.getElementById('temperatureStatus').querySelector('.status-indicator');
@@ -183,8 +181,8 @@ document.addEventListener('DOMContentLoaded', function() {
         soilMoistureStatus.classList.remove('low', 'high');
     }
 });
-
-</script> -->
+ */
+</script>
 <script>
 $(document).ready(function() {
     $.ajax({
@@ -256,7 +254,7 @@ function createChart(ctx, label, timeLabels, data, backgroundColor, borderColor)
 }
 </script>
 <script>
-$(document).ready(function () {
+/* $(document).ready(function () {
     // JSON 데이터를 가져오기
     $.ajax({
 	    url: '${ctx}/resources/json/plantsData.json',
@@ -271,7 +269,7 @@ $(document).ready(function () {
 		
 		    // select 요소의 변경 이벤트 처리
 		    $select.on('change', function () {
-			    const selectedPlantName = $(this).val();
+			    const selectedPlantName = $(currentPlant).val();
 			    const selectedPlant = data.find(plant => plant.plant_name === selectedPlantName);
 			    
 			    const minTemperature = selectedPlant.min_temperature_celcius;
@@ -368,6 +366,93 @@ $(document).ready(function () {
 	    	console.error('Error fetching data:', error);
 	    }
     });
+}); */
+</script>
+<script>
+$(document).ready(function() {
+	
+	const currentPlant = $('#currentPlant').val();
+	
+    fetch('${ctx}/resources/json/plantsData.json')
+    	.then(response => response.json())
+        .then(data => {
+        	const selectedPlant = data.find(plant => plant.plant_name === currentPlant);
+        	
+        	if (selectedPlant) {
+			    $('#minTemperature').html(selectedPlant.min_temperature_celcius);
+			    $('#maxTemperature').html(selectedPlant.max_temperature_celcius);
+			    $('#minHumidity').html(selectedPlant.min_humidity_percentage);
+			    $('#maxHumidity').html(selectedPlant.max_humidity_percentage);
+			    $('#minLight').html(selectedPlant.min_light_lux);
+			    $('#maxLight').html(selectedPlant.max_light_lux);
+			    $('#minSoilMoisture').html(selectedPlant.min_soil_moisture_percentage);
+			    $('#maxSoilMoisture').html(selectedPlant.max_soil_moisture_percentage);
+        	} else {
+        		$('#minTemperature').html('');
+			    $('#maxTemperature').html('');
+			    $('#minHumidity').html('');
+			    $('#maxHumidity').html('');
+			    $('#minLight').html('');
+			    $('#maxLight').html('');
+			    $('#minSoilMoisture').html('');
+			    $('#maxSoilMoisture').html('');
+        	}
+        	
+        	// 온도
+		    const temperature = parseInt(document.getElementById('temperatureValue').textContent);
+		    const temperatureStatus = document.getElementById('temperatureStatus').querySelector('.status-indicator');
+		    if (temperature < minTemperature) {
+		        temperatureStatus.classList.add('low');
+		        temperatureStatus.classList.remove('high', 'ok');
+		    } else if (temperature > maxTemperature) {
+		        temperatureStatus.classList.add('high');
+		        temperatureStatus.classList.remove('low', 'ok');
+		    } else {
+		        temperatureStatus.classList.add('ok');
+		        temperatureStatus.classList.remove('low', 'high');
+		    }
+
+		    // 대기 습도
+		    const humidity = parseInt(document.getElementById('humidityValue').textContent);
+		    const humidityStatus = document.getElementById('humidityStatus').querySelector('.status-indicator');
+		    if (humidity < minHumidity) {
+		        humidityStatus.classList.add('low');
+		        humidityStatus.classList.remove('high', 'ok');
+		    } else if (humidity > maxHumidity) {
+		        humidityStatus.classList.add('high');
+		        humidityStatus.classList.remove('low', 'ok');
+		    } else {
+		        humidityStatus.classList.add('ok');
+		        humidityStatus.classList.remove('low', 'high');
+		    }
+
+		    // 조도
+		    const illuminance = parseInt(document.getElementById('lightValue').textContent);
+		    const lightStatus = document.getElementById('lightStatus').querySelector('.status-indicator');
+		    if (illuminance < minLight) {
+		        lightStatus.classList.add('low');
+		        lightStatus.classList.remove('high', 'ok');
+		    } else {
+		        lightStatus.classList.add('ok');
+		        lightStatus.classList.remove('low', 'high');
+		    }
+
+		    // 토양 습도
+		    const soilMoisture = parseInt(document.getElementById('soilMoistureValue').textContent);
+		    const soilMoistureStatus = document.getElementById('soilMoistureStatus').querySelector('.status-indicator');
+		    if (soilMoisture < 20) {
+		        soilMoistureStatus.classList.add('low');
+		        soilMoistureStatus.classList.remove('high', 'ok');
+		    } else if (soilMoisture > 30) {
+		        soilMoistureStatus.classList.add('high');
+		        soilMoistureStatus.classList.remove('low', 'ok');
+		    } else {
+		        soilMoistureStatus.classList.add('ok');
+		        soilMoistureStatus.classList.remove('low', 'high');
+		    }
+		    
+        })
+        .catch(error => console.error('Error fetching data:', error));
 });
 </script>
 </body>
