@@ -19,19 +19,42 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="${ctx}/resources/script/main.js"></script>
     
-    <script type="text/javascript">
+    <script>
         window.onload = function() {
-            <c:if test="${not empty modifyNicknameResult}">
+            <c:if test="${not empty modifyMemberInfoResult}">
                 <c:choose>
-                    <c:when test="${modifyNicknameResult == 'success'}">
-                        alert('닉네임이 성공적으로 수정되었습니다.');
+                    <c:when test="${modifyMemberInfoResult == 'success'}">
+                        alert('회원 정보가 성공적으로 수정되었습니다.');
                     </c:when>
                     <c:otherwise>
-                        alert('닉네임 수정에 실패했습니다.');
+                        alert('회원 정보 수정에 실패했습니다.');
                     </c:otherwise>
                 </c:choose>
             </c:if>
         }
+    </script>
+    
+    <script>
+	    $(document).ready(function() {
+	    	
+	        fetch('${ctx}/resources/json/plantsData.json')
+	        	.then(response => response.json())
+	            .then(data => {
+	            	const select = $('#plant-select');
+	            	$.each(data, function (index, plant) {
+		                const option = $('<option></option>').val(plant.plant_name).text(plant.plant_name);
+		                
+		                const currentPlant = $('#currentPlant').val();
+		                
+		                if (plant.plant_name === currentPlant) {
+		                	option.attr('selected', 'selected');
+		                }
+		                
+		                select.append(option);
+	            	});
+	            })
+	            .catch(error => console.error('Error fetching data:', error));
+	    });
     </script>
     
 </head>
@@ -47,7 +70,7 @@
                     </a>
                 </div>
                 <div class="myinfo_con">
-                    <form action="${ctx}/modifyNickname" method="post">
+                    <form action="${ctx}/modifyMemberInfo" method="post">
                     	<sec:csrfInput/>
                         <div class="id_input">
                             <p>Email</p>
@@ -57,8 +80,15 @@
                             <p>Name</p>
                             <input type="text" name="nickname" placeholder="닉네임을 입력하세요" value='<sec:authentication property="principal.member.nickname"/>'>
                         </div>
+                        <div class="name_input">
+                            <p>Plant</p>
+		                    <select name="plant" id="plant-select">
+								<option value="">식물을 선택하세요.</option>
+							</select>
+                        </div>
                         <button type="submit">내 정보 수정</button>
                     </form>
+                    <input type="hidden" id="currentPlant" value='<sec:authentication property="principal.member.plant"/>'>
                 </div>
             </div>
         </div>

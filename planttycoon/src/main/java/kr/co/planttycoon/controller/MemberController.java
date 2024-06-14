@@ -74,15 +74,15 @@ public class MemberController {
 		return cnt;
 	}
 	
-	@PostMapping("/modifyNickname")
-	public String modifyNickname(MemberDTO mDto, RedirectAttributes rttr, HttpServletRequest request) {
+	@PostMapping("/modifyMemberInfo")
+	public String modifyMemberInfo(MemberDTO mDto, RedirectAttributes rttr, HttpServletRequest request) {
 		
-		int result = service.modifyNickname(mDto);
+		int result = service.modifyMemberInfo(mDto);
 		
 		if(result == 1) {
-			rttr.addFlashAttribute("modifyNicknameResult", "success");
+			rttr.addFlashAttribute("modifyMemberInfoResult", "success");
 		} else {
-			rttr.addFlashAttribute("modifyNicknameResult", "failure");
+			rttr.addFlashAttribute("modifyMemberInfoResult", "failure");
 		}
 		
 		// Referer 헤더 값 가져오기
@@ -94,12 +94,11 @@ public class MemberController {
         }
         
         // Referer 값이 없는 경우 기본 페이지로 리다이렉트
-        return "redirect:/defaultPage";
+        return "redirect:/";
 	}
 	
 	@GetMapping("/management")
 	public void getMemberList(Criteria cri, Model model) {
-		log.info("show all members.................");
 		
 		model.addAttribute("memberList", service.memberList(cri));
 		
@@ -112,8 +111,6 @@ public class MemberController {
 	@ResponseBody
 	public int toggleEnabled(@RequestParam("enabled") String enabled, 
 							 @RequestParam("memberId") String memberId) throws Exception {
-		log.info("enabled................... -> " + enabled);
-		log.info("memberId................... -> " + memberId);
 		
 		int cnt = service.modifyEnabled(enabled, memberId);
 		

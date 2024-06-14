@@ -14,12 +14,16 @@
 	<h1>/sample/admin page</h1>
 	
 	<p>principal : <sec:authentication property="principal"/></p>
-	<p>MemberDTO : <sec:authentication property="principal.member"/></p>
+	<p>principal.member : <sec:authentication property="principal.member"/></p>
 	<p>사용자 이름 : <sec:authentication property="principal.member.nickname"/></p>
 	<p>사용자 아이디 : <sec:authentication property="principal.member.memberId"/></p>
 	<p>사용자 권한 리스트 : <sec:authentication property="principal.member.authorityList"/></p> 
 	
 	<a href="/customLogout">Logout</a>
 	
+	<script>
+		var principal = "<sec:authentication property='principal'/>"
+		console.log(principal)
+	</script>
 </body>
 </html>

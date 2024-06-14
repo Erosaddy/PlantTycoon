@@ -3,6 +3,7 @@ package kr.co.planttycoon.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ public class MemberServiceImpl implements IMemberService {
 	private final PasswordEncoder pwencoder;
 	
 	private final LedcontrolMapper ledmapper;
+	
 	
 	@Autowired
 	public MemberServiceImpl(MemberMapper mapper, PasswordEncoder pwencoder, LedcontrolMapper ledmapper) {
@@ -63,10 +65,15 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public int modifyNickname(MemberDTO mDto) {
-		return mapper.modifyNickname(mDto);
+	public int modifyMemberInfo(MemberDTO mDto) {
+		return mapper.modifyMemberInfo(mDto);
 	}
-
+	
+	@Override
+	public int modifyEnabled(String enabled, String memberId) {
+	    return mapper.modifyEnabled(enabled, memberId);
+	}
+	
 	@Override
 	public List<MemberDTO> memberList(Criteria cri) {
 		return mapper.memberList(cri);
@@ -77,11 +84,5 @@ public class MemberServiceImpl implements IMemberService {
 	    return mapper.getTotalCnt(cri);
 	}
 
-	@Override
-	public int modifyEnabled(String enabled, String memberId) {
-		log.info("ServiceImpl enabled ...... " + enabled);
-		log.info("ServiceImpl memberId ...... " + memberId);
-		return mapper.modifyEnabled(enabled, memberId);
-	}
 	
 }
