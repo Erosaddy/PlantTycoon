@@ -9,6 +9,7 @@
 		<result property="memberId" column="memberId"/>
 		<result property="memberPw" column="memberPw"/>
 		<result property="nickname" column="nickname"/>
+		<result property="plant" column="plant"/>
 		<result property="enabled" column="enabled"/>
 		<result property="lastLogin" column="lastLogin"/>
 		<result property="regDate" column="regDate"/>
@@ -22,14 +23,14 @@
 	</resultMap>
 	
 	<select id="read" resultMap="memberMap">
-		SELECT	mem.memberId, memberPw, nickname, enabled, lastLogin, regDate, authority
+		SELECT	mem.memberId, memberPw, nickname, plant, enabled, lastLogin, regDate, authority
 		FROM	member mem LEFT OUTER JOIN memberAuthority auth on mem.memberId = auth.memberId
 		WHERE	mem.memberId = #{memberId}
 	</select>
 	
 	<insert id="createMember">
-		INSERT INTO member(memberId, memberPw, nickname)
-		VALUES(#{memberId}, #{memberPw}, #{nickname})
+		INSERT INTO member(memberId, memberPw, nickname, plant)
+		VALUES(#{memberId}, #{memberPw}, #{nickname}, #{plant})
 	</insert>
 	
 	<insert id="createMemberAuthority">
@@ -44,9 +45,15 @@
 		WHERE	memberId = #{memberId}
 	</select>
 	
-	<update id="modifyNickname">
+	<update id="modifyMemberInfo">
 		UPDATE	member
-		SET		nickname = #{nickname}
+		SET		nickname = #{nickname}, plant = #{plant}
+		WHERE	memberId = #{memberId}
+	</update>
+	
+	<update id="modifyEnabled">
+		UPDATE	member
+		SET		enabled = #{enabled}
 		WHERE	memberId = #{memberId}
 	</update>
 	
@@ -95,11 +102,6 @@
 		</where>	
 	</select>
 	
-	<update id="modifyEnabled">
-		UPDATE	member
-		SET		enabled = #{enabled}
-		WHERE	memberId = #{memberId}
-	</update>
 	
 	<sql id="criteria">
         <choose>

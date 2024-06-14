@@ -16,22 +16,57 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
     <link rel="stylesheet" href="${ctx}/resources/css/reset.css">
     <link rel="stylesheet" href="${ctx}/resources/css/layout.css">
+    
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="${ctx}/resources/script/main.js"></script>
     
-    <script type="text/javascript">
-        window.onload = function() {
-            <c:if test="${not empty modifyNicknameResult}">
-                <c:choose>
-                    <c:when test="${modifyNicknameResult == 'success'}">
-                        alert('닉네임이 성공적으로 수정되었습니다.');
-                    </c:when>
-                    <c:otherwise>
-                        alert('닉네임 수정에 실패했습니다.');
-                    </c:otherwise>
-                </c:choose>
-            </c:if>
-        }
+    <script>
+	    $(document).ready(function() {
+	    	
+	        fetch('${ctx}/resources/json/plantsData.json')
+	        	.then(response => response.json())
+	            .then(data => {
+	            	const select = $('#plant-select');
+	            	$.each(data, function (index, plant) {
+		                const option = $('<option></option>').val(plant.plant_name).text(plant.plant_name);
+		                
+		                const currentPlant = $('#currentPlant').val();
+		                
+		                if (plant.plant_name === currentPlant) {
+		                	option.attr('selected', 'selected');
+		                }
+		                
+		                select.append(option);
+	            	});
+	            })
+	            .catch(error => console.error('Error fetching data:', error));
+	    });
+    </script>
+    <script>
+    	$(document).ready(function() {
+    		
+	    	const nicknameRegEx = /^[a-zA-Z0-9\uAC00-\uD7A3_-]{3,15}$/;	// 알파벳 대소문자, 한글, 숫자, 밑줄(_), 하이픈(-)만 허용, 최소 3자 ~ 최대 15자
+	    
+	    	function showError(message, focusSelector) {
+		        $('#signup-error-message').text(message);
+		        if (focusSelector) {
+		            $(focusSelector).focus();
+		        }
+		    }
+	    	
+	    	$("#memberModify").click(function() {
+		        // 사용자 입력 값 가져오기
+		        const nickname = $('#inputNickname').val();
+		   
+		      	if (!nickname) {
+		            showError('닉네임을 입력해 주세요.', '#inputNickname');
+		        } else if (!nicknameRegEx.test(nickname)) {
+		            showError('닉네임은 알파벳 대소문자, 한글, 숫자, 밑줄(_), 하이픈(-)만 사용 가능하며, 3~15자 사이여야 합니다.', '#inputNickname');
+		        } else {
+		            $('form[name="memberModifyForm"]').submit();
+		        }
+		    });
+		});
     </script>
     
 </head>
@@ -47,7 +82,7 @@
                     </a>
                 </div>
                 <div class="myinfo_con">
-                    <form action="${ctx}/modifyNickname" method="post">
+                    <form name="memberModifyForm" action="${ctx}/modifyMemberInfo" method="post">
                     	<sec:csrfInput/>
                         <div class="id_input">
                             <p>Email</p>
@@ -55,10 +90,21 @@
                         </div>
                         <div class="name_input">
                             <p>Name</p>
-                            <input type="text" name="nickname" placeholder="닉네임을 입력하세요" value='<sec:authentication property="principal.member.nickname"/>'>
+                            <input type="text" id="inputNickname" name="nickname" placeholder="닉네임을 입력하세요" value='<sec:authentication property="principal.member.nickname"/>'>
                         </div>
-                        <button type="submit">내 정보 수정</button>
+                        <div class="name_input">
+                            <p>Plant</p>
+		                    <select name="plant" id="plant-select">
+								<option value="">식물 선택하지 않음</option>
+							</select>
+                        </div>
+                        <div class="modify_warning">
+                        	<p>※정보를 수정하면 자동 로그아웃 되며 로그인 페이지로 이동합니다.</p>
+                        	<span id="signup-error-message" class="font_red" style="width: 100%; margin-top: 20px; text-align: center; font-size: 15px;"></span>
+                        </div>
+                        <button id="memberModify" type="button">내 정보 수정</button>
                     </form>
+                    <input type="hidden" id="currentPlant" value='<sec:authentication property="principal.member.plant"/>'>
                 </div>
             </div>
         </div>

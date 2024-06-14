@@ -7,9 +7,9 @@
 	
 	<bean id="customAccessDenied" class="kr.co.planttycoon.security.CustomAccessDeniedHandler"/>
 	<bean id="customLoginSuccess" class="kr.co.planttycoon.security.CustomLoginSuccessHandler"/>
-	<!-- <bean id="customPasswordEncoder" class="kr.co.planttycoon.security.CustomNoOpPasswordEncoder"/> -->
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	<bean id="customUserDetailsService" class="kr.co.planttycoon.security.CustomUserDetailsService"/>
+	<bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl"/>
 
 	<security:http>
 		
@@ -20,33 +20,18 @@
  			
 		<security:intercept-url pattern="/management"	 access="hasRole('ROLE_ADMIN')"/>
 	
-		<!-- <security:access-denied-handler error-page="/accessError"/> -->
 		<security:access-denied-handler ref="customAccessDenied"/>	
 		
-		<!-- <security:form-login/> -->
 		<security:form-login login-page="/login" authentication-success-handler-ref="customLoginSuccess"/>
-		
 		<security:logout logout-url="/customLogout" invalidate-session="true"/>
-		
 		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 		
 	</security:http>
 	
 	<security:authentication-manager>
-	
 		<security:authentication-provider user-service-ref="customUserDetailsService">
-		
-			<!-- <security:jdbc-user-service data-source-ref="dataSource"/> -->
-			<!-- <security:jdbc-user-service data-source-ref="dataSource" 
-			users-by-username-query="select memberId , memberPw , enabled from member where memberId = ? " 
-			authorities-by-username-query="select memberId , authoritiy from memberAuthority where memberId = ? " /> -->
-			
-			<!-- <security:password-encoder ref="customPasswordEncoder"/> -->
 			<security:password-encoder ref="bcryptPasswordEncoder"/>
-		
-		
 		</security:authentication-provider>
-	
 	</security:authentication-manager>
-
+	
 </beans>
