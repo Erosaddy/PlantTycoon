@@ -19,7 +19,7 @@ jobs:
         run: sudo apt-get install -y maven
         
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn -f planttycoon/pom.xml clean install
         
   test: 
     needs: build
@@ -38,4 +38,4 @@ jobs:
         run: sudo apt-get install -y maven
         
       - name: Run tests with Maven
-        run: mvn test
+        run: mvn -f planttycoon/pom.xml test
