@@ -14,7 +14,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v3
       with:
-        distribution: 'adopt' # or 'zulu', 'temurin', 'openjdk'
+        distribution: 'adopt'
         java-version: '11'   # Change to your required Java version
 
     - name: Set up Maven
@@ -23,7 +23,7 @@ jobs:
         sudo apt-get install -y maven
 
     - name: Build with Maven
-      run: mvn clean install
+      run: mvn -f planttycoon/pom.xml clean install  # Adjust the path as needed
 
     - name: Run tests
-      run: mvn test
+      run: mvn -f planttycoon/pom.xml test  # Adjust the path as needed
