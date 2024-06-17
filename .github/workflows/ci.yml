@@ -36,11 +36,12 @@ jobs:
     - name: Wait for Oracle to be healthy
       run: |
         echo "Waiting for Oracle to start..."
-        for i in `seq 1 30`; do
+        for i in `seq 1 60`; do
           nc -z localhost 1521 && echo "Oracle is up!" && break
           echo "Waiting for Oracle to start..."
-          sleep 1
+          sleep 5
         done
+        echo "Oracle logs:"
         docker logs $(docker ps -q -f ancestor=gvenzl/oracle-xe:18.4.0-slim)
 
     - name: Build with Maven
