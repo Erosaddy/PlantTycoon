@@ -56,7 +56,7 @@ $(function() {
       });
 
       //내정보 팝업
-    $('.myinfo').click(function(){
+    $('.myinfo, .mypage').click(function(){
         $('.my_popup').css('display','block');
       });
       $('.my_popup .popup_close').click(function(){

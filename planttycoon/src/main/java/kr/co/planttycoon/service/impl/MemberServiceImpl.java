@@ -3,6 +3,7 @@ package kr.co.planttycoon.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
@@ -28,16 +29,13 @@ public class MemberServiceImpl implements IMemberService {
 	
 	private final LedcontrolMapper ledmapper;
 	
-	private final SessionRegistry sessionRegistry;
-	
 	@Autowired
-	public MemberServiceImpl(MemberMapper mapper, PasswordEncoder pwencoder, LedcontrolMapper ledmapper, SessionRegistry sessionRegistry) {
+	public MemberServiceImpl(MemberMapper mapper, PasswordEncoder pwencoder, LedcontrolMapper ledmapper) {
 		this.mapper = mapper;
 		this.pwencoder = pwencoder;
 		this.ledmapper = ledmapper;
-		this.sessionRegistry = sessionRegistry;
 	}
-
+	
 	@Transactional
     @Override
     public int join(MemberDTO mDto) {
@@ -75,11 +73,6 @@ public class MemberServiceImpl implements IMemberService {
             
 	        int result = mapper.modifyMemberInfo(mDto);
 	        
-	        if (result == 1) {
-	            SecurityContextHolder.clearContext();
-	            sessionRegistry.getAllSessions(mDto.getMemberId(), false).forEach(SessionInformation::expireNow);
-	        }
-	        
 	        return result;
 	        
         } catch (Exception e) {
@@ -103,5 +96,4 @@ public class MemberServiceImpl implements IMemberService {
 	    return mapper.getTotalCnt(cri);
 	}
 
-	
 }
