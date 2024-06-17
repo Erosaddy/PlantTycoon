@@ -68,7 +68,20 @@
 		    });
 		});
     </script>
-    
+    <script>
+	    $(document).ready(function() {
+	        <c:if test="${not empty modifyMemberInfoResult}">
+	            <c:choose>
+	                <c:when test="${modifyMemberInfoResult == 'success'}">
+	                    alert('회원 정보가 성공적으로 수정되었습니다.');
+	                </c:when>
+	                <c:otherwise>
+	                    alert('회원 정보 수정에 실패했습니다.');
+	                </c:otherwise>
+	            </c:choose>
+	        </c:if>
+	    });
+    </script>
 </head>
 <body>
     <div id="wrapper">
