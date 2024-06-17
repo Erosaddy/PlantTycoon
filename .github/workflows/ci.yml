@@ -1,0 +1,58 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      oracle:
+        image: gvenzl/oracle-xe:18.4.0-slim
+        options: >-
+          --health-cmd "echo 'SELECT 1 FROM DUAL' | sqlplus -s SYSTEM/Oradoc_db1@localhost:1521/XEPDB1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+          --shm-size=1g
+          --memory=2g
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: '11'   # Change to your required Java version
+
+    - name: Set up Maven
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y maven
+
+    - name: Wait for Oracle to be healthy
+      run: |
+        echo "Waiting for Oracle to start..."
+        for i in `seq 1 30`; do
+          nc -z localhost 1521 && echo "Oracle is up!" && break
+          echo "Waiting for Oracle to start..."
+          sleep 1
+        done
+        docker logs $(docker ps -q -f ancestor=gvenzl/oracle-xe:18.4.0-slim)
+
+    - name: Build with Maven
+      env:
+        DB_URL: "jdbc:oracle:thin:@localhost:1521:XE"
+        DB_USERNAME: "system"
+        DB_PASSWORD: "Oradoc_db1"
+      run: mvn -f planttycoon/pom.xml clean install
+
+    - name: Run tests
+      env:
+        DB_URL: "jdbc:oracle:thin:@localhost:1521:XE"
+        DB_USERNAME: "system"
+        DB_PASSWORD: "Oradoc_db1"
+      run: mvn -f planttycoon/pom.xml test

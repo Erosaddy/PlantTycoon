@@ -48,4 +48,6 @@
 	<context:component-scan base-package="kr.co.planttycoon.domain"/>
 	<mybatis-spring:scan base-package="kr.co.planttycoon.mapper"/>
 	
+	<context:property-placeholder/>
+	
 </beans>
