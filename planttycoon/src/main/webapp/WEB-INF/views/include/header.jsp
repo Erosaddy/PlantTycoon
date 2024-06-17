@@ -101,7 +101,6 @@
 							</select>
                         </div>
                         <div class="modify_warning">
-                        	<p>※정보를 수정하면 자동 로그아웃 되며 로그인 페이지로 이동합니다.</p>
                         	<span id="signup-error-message" class="font_red" style="width: 100%; margin-top: 20px; text-align: center; font-size: 15px;"></span>
                         </div>
                         <button id="memberModify" type="button">내 정보 수정</button>

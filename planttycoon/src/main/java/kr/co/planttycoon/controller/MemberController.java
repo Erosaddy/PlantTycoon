@@ -108,7 +108,7 @@ public class MemberController {
 		
 		SecurityContextHolder.getContext().setAuthentication(newAuth);
 		
-		rememberMeServices.loginSuccess(request, response, newAuth);
+		//rememberMeServices.loginSuccess(request, response, newAuth);
 		
 		String referer = request.getHeader("Referer");
 		
