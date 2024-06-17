@@ -7,9 +7,11 @@ import java.sql.PreparedStatement;
 
 import javax.sql.DataSource;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,6 +21,7 @@ import kr.co.planttycoon.domain.AuthorityDTO;
 import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.MemberDTO;
 import kr.co.planttycoon.mapper.MemberMapper;
+import kr.co.planttycoon.security.CustomUserDetailsService;
 import kr.co.planttycoon.service.IMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -35,6 +38,8 @@ public class MemberJoinTest {
 	@Autowired private MemberMapper mapper;
 	
 	@Autowired private IMemberService service;
+	
+	@Autowired private CustomUserDetailsService detailsService;
 	
 	@Autowired private DataSource ds;
 	
@@ -54,14 +59,29 @@ public class MemberJoinTest {
 //			service.join(mDto);
 //		}
 //	}
-	
+	@Transactional
 	@Test
-	public void memberListTest() {
-		
-		Criteria cri = new Criteria();
-		
-		service.memberList(cri);
-	}
+    public void memberCreateLoadsTest() {
+        
+        MemberDTO mDto = new MemberDTO();
+            
+            mDto.setMemberId("member2000@gmail.com");
+            mDto.setMemberPw("999999");
+            mDto.setNickname("member2000");
+            mDto.setPlant("산세비에리아 (Snake Plant)");
+            
+            int result = service.join(mDto);
+            
+            Assertions.assertThat(result).isEqualTo(1);
+    }
+	
+//	@Test
+//	public void memberListTest() {
+//		
+//		Criteria cri = new Criteria();
+//		
+//		service.memberList(cri);
+//	}
 		
 		
 //		String sql = "insert into member(memberId, memberPw, nickname) values(?,?,?)";
