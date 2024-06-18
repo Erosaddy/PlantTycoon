@@ -61,7 +61,7 @@ public class MemberJoinTest {
 //	}
 	@Transactional
 	@Test
-    public void memberCreateLoadsTest() {
+    public void memberCreateTest() {
         
         MemberDTO mDto = new MemberDTO();
             

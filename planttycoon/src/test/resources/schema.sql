@@ -213,7 +213,4 @@ VALUES('ROLE_MEMBER');
 INSERT INTO authority
 VALUES('ROLE_ADMIN');
 
-INSERT INTO member (memberId, memberPw, nickname, plant)
-VALUES('testaccount', '691103Zxz!', 'tester', '산세비에리아 (Snake Plant)');
-
 COMMIT;
