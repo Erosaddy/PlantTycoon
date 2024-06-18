@@ -13,27 +13,19 @@
 
 	<security:http>
 		
-		<security:intercept-url pattern="/api/data" 	 	access="permitAll"/>
+		<security:intercept-url pattern="/api/data" 	access="permitAll"/>
 		
-		<security:intercept-url pattern="/sample/all"	 	access="isAnonymous()"/>
-		<security:intercept-url pattern="/join"				access="isAnonymous()"/>
-		<security:intercept-url pattern="/home"				access="isAnonymous()"/>
+		<security:intercept-url pattern="/sample/all"	access="isAnonymous()"/>
+		<security:intercept-url pattern="/join"			access="isAnonymous()"/>
+		<security:intercept-url pattern="/home"			access="isAnonymous()"/>
 		
-		<security:intercept-url pattern="/journal/detail"	access="hasRole('ROLE_MEMBER')"/>
-		<security:intercept-url pattern="/journal/list"	 	access="hasRole('ROLE_MEMBER')"/>
-		<security:intercept-url pattern="/journal/register"	access="hasRole('ROLE_MEMBER')"/>
+		<security:intercept-url pattern="/journal/*"	access="hasRole('ROLE_MEMBER')"/>
+ 		<security:intercept-url pattern="/notice/*"		access="hasRole('ROLE_MEMBER')"/>
+ 		<security:intercept-url pattern="/plant/*"		access="hasRole('ROLE_MEMBER')"/>
+		
+		<security:intercept-url pattern="/home"			access="hasRole('ROLE_MEMBER')"/>
  		
- 		<security:intercept-url pattern="/notice/detail"	access="hasRole('ROLE_MEMBER')"/>
-		<security:intercept-url pattern="/notice/list"	 	access="hasRole('ROLE_MEMBER')"/>
-		<security:intercept-url pattern="/notice/write"		access="hasRole('ROLE_MEMBER')"/>
- 			
- 		<security:intercept-url pattern="/plant/monitoring"	access="hasRole('ROLE_MEMBER')"/>
-		<security:intercept-url pattern="/plant/status"	 	access="hasRole('ROLE_MEMBER')"/>
-		<security:intercept-url pattern="/plant/watering"	access="hasRole('ROLE_MEMBER')"/>
-		
-		<security:intercept-url pattern="/home"				access="hasRole('ROLE_MEMBER')"/>
- 		
-		<security:intercept-url pattern="/management"	 	access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/management"	access="hasRole('ROLE_ADMIN')"/>
 		
 	
 		<security:access-denied-handler ref="customAccessDenied"/>	
