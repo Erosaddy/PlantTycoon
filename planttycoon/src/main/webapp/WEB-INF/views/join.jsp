@@ -50,6 +50,12 @@
                                 <p>Name</p>
                                 <input id="inputNickname" type="text" name="nickname" placeholder="닉네임을 입력하세요">
                             </div>
+                            <div class="name_input">
+                                <p>Plant</p>
+                                <select name="plant" id="plant-select">
+									<option value="">식물 선택하지 않음</option>
+								</select>
+                            </div>
                             <span id="signup-error-message" class="font_red" style="width: 100%; margin-top: 20px; text-align: center; font-size: 15px;"></span>
                             <div class="join_btn">
                                 <button id="join" type="button">회원가입</button>
@@ -183,6 +189,42 @@
 		            $('form[name="joinForm"]').submit();
 		        }
 		    });
+	    });
+    </script>
+    <script>
+	    $(document).ready(function() {
+	    	
+	        fetch('${ctx}/resources/json/plantsData.json')
+	        	.then(response => response.json())
+	            .then(data => {
+	            	const select = $('#plant-select');
+	            	$.each(data, function (index, plant) {
+		                const option = $('<option></option>').val(plant.plant_name).text(plant.plant_name);
+		                
+		                const currentPlant = $('#currentPlant').val();
+		                
+		                if (plant.plant_name === currentPlant) {
+		                	option.attr('selected', 'selected');
+		                }
+		                
+		                select.append(option);
+	            	});
+	            })
+	            .catch(error => console.error('Error fetching data:', error));
+	    });
+    </script>
+    <script>
+	    $(document).ready(function() {
+	        <c:if test="${not empty signUpResult}">
+	            <c:choose>
+	                <c:when test="${signUpResult == 'success'}">
+	                    alert('회원 가입에 성공하였습니다.');
+	                </c:when>
+	                <c:otherwise>
+	                    alert('회원 가입에 실패했습니다.');
+	                </c:otherwise>
+	            </c:choose>
+	        </c:if>
 	    });
     </script>
 </body>

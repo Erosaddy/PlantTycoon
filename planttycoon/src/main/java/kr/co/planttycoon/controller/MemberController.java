@@ -75,8 +75,13 @@ public class MemberController {
 	@PostMapping("/join")
 	public String join(MemberDTO mDto, RedirectAttributes rttr) {
 		log.info("/join........");
-		service.join(mDto);
+		int result = service.join(mDto);
 		
+		if (result == 1) {
+		    rttr.addFlashAttribute("signUpResult", "success");
+		} else {
+		    rttr.addFlashAttribute("signUpResult", "failure");
+		}
 		
 		return "redirect:/login";
 	}
