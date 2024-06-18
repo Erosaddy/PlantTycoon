@@ -2,7 +2,7 @@ name: build-test-deploy
 
 on: push
 
-jobs: 
+jobs:
   build:
     runs-on: ubuntu-latest
     steps: 
@@ -39,3 +39,7 @@ jobs:
         
       - name: Run tests with Maven
         run: mvn -f planttycoon/pom.xml test
+        env:
+          DB_URL: jdbc:h2:mem:testdb;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+          DB_USERNAME: sa
+          DB_PASSWORD: 
