@@ -27,8 +27,11 @@ public interface JournalMapper {
 	/*@Insert ("INSERT INTO journal (journalid, journaltitle, journalcontent, memberid, journalregdate) VALUES (journal_seq.nextval, #{journalTitle}, #{journalContent}, #{memberId}, SYSDATE)")
 	void insert(JournalDTO jDto);*/
 	
-	@Update ("UPDATE journal SET journaltitle = #{journalTitle}, journal_content = #{journalContent} WHERE journalid = #{journalId}")
-	void update (JournalDTO jDto);
+	@Update("UPDATE journal SET journaltitle = #{journalTitle}, journalcontent = #{journalContent} WHERE journalid = #{journalId}")
+	int update(JournalDTO journal);
+	
+//	@Update ("UPDATE journal SET journaltitle = #{journalTitle}, journal_content = #{journalContent} WHERE journalid = #{journalId}")
+//	void update (JournalDTO jDto);
 	
 	@Delete("DELETE FROM journal WHERE journalid = #{journalId}")
     int delete(int journalId);

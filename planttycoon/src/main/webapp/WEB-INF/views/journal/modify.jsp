@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <script src="${ctx}/resources/ckeditor/ckeditor.js"></script>
@@ -50,22 +50,26 @@
 			            </button>
                     </div>
                     <div class="write_form">
-                        <form action="${ctx}/journal/register" method="post">
+                        <form action="${ctx}/journal/modify" method="post">
                         	<sec:csrfInput/>
-				           				
+                        	
+							<input type="hidden" name="memberId" value="<sec:authentication property='principal.member.memberId'/>">			           				
+							<input type="hidden" name="journalId" value="${journal.journalId}">			           				
 				            <div class="write_box">
 				                <p>제목</p>
-				                <input type="text" id="journalTitle" name="journalTitle" placeholder="제목을 입력하세요" class="form-control" required>
+<!-- 				                <input type="text" id="journalTitle" name="journalTitle" placeholder="제목을 입력하세요" class="form-control" required> -->
+				                <input type="text" id="journalTitle" name="journalTitle" value="${journal.journalTitle}" class="form-control" required>
 				            </div>
 				
 				            <div class="write_box">
 				                <p>내용</p>
-				                <textarea id="editor" name="journalContent"></textarea> <%-- name 속성 추가 --%>
+<%-- 				                <textarea id="editor" name="journalContent"></textarea> name 속성 추가 --%>
+				                  <textarea id="editor" name="journalContent">${journal.journalContent}</textarea>
 				            </div>
 				
 				            <div class="write_btn_wrap">
 				                <button type="button" class="btn_white" onclick="location.href='${ctx}/journal/list'">취소</button>
-				                <button type="submit" class="btn_green">등록</button>
+				                <button type="submit" class="btn_green">수정</button>
 				            </div>
 				        </form>
                     </div>
@@ -83,14 +87,14 @@
 	             uploadUrl: '${ctx}/journal/upload/image',
 	             withCredentials: true, // CSRF 토큰을 쿠키로 전송하도록 설정
 	             headers: {
-	            	  '${_csrf.headerName}': document.querySelector('meta[name="_csrf"]').getAttribute('content') // CSRF 토큰 헤더 추가
+	            	  '${_csrf.headerName}': document.querySelector('meta[name="_csrf"]').getAttribute('content')  // CSRF 토큰 헤더 추가
 	                /*  'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').getAttribute('content') // CSRF 토큰 헤더 추가 */
-	             }
+	              }
 	         }
 	     })
 	    .catch(error => {
 	        console.error(error);
-	    });
+	    }); 
 	</script>
 </body>
 </html>

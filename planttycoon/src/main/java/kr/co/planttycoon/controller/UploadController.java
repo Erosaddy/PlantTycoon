@@ -27,6 +27,7 @@ public class UploadController {
     public Map<String, Object> uploadImage(@RequestParam("upload") MultipartFile file, HttpServletRequest request) {
         Map<String, Object> response = new HashMap<>();
 
+        
         try {
             // 이미지 파일 유효성 검사
             if (file == null || file.isEmpty()) {
