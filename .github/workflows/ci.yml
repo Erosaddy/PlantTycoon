@@ -2,10 +2,10 @@ name: build-test-deploy
 
 on: push
 
-jobs: 
+jobs:
   build:
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         
@@ -17,14 +17,19 @@ jobs:
           
       - name: Install Maven
         run: sudo apt-get install -y maven
+        
+      - name: Check database connectivity
+        run: |
+          sudo apt-get install -y netcat
+          nc -zv 192.168.0.209 1521
         
       - name: Build with Maven
         run: mvn -f planttycoon/pom.xml clean install
-        
-  test: 
+
+  test:
     needs: build
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         
@@ -36,6 +41,6 @@ jobs:
           
       - name: Install Maven
         run: sudo apt-get install -y maven
-        
+
       - name: Run tests with Maven
         run: mvn -f planttycoon/pom.xml test
