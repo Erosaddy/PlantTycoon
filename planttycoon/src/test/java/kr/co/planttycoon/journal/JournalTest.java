@@ -26,18 +26,18 @@ public class JournalTest {
 	@Autowired
 	private JournalMapper Mapper;
 	
-//	@Transactional
-//	@Test
-//	public void testCreate() throws Exception {
-//		JournalDTO jDto = new JournalDTO();
-//		jDto.setJournalTitle("테스트임2");
-//		jDto.setJournalContent("테스트임2");
-//		jDto.setMemberId("testaccount");
-//		
-//		Service.register(jDto);
-//		
-//		JournalDTO createJournal = Mapper.get(jDto.getJournalId());
-//		
-//	}
+	@Transactional
+	@Test
+	public void testCreate() throws Exception {
+		JournalDTO jDto = new JournalDTO();
+		jDto.setJournalTitle("테스트임2");
+		jDto.setJournalContent("테스트임2");
+		jDto.setMemberId("testaccount");
+		
+		Service.register(jDto);
+		
+		JournalDTO createJournal = Mapper.get(jDto.getJournalId());
+		
+	}
 
 }
