@@ -8,21 +8,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: '11'
-          
+
       - name: Install Maven
         run: sudo apt-get install -y maven
-        
-      - name: Check database connectivity
-        run: |
-          sudo apt-get install -y netcat
-          nc -zv 192.168.0.209 1521
-        
+
       - name: Build with Maven
         run: mvn -f planttycoon/pom.xml clean install
 
@@ -32,13 +27,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: '11'
-          
+
       - name: Install Maven
         run: sudo apt-get install -y maven
 
