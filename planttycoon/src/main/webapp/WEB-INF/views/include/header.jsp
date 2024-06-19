@@ -100,12 +100,12 @@
                         <div class="id_input">
                             <p>Email</p>
                             <input type="text" name="memberId" placeholder="이메일을 입력하세요"
-                            	value='<sec:authentication property="principal.member.memberId"/>' class="readonly" readonly>
+                            	value='<sec:authentication property='principal.member.memberId'/>' class="readonly" readonly>
                         </div>
                         <div class="name_input">
                             <p>Name</p>
                             <input type="text" id="inputNickname" name="nickname" placeholder="닉네임을 입력하세요"
-                            	value='<sec:authentication property="principal.member.nickname"/>'>
+                            	value='<sec:authentication property='principal.member.nickname'/>'>
                         </div>
                         <div class="name_input">
                             <p>Plant</p>
@@ -118,7 +118,7 @@
                         </div>
                         <button id="memberModify" type="button">내 정보 수정</button>
                     </form>
-                    <input type="hidden" id="currentPlant" value='<sec:authentication property="principal.member.plant"/>'>
+                    <input type="hidden" id="currentPlant" value='<sec:authentication property='principal.member.plant'/>'>
                 </div>
             </div>
         </div>
