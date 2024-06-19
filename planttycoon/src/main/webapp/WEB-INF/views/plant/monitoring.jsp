@@ -93,8 +93,9 @@
                             </div>
                             <div class="click_btn">
                                 <button type="button" class="water">물주기<img src="${ctx}/resources/images/ic_water.png" alt="물주기 아이콘"></button>
-                                <button type="button" class="led">조명켜기<img src="${ctx}/resources/images/ic_led.png" alt="조명켜기 아이콘"></button>
-                                <button type="button" class="img" id="btn_download">촬영하기<img src="${ctx}/resources/images/ic_img.png" alt="촬영하기 아이콘"></button>
+                                <button type="button" class="led" id="toggleLed">조명 켜기<img src="${ctx}/resources/images/ic_led.png" alt="조명 켜기 아이콘"></button>
+<%--                                 <button type="button" class="led">조명켜기<img src="${ctx}/resources/images/ic_led.png" alt="조명켜기 아이콘"></button> --%>
+<%--                                 <button type="button" class="img" id="btn_download">촬영하기<img src="${ctx}/resources/images/ic_img.png" alt="촬영하기 아이콘"></button> --%>
                             </div>
                        </div>
                     </div>
@@ -186,6 +187,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+</script>
+<script>
+$(document).ready(function() {
+    $('#toggleLed').click(function() {
+        // CSRF 토큰 가져오기
+        const csrfToken = $('meta[name="_csrf"]').attr('content');
+        const csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+        
+        // LED 상태 토글 API 호출
+        $.ajax({
+            url: "${ctx}/led/toggle",
+            type: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                [csrfHeader]: csrfToken // CSRF 토큰 추가
+            },
+            success: function(data) {
+                // 성공적으로 LED 상태를 토글한 경우, 버튼 텍스트를 업데이트
+                if (data === "T") {
+                    $('#toggleLed').html('조명 끄기 <img src="${ctx}/resources/images/ic_led.png" alt="조명 끄기 아이콘">');
+                } else {
+                    $('#toggleLed').html('조명 켜기 <img src="${ctx}/resources/images/ic_led.png" alt="조명 켜기 아이콘">');
+                }
+            },
+            error: function() {
+                alert('LED 상태를 변경하는 중 오류가 발생했습니다.');
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>
