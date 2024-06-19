@@ -9,4 +9,16 @@
         VALUES (LEDCONTROL_SEQ.nextval, DEFAULT, #{memberId})
     </insert>
     
+    <select id="selectLedControlByMemberId" resultType="java.lang.String">
+        SELECT ledStatus
+        FROM ledcontrol
+        WHERE memberId = #{memberId}
+    </select>
+
+    <update id="updateLedControlByMemberId">
+	    UPDATE ledcontrol
+	    SET ledStatus = #{ledStatus}
+	    WHERE memberId = #{memberId}
+	</update>
+    
 </mapper>
