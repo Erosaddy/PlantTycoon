@@ -39,13 +39,10 @@ public class MemberController {
 	
 	private final CustomUserDetailsService detailsService;
 	
-	private final RememberMeServices rememberMeServices;
-	
 	@Autowired
-	public MemberController(IMemberService service, CustomUserDetailsService detailsService, RememberMeServices rememberMeServices) {
+	public MemberController(IMemberService service, CustomUserDetailsService detailsService) {
 		this.service = service;
 		this.detailsService = detailsService;
-		this.rememberMeServices = rememberMeServices;
 	}
 
 	@GetMapping("/login")
@@ -112,8 +109,6 @@ public class MemberController {
 		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(updatedMember, updatedMember.getPassword(), updatedMember.getAuthorities());
 		
 		SecurityContextHolder.getContext().setAuthentication(newAuth);
-		
-		//rememberMeServices.loginSuccess(request, response, newAuth);
 		
 		String referer = request.getHeader("Referer");
 		
