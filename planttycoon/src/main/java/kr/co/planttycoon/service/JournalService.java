@@ -29,10 +29,16 @@ public class JournalService {
     public JournalDTO get(int journalId) {
     	return mapper.getWithNickname(journalId);
     }
-
-    public void modify(JournalDTO jDto) {
-        mapper.update(jDto);
+    
+    @Transactional
+    public boolean modify(JournalDTO journal) {
+    	int result = mapper.update(journal); 
+        return mapper.update(journal) == 1;
     }
+    
+//    public void modify(JournalDTO jDto) {
+//        mapper.update(jDto);
+//    }
 
     public boolean remove(int journalId) {
         return mapper.delete(journalId) == 1;

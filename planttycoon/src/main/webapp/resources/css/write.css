@@ -13,6 +13,7 @@
 .write_form .write_box input{width: calc(100% - 120px); height: 46px; padding: 0 20px; box-sizing: border-box; border: 1px solid #d4d9dc; background: #fff; font-size: 15px;}
 .write_form .write_box .ck-editor{width: calc(100% - 120px);}
 .ck-editor__editable{height: 500px;}
+.write_form .write_box .ck-editor p{width: 100%;}
 
 .write_btn_wrap{position: relative; width: 100%; margin-top: 30px; display: flex; justify-content: center;}
 .write_btn_wrap button{width: 180px; height: 52px; border-radius: 5px; font-size: 18px; font-weight: 600;}

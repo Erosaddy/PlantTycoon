@@ -37,13 +37,24 @@
             </div>
             <div class="container">
                 <div class="container_inner">
+                
+                <sec:authorize access="isAuthenticated()">
+				    <sec:authentication property="principal.member.plant" var="plant"/>
+				</sec:authorize>
 
                     <div class="sub_title">
-                        <h3>식물현황</h3>
+                        <h3>식물현황
+	                    	<c:choose>
+							    <c:when test="${not empty plant}">
+							        <span><sec:authentication property="principal.member.plant"/></span>
+							    </c:when>
+							    <c:otherwise>
+							        <span>선택된 식물 없음</span>
+							    </c:otherwise>
+							</c:choose>
+                        </h3>
                     </div>
-                    <div>
-                    	<sec:authentication property="principal.member.plant"/>
-                    </div>
+                    	
                     <div class="status">
                        <div class="status_top">
                             <div class="status_con">
@@ -378,15 +389,27 @@ $(document).ready(function() {
         .then(data => {
         	const selectedPlant = data.find(plant => plant.plant_name === currentPlant);
         	
+        	const minTemperature = selectedPlant.min_temperature_celcius;
+		    const maxTemperature = selectedPlant.max_temperature_celcius;
+		    
+		    const minHumidity = selectedPlant.min_humidity_percentage;
+		    const maxHumidity = selectedPlant.max_humidity_percentage;
+		    
+		    const minLight = selectedPlant.min_light_lux;
+		    const maxLight = selectedPlant.max_light_lux;
+		    
+		    const minSoilMoisture = selectedPlant.min_soil_moisture_percentage;
+		    const maxSoilMoisture = selectedPlant.max_soil_moisture_percentage;
+        	
         	if (selectedPlant) {
-			    $('#minTemperature').html(selectedPlant.min_temperature_celcius);
-			    $('#maxTemperature').html(selectedPlant.max_temperature_celcius);
-			    $('#minHumidity').html(selectedPlant.min_humidity_percentage);
-			    $('#maxHumidity').html(selectedPlant.max_humidity_percentage);
-			    $('#minLight').html(selectedPlant.min_light_lux);
-			    $('#maxLight').html(selectedPlant.max_light_lux);
-			    $('#minSoilMoisture').html(selectedPlant.min_soil_moisture_percentage);
-			    $('#maxSoilMoisture').html(selectedPlant.max_soil_moisture_percentage);
+			    $('#minTemperature').html(minTemperature);
+			    $('#maxTemperature').html(maxTemperature);
+			    $('#minHumidity').html(minHumidity);
+			    $('#maxHumidity').html(maxHumidity);
+			    $('#minLight').html(minLight);
+			    $('#maxLight').html(maxLight);
+			    $('#minSoilMoisture').html(minSoilMoisture);
+			    $('#maxSoilMoisture').html(maxSoilMoisture);
         	} else {
         		$('#minTemperature').html('');
 			    $('#maxTemperature').html('');
@@ -396,22 +419,28 @@ $(document).ready(function() {
 			    $('#maxLight').html('');
 			    $('#minSoilMoisture').html('');
 			    $('#maxSoilMoisture').html('');
+			    const optimalConditionText = $('status-indicator');
+        		optimalConditionText.css('display','none');
         	}
         	
+        	
+        	console.log(optimalConditionText)
         	// 온도
 		    const temperature = parseInt(document.getElementById('temperatureValue').textContent);
 		    const temperatureStatus = document.getElementById('temperatureStatus').querySelector('.status-indicator');
-		    if (temperature < minTemperature) {
-		        temperatureStatus.classList.add('low');
-		        temperatureStatus.classList.remove('high', 'ok');
-		    } else if (temperature > maxTemperature) {
-		        temperatureStatus.classList.add('high');
-		        temperatureStatus.classList.remove('low', 'ok');
-		    } else {
-		        temperatureStatus.classList.add('ok');
-		        temperatureStatus.classList.remove('low', 'high');
-		    }
-
+		    if (!isNaN(minTemperature) && !isNaN(maxTemperature)) {
+			    if (temperature < minTemperature) {
+			        temperatureStatus.classList.add('low');
+			        temperatureStatus.classList.remove('high', 'ok');
+			    } else if (temperature > maxTemperature) {
+			        temperatureStatus.classList.add('high');
+			        temperatureStatus.classList.remove('low', 'ok');
+			    } else {
+			        temperatureStatus.classList.add('ok');
+			    }
+        	} else {
+        		temperatureStatus.classList.remove('low', 'ok', 'high');
+        	}
 		    // 대기 습도
 		    const humidity = parseInt(document.getElementById('humidityValue').textContent);
 		    const humidityStatus = document.getElementById('humidityStatus').querySelector('.status-indicator');

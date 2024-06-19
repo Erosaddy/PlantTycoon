@@ -10,6 +10,15 @@
 				        location.href = "${ctx}/journal/remove?journalId=" + journalId;
 				    }
 				}
+			    
+				// 수정 버튼 클릭 이벤트 핸들러
+			    document.addEventListener('DOMContentLoaded', function() {
+			        const modifyButton = document.querySelector('.btn_edit');
+			        modifyButton.addEventListener('click', function() {
+			            const journalId = ${journal.journalId}; // 게시글 ID 가져오기
+			            location.href = '${ctx}/journal/modify?journalId=' + journalId; // 수정 페이지로 이동
+			        });
+			    });
 			</script>			
             <div class="side">
                 <ul class="gnb">
@@ -56,10 +65,8 @@
                             	목록으로 돌아가기
                         	</button> --%>
                             <div class="writer_btn_wrap">
-                            	<button type="button" class="btn_edit" onclick="location.href='${ctx}/journal/modify?journalId=${journal.journalId}'">수정</button>
+                            	<button type="button" class="btn_edit">수정</button>
 								<button type="button" class="btn_del" onclick="confirmDelete(${journal.journalId})">삭제</button>
-<%-- 				            <a href="${ctx}/journal/modify?journalId=${journal.journalId}" class="btn_edit">수정</a> --%>
-<%-- 				            <a href="${ctx}/journal/remove?journalId=${journal.journalId}" class="btn_del">삭제</a> --%>
 				            </div>
 <!--                         <div class="writer_btn_wrap">
 	                            <button type="button" class="btn_edit">수정</button>
