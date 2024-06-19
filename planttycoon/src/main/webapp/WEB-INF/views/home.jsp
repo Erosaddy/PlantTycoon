@@ -37,48 +37,73 @@
             </div>
             <div class="container">
                 <div class="container_inner">
+                
+	                <sec:authorize access="isAuthenticated()">
+					    <sec:authentication property="principal.member.plant" var="plant"/>
+					</sec:authorize>
+                
+                	<div class="sub_title">
+                        <h3>홈 화면
+	                    	<c:choose>
+							    <c:when test="${not empty plant}">
+							        <span><sec:authentication property="principal.member.plant"/></span>
+							    </c:when>
+							    <c:otherwise>
+							        <span>선택된 식물 없음</span>
+							    </c:otherwise>
+							</c:choose>
+                        </h3>
+                    </div>
 
                     <div class="status">
                        <div class="status_top">
                             <div class="status_con">
-                                <div class="txt">
-                                    <p>온도 <span class="high"></span></p>
-                                    <strong><span>26</span>˚C</strong>
-                                    <p class="gray">적정 온도 18 ~ 26˚C</p>
-                                </div>
-                                <div class="icon">
-                                    <img src="${ctx}/resources/images/ic_status1.png" alt="온도 아이콘">
-                                </div>
+                                <div class="txt" id="temperatureStatus">
+					                <p>온도 <span class="status-indicator"></span></p>
+					                <strong><span id="temperatureValue">${Math.round(latestMeasurement.temperature)}</span>˚C</strong>
+					                <p class="gray">적정 온도 
+					                	<span id="minTemperature"></span> ~ <span id="maxTemperature"></span>˚C
+				                	</p>
+					            </div>
+					            <div class="icon">
+					                <img src="${ctx}/resources/images/ic_status1.png" alt="온도 아이콘">
+					            </div>
                             </div>
                             <div class="status_con">
-                                <div class="txt">
-                                    <p>대기 습도 <span class="ok"></span></p>
-                                    <strong><span>42</span>%</strong>
-                                    <p class="gray">적정 습도 40 ~ 70%</p>
-                                </div>
-                                <div class="icon">
-                                    <img src="${ctx}/resources/images/ic_status2.png" alt="온도 아이콘">
-                                </div>
+                                <div class="txt" id="humidityStatus">
+					                <p>대기 습도 <span class="status-indicator"></span></p>
+					                <strong><span id="humidityValue">${Math.round(latestMeasurement.humidity)}</span>%</strong>
+					                <p class="gray">적정 습도
+					                	<span id="minHumidity"></span> ~ <span id="maxHumidity"></span>%
+					                </p>
+					            </div>
+					            <div class="icon">
+					                <img src="${ctx}/resources/images/ic_status2.png" alt="습도 아이콘">
+					            </div>
                             </div>
                             <div class="status_con">
-                                <div class="txt">
-                                    <p>조도 <span class="ok"></span></p>
-                                    <strong><span>320</span>lux</strong>
-                                    <p class="gray">적정 조도 300 lux 이상</p>
-                                </div>
-                                <div class="icon">
-                                    <img src="${ctx}/resources/images/ic_status3.png" alt="온도 아이콘">
-                                </div>
+                                <div class="txt" id="lightStatus">
+					                <p>조도 <span class="status-indicator"></span></p>
+					                <strong><span id="lightValue">${latestMeasurement.illuminance}</span>lux</strong>
+					                <p class="gray">적정 조도
+					                	<span id="minLight"></span> lux 이상
+					                </p>
+					            </div>
+					            <div class="icon">
+					                <img src="${ctx}/resources/images/ic_status3.png" alt="조도 아이콘">
+					            </div>
                             </div>
                             <div class="status_con">
-                                <div class="txt">
-                                    <p>토양 습도 <span class="low"></span></p>
-                                    <strong><span>64</span>%</strong>
-                                    <p class="gray">적정 습도 20 ~ 30%</p>
-                                </div>
-                                <div class="icon">
-                                    <img src="${ctx}/resources/images/ic_status4.png" alt="온도 아이콘">
-                                </div>
+                                <div class="txt" id="soilMoistureStatus">
+					                <p>토양 습도 <span class="status-indicator"></span></p>
+					                <strong><span id="soilMoistureValue">${latestMeasurement.soilMoisture}</span>%</strong>
+					                <p class="gray">적정 습도
+					                <span id="minSoilMoisture"></span> ~ <span id="maxSoilMoisture"></span>%
+					                </p>
+					            </div>
+					            <div class="icon">
+					                <img src="${ctx}/resources/images/ic_status4.png" alt="토양 습도 아이콘">
+					            </div>
                             </div>
                        </div>
                        <div class="home">
@@ -171,5 +196,6 @@
             </div>
         </div>
     </div>
+    <script src="${ctx}/resources/script/measurement.js"></script>
 </body>
 </html>
