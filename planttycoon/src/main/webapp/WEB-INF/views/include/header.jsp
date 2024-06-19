@@ -19,7 +19,9 @@
     
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="${ctx}/resources/script/main.js"></script>
-    
+    <script>
+	    var ctx = '${ctx}';
+	</script>
     <script>
 	    $(document).ready(function() {
 	    	
@@ -119,6 +121,7 @@
                         <button id="memberModify" type="button">내 정보 수정</button>
                     </form>
                     <input type="hidden" id="currentPlant" value='<sec:authentication property='principal.member.plant'/>'>
+                    <input type="hidden" id="temperature" value='${latestMeasurement.temperature}'>
                 </div>
             </div>
         </div>

@@ -2,6 +2,8 @@ package kr.co.planttycoon.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,13 +49,12 @@ public class StatusController {
         }
     }
 	
-	@GetMapping("/plant/status")
-	public String plantstatus(Model model) {
+	@GetMapping({"/plant/status", "/home"})
+	public void plantstatus(HttpSession session) {
 		// 최근 측정값을 가져와서 모델에 추가
         MeasurementDTO latestMeasurement = service.getLatestMeasurement();
-        model.addAttribute("latestMeasurement", latestMeasurement);
-
-        return "plant/status";
+        log.info("latest temperature : " + latestMeasurement.getTemperature());
+        session.setAttribute("latestMeasurement", latestMeasurement);
 	}
 	
 	@GetMapping("/api/measurements")
