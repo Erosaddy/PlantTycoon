@@ -72,9 +72,9 @@
     </script>
     <script>
 	    $(document).ready(function() {
-	        <c:if test="${not empty modifyMemberInfoResult}">
+	        <c:if test="${not empty modifyMemberResult}">
 	            <c:choose>
-	                <c:when test="${modifyMemberInfoResult == 'success'}">
+	                <c:when test="${modifyMemberResult == 'success'}">
 	                    alert('회원 정보가 성공적으로 수정되었습니다.');
 	                </c:when>
 	                <c:otherwise>
@@ -97,7 +97,7 @@
                     </a>
                 </div>
                 <div class="myinfo_con">
-                    <form name="memberModifyForm" action="${ctx}/modifyMemberInfo" method="post">
+                    <form name="memberModifyForm" action="${ctx}/members/modify" method="post">
                     	<sec:csrfInput/>
                         <div class="id_input">
                             <p>Email</p>
@@ -134,7 +134,7 @@
                 </div>
             </div>
             <div class="logo">
-                <a href="${ctx}/">
+                <a href="${ctx}/home">
                     <img src="${ctx}/resources/images/logo.png" alt="로고">
                 </a>
             </div>
@@ -156,7 +156,7 @@
                     <div class="menu_wrap">
                         <ul class="menu_list">
                             <li>
-                                <a href="${ctx}/" class="menu_depth1">홈</a>
+                                <a href="${ctx}/home" class="menu_depth1">홈</a>
                             </li>
                             <li>
                                 <p class="menu_depth1 haslnb">식물현황</p>

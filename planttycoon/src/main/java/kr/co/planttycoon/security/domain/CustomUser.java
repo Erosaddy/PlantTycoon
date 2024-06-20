@@ -30,4 +30,9 @@ public class CustomUser extends User {
 		this.member = dto;
 	}
 	
+	@Override
+    public boolean isEnabled() {
+        return member.isEnabled();
+    }
+	
 }

@@ -67,11 +67,11 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public int modifyMemberInfo(MemberDTO mDto) {
+	public int modifyMember(MemberDTO mDto) {
 	    
 	    try {
             
-	        int result = mapper.modifyMemberInfo(mDto);
+	        int result = mapper.modifyMember(mDto);
 	        
 	        return result;
 	        

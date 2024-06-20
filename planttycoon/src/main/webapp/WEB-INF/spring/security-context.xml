@@ -9,13 +9,11 @@
    <bean id="customLoginSuccess" class="kr.co.planttycoon.security.CustomLoginSuccessHandler"/>
    <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
    <bean id="customUserDetailsService" class="kr.co.planttycoon.security.CustomUserDetailsService"/>
-   <!-- <bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl"/> -->
 
    <security:http>
       
       <security:intercept-url pattern="/api/data"     access="permitAll" />
       
-      <security:intercept-url pattern="/"             access="hasRole('ROLE_MEMBER')"/>
       <security:intercept-url pattern="/home"         access="hasRole('ROLE_MEMBER')"/>
           
       <security:intercept-url pattern="/journal/*"	  access="hasRole('ROLE_MEMBER')"/>
