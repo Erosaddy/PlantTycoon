@@ -1,5 +1,6 @@
 package kr.co.planttycoon.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -50,15 +51,24 @@ public class StatusController {
     }
 	
 	@GetMapping({"/plant/status", "/home"})
-	public void plantstatus(HttpSession session) {
+	public void plantstatus(HttpSession session, Principal principal) {
+		String memberId = principal.getName();
+		
 		// 최근 측정값을 가져와서 모델에 추가
-        MeasurementDTO latestMeasurement = service.getLatestMeasurement();
+        MeasurementDTO latestMeasurement = service.getLatestMeasurement(memberId);
         session.setAttribute("latestMeasurement", latestMeasurement);
 	}
 	
 	@GetMapping("/api/measurements")
-    public ResponseEntity<List<MeasurementDTO>> getRecentMeasurements() {
-        List<MeasurementDTO> measurements = service.getRecentMeasurements();
+    public ResponseEntity<List<MeasurementDTO>> getRecentMeasurements(Principal principal) {
+		String memberId = principal.getName();
+		
+        List<MeasurementDTO> measurements = service.getRecentMeasurements(memberId);
+        
+        for (MeasurementDTO measurementDTO : measurements) {
+			log.info(measurements);
+		}
+        
         return new ResponseEntity<>(measurements, HttpStatus.OK);
     }
 }

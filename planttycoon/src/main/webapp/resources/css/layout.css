@@ -146,7 +146,7 @@ input[type=radio]:checked{border: 4px solid #6064d1;}
 
 .sub_title{width: 100%; display: flex; flex-wrap: wrap;}
 .sub_title h3{width: 100%; font-size: 30px; font-weight: 500; font-family: 'GmarketSans';}
-
+.sub_title h3 > span{font-size: 18px; color: #919699;}
 
 /* 페이징 */
 .paging{clear: both; margin: 0 auto; text-align: center; position: relative;}

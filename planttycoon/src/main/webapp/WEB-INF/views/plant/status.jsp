@@ -46,10 +46,10 @@
                         <h3>식물현황
 	                    	<c:choose>
 							    <c:when test="${not empty plant}">
-							        <span><sec:authentication property="principal.member.plant"/></span>
+							        <span>[<sec:authentication property="principal.member.plant"/>]</span>
 							    </c:when>
 							    <c:otherwise>
-							        <span>선택된 식물 없음</span>
+							        <span>[선택된 식물 없음]</span>
 							    </c:otherwise>
 							</c:choose>
                         </h3>

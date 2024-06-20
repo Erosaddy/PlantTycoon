@@ -10,6 +10,6 @@ public interface MeasurementMapper {
 	public void insertMeasurement(MeasurementDTO measurement);
 	public List<MemberDTO> getAllMembers();
 	
-	public MeasurementDTO getLatestMeasurement();
-	public List<MeasurementDTO> getRecentMeasurements();
+	public MeasurementDTO getLatestMeasurement(String memberId);
+	public List<MeasurementDTO> getRecentMeasurements(String memberId);
 }

@@ -32,7 +32,7 @@ public class MonitoringController {
 		String memberId = principal.getName(); // 로그인 사용자 정보 가져오기
 		
 		// 최근 측정값을 가져와서 모델에 추가
-        MeasurementDTO latestMeasurement = service.getLatestMeasurement();
+        MeasurementDTO latestMeasurement = service.getLatestMeasurement(memberId);
         model.addAttribute("latestMeasurement", latestMeasurement);
 
         // 사용자의 조명 상태를 가져와서 모델에 추가

@@ -43,14 +43,14 @@ public class MeasurementServiceImpl implements IMeasurementService {
 	
 	// 가장 마지막 데이터
 	@Override
-    public MeasurementDTO getLatestMeasurement() {
-        return mapper.getLatestMeasurement();
+    public MeasurementDTO getLatestMeasurement(String memberId) {
+        return mapper.getLatestMeasurement(memberId);
     }
 	
 	// 최근 10개 데이터(차트)
 	@Override
-	public List<MeasurementDTO> getRecentMeasurements() {
-		return mapper.getRecentMeasurements();
+	public List<MeasurementDTO> getRecentMeasurements(String memberId) {
+		return mapper.getRecentMeasurements(memberId);
 	}
 
 

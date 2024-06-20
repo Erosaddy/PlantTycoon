@@ -18,6 +18,7 @@
 	  <![CDATA[
 	    SELECT *
 	    FROM measurement
+	    WHERE memberId = #{memberId} 
 	    ORDER BY measurementRegdate DESC
 	    FETCH FIRST 1 ROWS ONLY
 	  ]]>
@@ -27,7 +28,8 @@
 		<![CDATA[
 	        SELECT *
 	        FROM (SELECT * FROM measurement ORDER BY measurementRegdate DESC)
-	        WHERE ROWNUM <= 10
+	        WHERE memberId = #{memberId} 
+	        AND ROWNUM <= 10
 	        ORDER BY measurementRegdate ASC
         ]]>
     </select>

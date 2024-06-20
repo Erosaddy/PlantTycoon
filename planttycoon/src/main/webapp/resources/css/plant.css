@@ -29,6 +29,7 @@
 .monitoring_right .status_wrap .status_con .txt p span.low::before{content: '(낮음)'; color: inherit;}
 .monitoring_right .status_wrap .status_con .txt p span.high::before{content: '(높음)'; color: inherit;}
 
+
 .monitoring_right .status_wrap .status_con .icon{width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center;}
 .monitoring_right .status_wrap .status_con:nth-child(1) .icon{background: #fef2f2;}
 .monitoring_right .status_wrap .status_con:nth-child(2) .icon{background: #f0f3fd;}
@@ -64,6 +65,8 @@
 .status_top .status_con .txt p span.ok::before{content: '(만족)'; color: #919699;}
 .status_top .status_con .txt p span.low::before{content: '(낮음)'; color: inherit;}
 .status_top .status_con .txt p span.high::before{content: '(높음)'; color: inherit;}
+
+.status_top .status_con .txt p.gray span{color: inherit;}
 
 .status_top .status_con .icon{width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center;}
 .status_top .status_con:nth-child(1) .icon{background: #fef2f2;}
