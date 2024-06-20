@@ -45,7 +45,7 @@
 		WHERE	memberId = #{memberId}
 	</select>
 	
-	<update id="modifyMemberInfo">
+	<update id="modifyMember">
 		UPDATE	member
 		SET		nickname = #{nickname}, plant = #{plant}
 		WHERE	memberId = #{memberId}

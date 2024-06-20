@@ -53,7 +53,6 @@ public class StatusController {
 	public void plantstatus(HttpSession session) {
 		// 최근 측정값을 가져와서 모델에 추가
         MeasurementDTO latestMeasurement = service.getLatestMeasurement();
-        log.info("latest temperature : " + latestMeasurement.getTemperature());
         session.setAttribute("latestMeasurement", latestMeasurement);
 	}
 	

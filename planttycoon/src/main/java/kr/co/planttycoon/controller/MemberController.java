@@ -1,19 +1,13 @@
 package kr.co.planttycoon.controller;
 
-import java.net.http.HttpResponse;
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.session.SessionInformation;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +22,6 @@ import kr.co.planttycoon.domain.PageDTO;
 import kr.co.planttycoon.security.CustomUserDetailsService;
 import kr.co.planttycoon.security.domain.CustomUser;
 import kr.co.planttycoon.service.IMemberService;
-import kr.co.planttycoon.service.impl.MemberServiceImpl;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -91,17 +84,17 @@ public class MemberController {
 		return cnt;
 	}
 	
-	@PostMapping("/modifyMemberInfo")
-	public String modifyMemberInfo(MemberDTO mDto, RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response, Principal principal) {
+	@PostMapping("/members/modify")
+	public String modifyMember(MemberDTO mDto, RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response, Principal principal) {
 		
 	    String memberId = principal.getName();
 	    
-		int result = service.modifyMemberInfo(mDto);
+		int result = service.modifyMember(mDto);
 		
 		if(result == 1) {
-			rttr.addFlashAttribute("modifyMemberInfoResult", "success");
+			rttr.addFlashAttribute("modifyMemberResult", "success");
 		} else {
-			rttr.addFlashAttribute("modifyMemberInfoResult", "failure");
+			rttr.addFlashAttribute("modifyMemberResult", "failure");
 		}
 		
 		CustomUser updatedMember = (CustomUser) detailsService.loadUserByUsername(memberId);

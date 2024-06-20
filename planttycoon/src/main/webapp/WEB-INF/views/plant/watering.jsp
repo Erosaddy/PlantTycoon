@@ -5,7 +5,7 @@
             <div class="side">
                 <ul class="gnb">
                     <li> <!--메뉴 선택 시 on클래스 붙음-->
-                        <a href="${ctx}/" class="menu1 nolnb">홈</a> <!--2뎁스 메뉴 없을 때 nolnb클래스 붙음-->
+                        <a href="${ctx}/home" class="menu1 nolnb">홈</a> <!--2뎁스 메뉴 없을 때 nolnb클래스 붙음-->
                     </li>
                     <li class="on">
                         <a href="javascript:void(0);" class="menu2">식물현황</a>

@@ -13,7 +13,7 @@ public interface MemberMapper {
 	public int createMember(MemberDTO mDto);
 	public int createMemberAuthority(String memberId);
 	public int idCheck(String memberId);
-	public int modifyMemberInfo(MemberDTO mDto);
+	public int modifyMember(MemberDTO mDto);
 	public int modifyEnabled(@Param("enabled") String enabled, @Param("memberId") String memberId);
 	public List<MemberDTO> memberList(Criteria cri);
 	public int getTotalCnt(Criteria cri);
