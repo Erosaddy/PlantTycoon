@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
-<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
-<link rel="stylesheet" href="${ctx}/resources/css/write.css">  
+<script src="${ctx}/resources/ckeditor/ckeditor.js"></script>
+<link rel="stylesheet" href="${ctx}/resources/css/write.css">
+		<!-- 사이드 메뉴 -->  
             <div class="side">
                 <ul class="gnb">
                     <li> <!--메뉴 선택 시 on클래스 붙음-->
@@ -40,26 +41,30 @@
 
                     <div class="sub_title">
                         <h3>공지사항</h3>
-                        <button type="button">
-                            <span><img src="${ctx}/resources/images/ic_backlist.png" alt="목록으로 돌아가기 아이콘"></span>
-                            목록으로 돌아가기
-                        </button>
+                        <button type="button" onclick="location.href='${ctx}/notice/list'">
+			                <span><img src="${ctx}/resources/images/ic_backlist.png" alt="목록으로 돌아가기 아이콘"></span>
+			                목록으로 돌아가기
+			            </button>
                     </div>
                     <div class="write_form">
-                        <form>
-                            <div class="write_box">
-                                <p>제목</p>
-                                <input type="text" placeholder="제목을 입력하세요">
-                            </div>
-                            <div class="write_box">
-                                <p>내용</p>
-                                <textarea id="editor"></textarea>
-                            </div>
-                            <div class="write_btn_wrap">
-                                <button type="button" class="btn_white">취소</button>
-                                <button type="submit" class="btn_green">등록</button>
-                            </div>
-                        </form>
+                        <form action="${ctx}/notice/register" method="post">
+                        	<sec:csrfInput/>
+				           				
+				            <div class="write_box">
+				                <p>제목</p>
+				                <input type="text" id="noticeTitle" name="noticeTitle" placeholder="제목을 입력하세요" class="form-control" required>
+				            </div>
+				
+				            <div class="write_box">
+				                <p>내용</p>
+				                <textarea id="editor" name="noticeContent"></textarea> <%-- name 속성 추가 --%>
+				            </div>
+				
+				            <div class="write_btn_wrap">
+				                <button type="button" class="btn_white" onclick="location.href='${ctx}/notice/list'">취소</button>
+				                <button type="submit" class="btn_green">등록</button>
+				            </div>
+				        </form>
                     </div>
 
                 </div>
@@ -67,7 +72,20 @@
         </div>
     </div>
     <script>
-        ClassicEditor.create( document.querySelector( '#editor' ) );
-      </script>
+    ClassicEditor
+    .create(document.querySelector('#editor'), {
+    	 ckfinder: {
+             uploadUrl: '${ctx}/upload/image',
+             withCredentials: true, // CSRF 토큰을 쿠키로 전송하도록 설정
+             headers: {
+            	  '${_csrf.headerName}': document.querySelector('meta[name="_csrf"]').getAttribute('content') // CSRF 토큰 헤더 추가
+                /*  'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').getAttribute('content') // CSRF 토큰 헤더 추가 */
+             }
+         }
+     })
+    .catch(error => {
+        console.error(error);
+    });
+    </script>
 </body>
 </html>
