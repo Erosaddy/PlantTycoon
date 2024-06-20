@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:security="http://www.springframework.org/schema/security"
-   xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+    	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
    
 	<bean id="customAccessDenied" class="kr.co.planttycoon.security.CustomAccessDeniedHandler"/>
 	<bean id="customLoginSuccess" class="kr.co.planttycoon.security.CustomLoginSuccessHandler"/>
@@ -11,27 +11,23 @@
 	<bean id="customUserDetailsService" class="kr.co.planttycoon.security.CustomUserDetailsService"/>
 
 	<security:http>
+      
+	<security:intercept-url pattern="/api/data"     access="permitAll" />
+      
+	<security:intercept-url pattern="/"             access="hasRole('ROLE_MEMBER')"/>
+	<security:intercept-url pattern="/home"         access="hasRole('ROLE_MEMBER')"/>
+          
+	<security:intercept-url pattern="/journal/*"	  access="hasRole('ROLE_MEMBER')"/>
+	<security:intercept-url pattern="/notice/*"     access="hasRole('ROLE_MEMBER')"/>
+	<security:intercept-url pattern="/plant/*"      access="hasRole('ROLE_MEMBER')"/>
+      
+	<security:intercept-url pattern="/management"   access="hasRole('ROLE_ADMIN')"/>
    
-    <!-- 회원 관리에 대한 접근 제어: 관리자 권한 필요 -->
-    <security:intercept-url pattern="/management" access="hasRole('ROLE_ADMIN')"/>
-    
-    <!-- 모든 사용자에게 허용된 API 데이터 접근 -->
-    <security:intercept-url pattern="/api/data" access="permitAll" />
-    
-    <!-- 로그인 페이지 접근 제어: 익명 사용자만 접근 가능 -->
-    <security:intercept-url pattern="/login" access="isAnonymous()"/>
-    
-    <!-- 루트 페이지 접근 제어: 익명 사용자만 접근 가능 -->
-    <security:intercept-url pattern="/" access="isAnonymous()"/>
-    
-    <!-- 나머지 모든 URL에 대한 접근 제어: 회원 권한 필요 -->
-    <security:intercept-url pattern="/**" access="hasRole('ROLE_MEMBER')"/>
-
-   	<security:access-denied-handler ref="customAccessDenied"/>   
-     
-   	<security:form-login login-page="/login" authentication-success-handler-ref="customLoginSuccess"/>
-   	<security:logout logout-url="/customLogout" invalidate-session="true"/>
-   	<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
+	<security:access-denied-handler ref="customAccessDenied"/>   
+      
+	<security:form-login login-page="/login" authentication-success-handler-ref="customLoginSuccess"/>
+	<security:logout logout-url="/customLogout" invalidate-session="true"/>
+	<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
       
 	</security:http>
    

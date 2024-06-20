@@ -197,5 +197,8 @@
         </div>
     </div>
     <script src="${ctx}/resources/script/measurement.js"></script>
+    <script>
+    	
+    </script>
 </body>
 </html>
