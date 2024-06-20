@@ -10,10 +10,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>권한 불충분</h1>
+	<h1>권한 없음</h1>
 	
 	<h2><c:out value="${SPRING_SECURITY_403_EXCEPTION.getMessage() }"/></h2>
 	<h2><c:out value="${msg }"/></h2>
-	<a href="${ctx }/">메인 페이지로 돌아가기</a>
+	
+	<a href="${ctx }/home">메인 페이지로</a>
+	
 </body>
 </html>

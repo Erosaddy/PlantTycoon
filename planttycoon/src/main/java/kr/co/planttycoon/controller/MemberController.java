@@ -38,8 +38,8 @@ public class MemberController {
 		this.detailsService = detailsService;
 	}
 
-	@GetMapping("/login")
-	public void loginInput(String error, String logout, Model model) {
+	@GetMapping({"/login", "/"})
+	public String loginInput(String error, String logout, Model model) {
 		
 		if (error != null) {
 			model.addAttribute("error", "아이디 혹은 비밀번호가 일치하지 않습니다.");
@@ -48,6 +48,8 @@ public class MemberController {
 		if (logout != null) {
 			model.addAttribute("logout", "로그아웃 되었습니다.");
 		}
+		
+		return "/login";
 	}
 	
 	@GetMapping("/customLogout")
