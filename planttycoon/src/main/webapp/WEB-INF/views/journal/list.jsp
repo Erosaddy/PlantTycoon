@@ -87,10 +87,6 @@
 							        작성하기
 							    </a>
 							</div>
-                      <%--  <button type="button" class="btn_write">
-                                <img src="${ctx}/resources/images/ic_write.png" alt="작성하기 버튼 아이콘">
-                                작성하기
-                            </button> --%>
                         </div>
 							<form action="${ctx}/journal/list" method="get"> <%-- 폼 태그 추가 --%>
 								<div class="search">

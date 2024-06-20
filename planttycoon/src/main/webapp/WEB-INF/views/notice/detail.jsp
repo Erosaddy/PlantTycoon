@@ -2,6 +2,22 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <link rel="stylesheet" href="${ctx}/resources/css/detail.css">
+			<script>
+				function confirmDelete(journalId) {
+				    if (confirm("정말 삭제하시겠습니까?")) {
+				        location.href = "${ctx}/notice/remove?noticeId=" + noticeId;
+				    }
+				}
+			    
+				// 수정 버튼 클릭 이벤트 핸들러
+			    document.addEventListener('DOMContentLoaded', function() {
+			        const modifyButton = document.querySelector('.btn_edit');
+			        modifyButton.addEventListener('click', function() {
+			            const noticeId = ${notice.noticeId}; // 게시글 ID 가져오기
+			            location.href = '${ctx}/notice/modify?noticeId=' + noticeId; // 수정 페이지로 이동
+			        });
+			    });
+			</script>
             <div class="side">
                 <ul class="gnb">
                     <li> <!--메뉴 선택 시 on클래스 붙음-->
@@ -39,35 +55,29 @@
 
                     <div class="sub_title">
                         <h3>공지사항</h3>
-                        <button type="button">
-                            <span><img src="${ctx}/resources/images/ic_backlist.png" alt="목록으로 돌아가기 아이콘"></span>
-                            목록으로 돌아가기
-                        </button>
+                        	<button type="button" onclick="history.back()"> 
+				                <span><img src="${ctx}/resources/images/ic_backlist.png" alt="목록으로 돌아가기 아이콘"></span>
+				                목록으로 돌아가기
+				            </button>
+				        <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <div class="writer_btn_wrap">
-                            <button type="button" class="btn_edit">수정</button>
-                            <button type="button" class="btn_del">삭제</button>
-                        </div>
+                           	<button type="button" class="btn_edit">수정</button>
+							<button type="button" class="btn_del" onclick="confirmDelete(${notice.noticeId})">삭제</button>
+			            </div>
+			            </sec:authorize>
                     </div>
-                    <div class="detail">
-                       <div class="detail_top">
-                            <h3>공지사항입니다. 필독해주세요.</h3>
-                            <div class="info">
-                                <span class="name">최고관리자</span>
-                                <span class="date">2024.05.23 09:23:58</span>
-                            </div>
-                       </div>
-                       <div class="detail_cont">
-                            <p>안녕하세요, 식물타이쿤입니다.<br>
-                                <br>
-                                식물타이쿤 비정기 업데이트가 2024년 5월 30일(목)에 진행됩니다.<br>
-                                자세한 업데이트 사항은 아래 내용을 확인해 주시기 바랍니다.<br>
-                                <br>
-                                ■ 업데이트 일정 : 2024년 5월 30일(목) 오후 2시경<br>
-                                ※ 앱 노출 시간은 앱스토어 사정에 따라 상이할 수 있습니다.<br>
-                                ※ Mobile앱은 선택 업데이트 방식으로 [Mobile앱 > 더보기 > 애플리케이션 정보]를 통해서도 최신 버전으로 업데이트 할 수 있습니다.
-                            </p>
-                       </div>
-                    </div>
+                        <div class="detail">
+				            <div class="detail_top">
+				                <h3>${notice.noticeTitle}</h3>
+				                <div class="info">
+				                    <span class="name">${notice.nickname}</span> <%-- nickname 출력 --%>
+				                    <span class="date"><fmt:formatDate pattern="yyyy.MM.dd HH:mm:ss" value="${notice.regdate}" /></span>
+				                </div>
+				            </div>
+				            <div class="detail_cont">
+				                ${notice.noticeContent}
+				            </div>
+				        </div>
                 </div>
             </div>
         </div>

@@ -73,7 +73,7 @@
 	                            <button type="button" class="btn_del">삭제</button>
 	                        </div> -->
                     </div>
-                           <div class="detail">
+                         <div class="detail">
 				            <div class="detail_top">
 				                <h3>${journal.journalTitle}</h3>
 				                <div class="info">

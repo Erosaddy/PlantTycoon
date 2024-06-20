@@ -80,7 +80,7 @@
 	    ClassicEditor
 	    .create(document.querySelector('#editor'), {
 	    	 ckfinder: {
-	             uploadUrl: '${ctx}/journal/upload/image',
+	             uploadUrl: '${ctx}/upload/image',
 	             withCredentials: true, // CSRF 토큰을 쿠키로 전송하도록 설정
 	             headers: {
 	            	  '${_csrf.headerName}': document.querySelector('meta[name="_csrf"]').getAttribute('content') // CSRF 토큰 헤더 추가

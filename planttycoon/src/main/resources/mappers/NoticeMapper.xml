@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.planttycoon.mapper.NoticeMapper">
+	
+		<resultMap id="noticeResultMap" type="kr.co.planttycoon.domain.NoticeDTO">
+		    <id property="noticeId" column="noticeid"/> 
+		    <result property="noticeTitle" column="noticetitle" jdbcType="VARCHAR"/>
+		    <result property="noticeContent" column="noticecontent" jdbcType="CLOB"/>
+		    <result property="memberId" column="memberid" jdbcType="VARCHAR"/>
+		    <result property="Regdate" column="regdate" jdbcType="DATE"/>
+		    <result property="nickname" column="nickname" /> 
+		</resultMap>
+		
+<select id="getNoticeListWithPaging" resultMap="noticeResultMap">
+    SELECT *
+    FROM (
+        SELECT ROWNUM rn, notice.*
+        FROM (
+            SELECT * 
+            FROM notice
+            <if test="cri.type != null and cri.type != ''">
+                <choose>
+                    <when test='cri.type == "T"'>
+                        AND noticetitle LIKE '%' || #{cri.keyword} || '%'
+                    </when>
+                    <when test='cri.type == "C"'>
+                        AND noticecontent LIKE '%' || #{cri.keyword} || '%'
+                    </when>
+                </choose>
+            </if>
+            ORDER BY noticeid DESC
+        ) notice
+        WHERE ROWNUM &lt;= #{cri.pageNum} * #{cri.amount}
+    )
+    WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}
+</select>
+
+
+<select id="getList" resultMap="noticeResultMap">
+    SELECT *
+    FROM notice
+    WHERE memberid = #{memberId}
+    <if test="cri.type != null and cri.type != ''">
+        <choose>
+            <when test='cri.type == "T"'>
+                AND noticetitle LIKE '%' || #{cri.keyword} || '%'
+            </when>
+            <when test='cri.type == "C"'>
+                AND noticecontent LIKE '%' || #{cri.keyword} || '%'
+            </when>
+        </choose>
+    </if>
+    ORDER BY noticeid DESC
+</select>
+
+<select id="getTotalCount" resultType="int">
+    SELECT count(*)
+    FROM notice
+    WHERE memberid = #{memberId}
+    <if test="cri.type != null and cri.type != ''">
+        <choose>
+            <when test='cri.type == "T"'>
+                AND noticetitle LIKE '%' || #{cri.keyword} || '%'
+            </when>
+            <when test='cri.type == "C"'>
+                AND noticecontent LIKE '%' || #{cri.keyword} || '%'
+            </when>
+        </choose>
+    </if>
+</select>
+	
+</mapper>
