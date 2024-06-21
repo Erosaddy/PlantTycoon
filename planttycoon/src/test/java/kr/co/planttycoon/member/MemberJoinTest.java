@@ -65,14 +65,16 @@ public class MemberJoinTest {
         
         MemberDTO mDto = new MemberDTO();
             
-            mDto.setMemberId("member2000@gmail.com");
-            mDto.setMemberPw("999999");
-            mDto.setNickname("member2000");
-            mDto.setPlant("산세비에리아 (Snake Plant)");
-            
-            int result = service.join(mDto);
-            
-            Assertions.assertThat(result).isEqualTo(1);
+        mDto.setMemberId("member2000@gmail.com");
+        mDto.setMemberPw("999999");
+        mDto.setNickname("member2000");
+        mDto.setPlant("산세비에리아 (Snake Plant)");
+        
+        service.join(mDto);
+        
+        MemberDTO member = mapper.read(mDto.getMemberId());
+        
+        Assertions.assertThat(member.getMemberId()).isEqualTo(mDto.getMemberId());
     }
 	
 //	@Test

@@ -3,7 +3,7 @@
  * 재사용성을 높이고 중복을 줄이고자 분리한 자바스크립트 파일
  */
  
-$(document).ready(function() {
+$(window).on("load", function() {
 	const currentPlant = $('#currentPlant').val();
     fetch(`${ctx}/resources/json/plantsData.json`)
     	.then(response => response.json())
