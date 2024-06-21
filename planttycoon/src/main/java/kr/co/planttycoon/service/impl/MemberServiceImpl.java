@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.planttycoon.domain.Criteria;
-import kr.co.planttycoon.domain.LedcontrolDTO;
+import kr.co.planttycoon.domain.ControlDTO;
 import kr.co.planttycoon.domain.MemberDTO;
 import kr.co.planttycoon.mapper.LedcontrolMapper;
 import kr.co.planttycoon.mapper.MemberMapper;
@@ -48,7 +48,7 @@ public class MemberServiceImpl implements IMemberService {
             int result = mapper.createMemberAuthority(mDto.getMemberId());
             
             // LED 상태 추가
-            LedcontrolDTO ledControlDTO = new LedcontrolDTO();
+            ControlDTO ledControlDTO = new ControlDTO();
             ledControlDTO.setMemberId(mDto.getMemberId());
             //ledControlDTO.setLedStatus("F"); // 초기 LED 상태 설정
             ledmapper.insertLedControl(ledControlDTO);

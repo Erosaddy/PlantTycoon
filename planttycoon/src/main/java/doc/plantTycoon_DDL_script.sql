@@ -4,10 +4,10 @@
 DROP TABLE authority CASCADE CONSTRAINTS;
 DROP TABLE memberAuthority CASCADE CONSTRAINTS;
 DROP TABLE journal CASCADE CONSTRAINTS;
-DROP TABLE led_control CASCADE CONSTRAINTS;
+DROP TABLE control CASCADE CONSTRAINTS;
 DROP TABLE measurement CASCADE CONSTRAINTS;
 DROP TABLE notice CASCADE CONSTRAINTS;
-DROP TABLE watering_record CASCADE CONSTRAINTS;
+DROP TABLE wateringRecord CASCADE CONSTRAINTS;
 DROP TABLE member CASCADE CONSTRAINTS;
 
 
@@ -33,12 +33,13 @@ CREATE TABLE journal
 );
 
 
-CREATE TABLE ledControl
+CREATE TABLE Control
 (
 	ledId number(10,0),
 	ledStatus varchar2(1) DEFAULT 'F' NOT NULL,
 	memberId varchar2(100) NOT NULL,
-	CONSTRAINT ledControl_ledId_PK PRIMARY KEY (ledId)
+	wateringInterval number(3,0) DEFAULT 7 NOT NULL,
+	CONSTRAINT Control_ledId_PK PRIMARY KEY (ledId)
 );
 
 
@@ -92,8 +93,7 @@ CREATE TABLE wateringRecord
 (
 	recordId number(10,0),
 	wateredRegdate date DEFAULT SYSDATE NOT NULL,
-	intervalDays number(3,0) DEFAULT 7,
-	wateringType varchar2(1) NOT NULL,
+	wateringType varchar2(6) NOT NULL,
 	memberId varchar2(100) NOT NULL,
 	CONSTRAINT wateringRecord_recordId_PK PRIMARY KEY (recordId)
 );
@@ -122,7 +122,7 @@ ALTER TABLE journal
 ;
 
 
-ALTER TABLE ledControl
+ALTER TABLE Control
 	ADD FOREIGN KEY (memberId)
 	REFERENCES member (memberId)
 ;
