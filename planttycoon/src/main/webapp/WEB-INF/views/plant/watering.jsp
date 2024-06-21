@@ -44,9 +44,10 @@
                         <div class="watering_left">
                             <div class="auto_watering">
                                 <h4>자동 급수 관리</h4>  
-                                <form>
+                                <form action="${ctx}/plant/updateInterval" method="post">
+                                	<sec:csrfInput/>
                                     <div class="wataring_input">
-                                        <input type="text" placeholder="7">
+                                        <input type="text" placeholder="7" name="wateringInterval" value="${wateringInterval}">
                                         <p>일 마다 급수합니다. <span>(미입력시 7일)</span></p>
                                     </div>
                                     <button type="submit">저장</button>
@@ -60,46 +61,17 @@
                                         <li>급수타입</li>
                                     </ul>
                                     <ul class="log_body">
-                                        <li>
-                                            <div>2024.05.28 15:33:02</div>
-                                            <div>자동</div>
-                                        </li>
-                                        <li>
-                                            <div>2024.05.28 15:33:02</div>
-                                            <div>자동</div>
-                                        </li>
-                                        <li>
-                                            <div>2024.05.28 15:33:02</div>
-                                            <div>자동</div>
-                                        </li>
-                                        <li>
-                                            <div>2024.05.28 15:33:02</div>
-                                            <div>자동</div>
-                                        </li>
-                                        <li>
-                                            <div>2024.05.28 15:33:02</div>
-                                            <div>자동</div>
-                                        </li>
-                                        <li>
-                                            <div>2024.05.28 15:33:02</div>
-                                            <div>자동</div>
-                                        </li>
-                                        <li>
-                                            <div>2024.05.28 15:33:02</div>
-                                            <div>자동</div>
-                                        </li>
-                                        <li>
-                                            <div>2024.05.28 15:33:02</div>
-                                            <div>자동</div>
-                                        </li>
-                                        <li>
-                                            <div>2024.05.28 15:33:02</div>
-                                            <div>자동</div>
-                                        </li>
-                                        <li>
-                                            <div>2024.05.28 15:33:02</div>
-                                            <div>자동</div>
-                                        </li>
+	                                    <c:forEach var="record" items="${records}">
+			                                <li>
+			                                    <div><fmt:formatDate value="${record.wateredRegdate}" pattern="yyyy.MM.dd HH:mm:ss"/></div>
+			                                    <div>${record.wateringType}</div>
+			                                </li>
+			                            </c:forEach>
+<!--                                         <li> -->
+<!--                                             <div>2024.05.28 15:33:02</div> -->
+<!--                                             <div>자동</div> -->
+<!--                                         </li> -->
+                                        
                                     </ul>
                                     <div class="paging">
                                         <p>

@@ -1,6 +1,6 @@
 package kr.co.planttycoon.service;
 
-import kr.co.planttycoon.domain.LedcontrolDTO;
+import kr.co.planttycoon.domain.ControlDTO;
 
 public interface ILedcontrolService {
 	public String getMemberIdByMemberId(String memberId);

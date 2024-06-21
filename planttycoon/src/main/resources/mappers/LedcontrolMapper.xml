@@ -5,18 +5,18 @@
 <mapper namespace="kr.co.planttycoon.mapper.LedcontrolMapper">
 
 	<insert id="insertLedControl">
-        INSERT INTO ledcontrol (ledId, ledStatus, memberId)
-        VALUES (LEDCONTROL_SEQ.nextval, DEFAULT, #{memberId})
+        INSERT INTO control (ledId, ledStatus, memberId, wateringInterval)
+        VALUES (LEDCONTROL_SEQ.nextval, DEFAULT, #{memberId}, DEFAULT)
     </insert>
     
     <select id="selectLedControlByMemberId" resultType="java.lang.String">
         SELECT ledStatus
-        FROM ledcontrol
+        FROM control
         WHERE memberId = #{memberId}
     </select>
 
     <update id="updateLedControlByMemberId">
-	    UPDATE ledcontrol
+	    UPDATE control
 	    SET ledStatus = #{ledStatus}
 	    WHERE memberId = #{memberId}
 	</update>
