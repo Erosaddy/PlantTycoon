@@ -46,10 +46,10 @@
                         <h3>홈 화면
 	                    	<c:choose>
 							    <c:when test="${not empty plant}">
-							        <span><sec:authentication property="principal.member.plant"/></span>
+							        <span>[<sec:authentication property="principal.member.plant"/>]</span>
 							    </c:when>
 							    <c:otherwise>
-							        <span>선택된 식물 없음</span>
+							        <span>[선택된 식물 없음]</span>
 							    </c:otherwise>
 							</c:choose>
                         </h3>
@@ -108,12 +108,12 @@
                        </div>
                        <div class="home">
                             <div class="home_left">
-                                <div class="plant_emotion smile"> <!-- 모두 만족일때 smile, 온도 높을때 high_t, 온도 낮을때 low_t, 토양습도 높을때 high_m, 토양습도 낮을때 low_m 클래스 붙음-->
+                                <div id="plant_emotion" class="plant_emotion"> <!-- 모두 만족일때 smile, 온도 높을때 high_t, 온도 낮을때 low_t, 토양습도 높을때 high_m, 토양습도 낮을때 low_m 클래스 붙음-->
                                     <div class="plant_bg">
                                     </div>
                                     <div class="plant_txt">
                                         <img src="${ctx}/resources/images/plant_text_bg.png" alt="식물 말풍선">
-                                        <p>물이 없으니 힘이 나질 않아요</p>
+                                        <p>식물을<br>선택해 주세요!</p>
                                     </div>
                                 </div>
                                 <div class="plant_btn">
@@ -196,9 +196,140 @@
             </div>
         </div>
     </div>
-    <script src="${ctx}/resources/script/measurement.js"></script>
-    <script>
-    	
+    <script type="module">
+	import { plantMessages } from '${ctx}/resources/script/plantmessages.js';
+
+	    $(window).on("load", function() {
+	    	const currentPlant = $('#currentPlant').val();
+	        fetch(`${ctx}/resources/json/plantsData.json`)
+	        	.then(response => response.json())
+	            .then(data => {
+	            	const selectedPlant = data.find(plant => plant.plant_name === currentPlant);
+	            	if (selectedPlant) {
+	            		
+	            		const minTemperature = selectedPlant.min_temperature_celcius;
+	        		    const maxTemperature = selectedPlant.max_temperature_celcius;
+	        		    
+	        		    const minHumidity = selectedPlant.min_humidity_percentage;
+	        		    const maxHumidity = selectedPlant.max_humidity_percentage;
+	        		    
+	        		    const minLight = selectedPlant.min_light_lux;
+	        		    const maxLight = selectedPlant.max_light_lux;
+	        		    
+	        		    const minSoilMoisture = selectedPlant.min_soil_moisture_percentage;
+	        		    const maxSoilMoisture = selectedPlant.max_soil_moisture_percentage;
+	            		
+	    			    $('#minTemperature').html(minTemperature);
+	    			    $('#maxTemperature').html(maxTemperature);
+	    			    $('#minHumidity').html(minHumidity);
+	    			    $('#maxHumidity').html(maxHumidity);
+	    			    $('#minLight').html(minLight);
+	    			    $('#maxLight').html(maxLight);
+	    			    $('#minSoilMoisture').html(minSoilMoisture);
+	    			    $('#maxSoilMoisture').html(maxSoilMoisture);
+	    			    
+	    			 	// 온도
+	    			    const temperature = parseInt(document.getElementById('temperatureValue').textContent);
+	    			    const temperatureStatus = document.getElementById('temperatureStatus').querySelector('.status-indicator');
+	    			    if (temperature < minTemperature) {
+	    			        temperatureStatus.classList.add('low');
+	    			        temperatureStatus.classList.remove('high', 'ok');
+	    			    } else if (temperature > maxTemperature) {
+	    			        temperatureStatus.classList.add('high');
+	    			        temperatureStatus.classList.remove('low', 'ok');
+	    			    } else {
+	    			        temperatureStatus.classList.add('ok');
+	    			    }
+	    			    
+	    			    // 대기 습도
+	    			    const humidity = parseInt(document.getElementById('humidityValue').textContent);
+	    			    const humidityStatus = document.getElementById('humidityStatus').querySelector('.status-indicator');
+	    			    if (humidity < minHumidity) {
+	    			        humidityStatus.classList.add('low');
+	    			        humidityStatus.classList.remove('high', 'ok');
+	    			    } else if (humidity > maxHumidity) {
+	    			        humidityStatus.classList.add('high');
+	    			        humidityStatus.classList.remove('low', 'ok');
+	    			    } else {
+	    			        humidityStatus.classList.add('ok');
+	    			        humidityStatus.classList.remove('low', 'high');
+	    			    }
+	
+	    			    // 조도
+	    			    const illuminance = parseInt(document.getElementById('lightValue').textContent);
+	    			    const lightStatus = document.getElementById('lightStatus').querySelector('.status-indicator');
+	    			    if (illuminance < minLight) {
+	    			        lightStatus.classList.add('low');
+	    			        lightStatus.classList.remove('high', 'ok');
+	    			    } else {
+	    			        lightStatus.classList.add('ok');
+	    			        lightStatus.classList.remove('low', 'high');
+	    			    }
+	
+	    			    // 토양 습도
+	    			    const soilMoisture = parseInt(document.getElementById('soilMoistureValue').textContent);
+	    			    const soilMoistureStatus = document.getElementById('soilMoistureStatus').querySelector('.status-indicator');
+	    			    if (soilMoisture < minSoilMoisture) {
+	    			        soilMoistureStatus.classList.add('low');
+	    			        soilMoistureStatus.classList.remove('high', 'ok');
+	    			    } else if (soilMoisture > maxSoilMoisture) {
+	    			        soilMoistureStatus.classList.add('high');
+	    			        soilMoistureStatus.classList.remove('low', 'ok');
+	    			    } else {
+	    			        soilMoistureStatus.classList.add('ok');
+	    			        soilMoistureStatus.classList.remove('low', 'high');
+	    			    }
+	    			    
+						// 해당 이름의 클래스 존재 여부에 따라 true or false 반환
+	    			    const soilMoistureHigh = $('#soilMoistureStatus .status-indicator').hasClass("high");
+	    			    const soilMoistureLow = $('#soilMoistureStatus .status-indicator').hasClass("low");
+	    			    const temperatureHigh = $('#temperatureStatus .status-indicator').hasClass("high");
+	    			    const temperatureLow = $('#temperatureStatus .status-indicator').hasClass("low");
+	    			    const humidityHigh = $('#humidityStatus .status-indicator').hasClass("high");
+	    			    const humidityLow = $('#humidityStatus .status-indicator').hasClass("low");
+	    			    
+						const plantEmotion = $('#plant_emotion');
+						const randomNum = Math.floor(Math.random()*5);
+						const plantTxt = $('.plant_txt p');
+	
+	    			    if (soilMoistureHigh) {
+	    			    	plantTxt.html(plantMessages.highSoilMoisture[randomNum]);
+	    			    } else if (soilMoistureLow) {
+	    			    	plantTxt.html(plantMessages.lowSoilMoisture[randomNum]);							
+	    			    } else if (temperatureHigh) {
+	    			    	plantTxt.html(plantMessages.highTemperature[randomNum]);
+	    			    } else if (temperatureLow) {
+	    			    	plantTxt.html(plantMessages.lowTemperature[randomNum]);
+	    			    } else if (humidityHigh) {
+	    			    	plantTxt.html(plantMessages.highHumidity[randomNum]);
+	    			    } else if (humidityLow) {
+	    			    	plantTxt.html(plantMessages.lowHumidity[randomNum]);
+	    			    } else {
+							plantTxt.html(plantMessages.optimal[randomNum]);
+	    			    	plantEmotion.addClass('smile');
+	    			    }
+	    			    
+	            	} else {
+						// 아무 식물도 선택되지 않았을 때
+	            		$('#minTemperature').html('');
+	    			    $('#maxTemperature').html('');
+	    			    $('#minHumidity').html('');
+	    			    $('#maxHumidity').html('');
+	    			    $('#minLight').html('');
+	    			    $('#maxLight').html('');
+	    			    $('#minSoilMoisture').html('');
+	    			    $('#maxSoilMoisture').html('');
+	    			    const statusIndicator = $('.status-indicator');
+	    			    statusIndicator.css('display','none');
+	    			    const optimalConditionText = $('.gray');
+	    			    optimalConditionText.css('display', 'none');
+
+						const plantEmotion = $('#plant_emotion');
+	    			    plantEmotion.addClass('smile');
+	            	}
+	            })
+	            .catch(error => console.error('Error fetching data:', error));
+	    });
     </script>
 </body>
 </html>
