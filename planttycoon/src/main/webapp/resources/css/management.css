@@ -4,6 +4,7 @@
 .list_top{width: 100%; display: flex; flex-wrap: wrap; align-items: flex-end; margin-top: 20px;}
 .list_top .total{font-size: 15px; color: #636e66;}
 .list_top .total span{color: #40c866; font-weight: 600;}
+.list_top form{margin-left: auto;}
 .list_top .search{margin-left: auto; display: flex; flex-wrap: wrap;  background-color: #fff; border-radius: 5px; box-shadow: 0 0 7px 0 rgba(107, 115, 137, .1);}
 .list_top .search .search_box{position: relative;}
 .list_top .search .search_box select{width: 140px;}
@@ -80,9 +81,9 @@
     .list_top{margin-top: 10px;}
     .list_top .total{order: 0;}
     .list_top .btn_wrap{order: 1; margin-right: 0;}
-    .list_top .search{order: 2; width: 100%; margin-top: 10px;}
+    .list_top form{order: 2; width: 100%; margin-top: 10px;}
 
-    .list_top .search .search_box:last-child{width: calc(100% - 140px);}
+    .list_top .search .search_box:nth-child(2){width: calc(100% - 140px);}
     .list_top .search .search_box input{width: 100%;}
 
 

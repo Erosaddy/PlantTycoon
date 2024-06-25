@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.WateringrecordDTO;
 import kr.co.planttycoon.mapper.WateringMapper;
 import kr.co.planttycoon.service.IWateringService;
@@ -24,8 +25,8 @@ public class WateringServiceImpl implements IWateringService {
 	}
     
 	@Override
-	public List<WateringrecordDTO> getWateringRecordsByMemberId(String memberId) {
-		return mapper.getWateringRecordsByMemberId(memberId);
+	public List<WateringrecordDTO> getWateringRecordsByMemberId(String memberId, Criteria cri) {
+		return mapper.getWateringRecordsByMemberId(memberId, cri);
 	}
 
 	@Override
@@ -52,6 +53,11 @@ public class WateringServiceImpl implements IWateringService {
 	@Transactional
 	public void updateWateringInterval(String memberId, int wateringInterval) {
 		mapper.updateWateringInterval(memberId, wateringInterval);
+	}
+	
+	@Override
+	public int getTotalCnt(Criteria cri, String memberId) {
+	    return mapper.getTotalCnt(cri, memberId);
 	}
 
 }
