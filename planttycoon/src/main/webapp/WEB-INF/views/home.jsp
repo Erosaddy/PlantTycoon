@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <link rel="stylesheet" href="${ctx}/resources/css/plant.css">   
 <link rel="stylesheet" href="${ctx}/resources/css/home.css">   
             <div class="side">
@@ -60,7 +62,20 @@
                             <div class="status_con">
                                 <div class="txt" id="temperatureStatus">
 					                <p>온도 <span class="status-indicator"></span></p>
-					                <strong><span id="temperatureValue">${Math.round(latestMeasurement.temperature)}</span>˚C</strong>
+					                
+					                <c:choose>
+						                <c:when test="${not empty latestMeasurement.temperature}">
+						                	<c:set var="temp" value="${latestMeasurement.temperature}"/>
+						                	<!-- Math.round가 jstl에서 작동하지 않아 수작업으로 반올림 처리 -->
+						                	<c:set var="roundedTemperature" value="${temp+((temp%1>0.5)?(1-(temp%1))%1:-(temp%1))}" />
+											<c:set var="formattedTemperature" value="${fn:replace(roundedTemperature, '.0', '')}" />
+							                <strong><span id="temperatureValue">${formattedTemperature}</span>˚C</strong>
+					                	</c:when>
+					                	<c:otherwise>
+					                		<strong>N/A</strong>
+					                	</c:otherwise>
+					                </c:choose>
+					                
 					                <p class="gray">적정 온도 
 					                	<span id="minTemperature"></span> ~ <span id="maxTemperature"></span>˚C
 				                	</p>
@@ -72,7 +87,19 @@
                             <div class="status_con">
                                 <div class="txt" id="humidityStatus">
 					                <p>대기 습도 <span class="status-indicator"></span></p>
-					                <strong><span id="humidityValue">${Math.round(latestMeasurement.humidity)}</span>%</strong>
+					                <c:choose>
+						                <c:when test="${not empty latestMeasurement.humidity}">
+						                	<c:set var="hum" value="${latestMeasurement.humidity}"/>
+						                	<!-- 대기 습도 반올림 -->
+						                	<c:set var="roundedHumidity" value="${hum+((hum%1>0.5)?(1-(hum%1))%1:-(hum%1))}" />
+											<c:set var="formattedHumidity" value="${fn:replace(roundedHumidity, '.0', '')}" />
+							                <strong><span id="humidityValue">${formattedHumidity}</span>%</strong>
+					                	</c:when>
+					                	<c:otherwise>
+					                		<strong>N/A</strong>
+					                	</c:otherwise>
+					                </c:choose>
+					                
 					                <p class="gray">적정 습도
 					                	<span id="minHumidity"></span> ~ <span id="maxHumidity"></span>%
 					                </p>
@@ -84,7 +111,16 @@
                             <div class="status_con">
                                 <div class="txt" id="lightStatus">
 					                <p>조도 <span class="status-indicator"></span></p>
-					                <strong><span id="lightValue">${latestMeasurement.illuminance}</span>lux</strong>
+					                
+					                <c:choose>
+						                <c:when test="${not empty latestMeasurement.illuminance}">
+							                <strong><span id="lightValue">${latestMeasurement.illuminance}</span>lux</strong>
+					                	</c:when>
+					                	<c:otherwise>
+					                		<strong>N/A</strong>
+					                	</c:otherwise>
+					                </c:choose>
+					                
 					                <p class="gray">적정 조도
 					                	<span id="minLight"></span> lux 이상
 					                </p>
@@ -96,7 +132,20 @@
                             <div class="status_con">
                                 <div class="txt" id="soilMoistureStatus">
 					                <p>토양 습도 <span class="status-indicator"></span></p>
-					                <strong><span id="soilMoistureValue">${latestMeasurement.soilMoisture}</span>%</strong>
+					                
+					                <c:choose>
+						                <c:when test="${not empty latestMeasurement.soilMoisture}">
+						                	<c:set var="soilMo" value="${latestMeasurement.soilMoisture}"/>
+						                	<!-- 토양 습도 반올림 -->
+						                	<c:set var="roundedSoilMoisture" value="${soilMo+((soilMo%1>0.5)?(1-(soilMo%1))%1:-(soilMo%1))}" />
+											<c:set var="formattedSoilMoisture" value="${fn:replace(roundedSoilMoisture, '.0', '')}" />
+							                <strong><span id="soilMoistureValue">${formattedSoilMoisture}</span>%</strong>
+					                	</c:when>
+					                	<c:otherwise>
+					                		<strong>N/A</strong>
+					                	</c:otherwise>
+					                </c:choose>
+					                
 					                <p class="gray">적정 습도
 					                <span id="minSoilMoisture"></span> ~ <span id="maxSoilMoisture"></span>%
 					                </p>

@@ -135,7 +135,7 @@
 		                		idIsAvailable = true;
 		                	}
 		                } else { // cnt가 1일 경우 -> 이미 존재하는 이메일
-		                	$('#join_id_error_message').text('이미 사용중인 이메일입니다.');
+		                	$('#join_id_error_message').text("이미 사용중인 이메일입니다.").attr('class', 'font_red');
 		                }
 		            },
 		            error:function(){
