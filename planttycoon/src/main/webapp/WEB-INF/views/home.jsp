@@ -60,7 +60,16 @@
                             <div class="status_con">
                                 <div class="txt" id="temperatureStatus">
 					                <p>온도 <span class="status-indicator"></span></p>
-					                <strong><span id="temperatureValue">${Math.round(latestMeasurement.temperature)}</span>˚C</strong>
+					                
+					                <c:choose>
+						                <c:when test="${not empty latestMeasurement.temperature}">
+							                <strong><span id="temperatureValue">${Math.round(latestMeasurement.temperature)}</span>˚C</strong>
+					                	</c:when>
+					                	<c:otherwise>
+					                		<strong>N/A</strong>
+					                	</c:otherwise>
+					                </c:choose>
+					                
 					                <p class="gray">적정 온도 
 					                	<span id="minTemperature"></span> ~ <span id="maxTemperature"></span>˚C
 				                	</p>
@@ -72,7 +81,15 @@
                             <div class="status_con">
                                 <div class="txt" id="humidityStatus">
 					                <p>대기 습도 <span class="status-indicator"></span></p>
-					                <strong><span id="humidityValue">${Math.round(latestMeasurement.humidity)}</span>%</strong>
+					                <c:choose>
+						                <c:when test="${not empty latestMeasurement.humidity}">
+							                <strong><span id="humidityValue">${Math.round(latestMeasurement.humidity)}</span>%</strong>
+					                	</c:when>
+					                	<c:otherwise>
+					                		<strong>N/A</strong>
+					                	</c:otherwise>
+					                </c:choose>
+					                
 					                <p class="gray">적정 습도
 					                	<span id="minHumidity"></span> ~ <span id="maxHumidity"></span>%
 					                </p>
@@ -84,7 +101,16 @@
                             <div class="status_con">
                                 <div class="txt" id="lightStatus">
 					                <p>조도 <span class="status-indicator"></span></p>
-					                <strong><span id="lightValue">${latestMeasurement.illuminance}</span>lux</strong>
+					                
+					                <c:choose>
+						                <c:when test="${not empty latestMeasurement.illuminance}">
+							                <strong><span id="lightValue">${latestMeasurement.illuminance}</span>lux</strong>
+					                	</c:when>
+					                	<c:otherwise>
+					                		<strong>N/A</strong>
+					                	</c:otherwise>
+					                </c:choose>
+					                
 					                <p class="gray">적정 조도
 					                	<span id="minLight"></span> lux 이상
 					                </p>
@@ -96,7 +122,16 @@
                             <div class="status_con">
                                 <div class="txt" id="soilMoistureStatus">
 					                <p>토양 습도 <span class="status-indicator"></span></p>
-					                <strong><span id="soilMoistureValue">${latestMeasurement.soilMoisture}</span>%</strong>
+					                
+					                <c:choose>
+						                <c:when test="${not empty latestMeasurement.soilMoisture}">
+							                <strong><span id="soilMoistureValue">${Math.round(latestMeasurement.soilMoisture)}</span>%</strong>
+					                	</c:when>
+					                	<c:otherwise>
+					                		<strong>N/A</strong>
+					                	</c:otherwise>
+					                </c:choose>
+					                
 					                <p class="gray">적정 습도
 					                <span id="minSoilMoisture"></span> ~ <span id="maxSoilMoisture"></span>%
 					                </p>
