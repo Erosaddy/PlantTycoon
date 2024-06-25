@@ -36,17 +36,17 @@
 		});
 		
 		function updateListNumbers() {
-		    const listBody = document.querySelector('.list_body');
-		    const listItems = listBody.querySelectorAll('li');
-		    let num = ${total} - ((${pageMaker.cri.pageNum} - 1) * ${pageMaker.cri.amount}); 
-		
-		    listItems.forEach(function(item) {
-		        const numElement = item.querySelector('.num');
-		        numElement.textContent = num;
-		        numElement.classList.add('js-numbered');
-		        num--;
-		    });
-		}
+			  const listBody = document.querySelector('.list_body');
+			  const listItems = listBody.querySelectorAll('li');
+			  let num = ${total} - ((${pageMaker.cri.pageNum} - 1) * ${pageMaker.cri.amount}); 
+
+			  listItems.forEach(function(item) {
+			    const numElement = item.querySelector('.num');
+			    numElement.textContent = num;
+			    numElement.classList.add('js-numbered');
+			    num--; 
+			  });
+			}
 		</script>
 			<c:if test="${not empty result}">
 			    <script>

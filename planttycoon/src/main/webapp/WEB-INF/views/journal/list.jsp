@@ -80,14 +80,12 @@
                     </div>
                     <div class="list_top">
                         <div class="total">총 <span>${total}</span>건</div>
-                        <div class="btn_wrap">
                         	<div class="btn_wrap">
 							    <a href="${ctx}/journal/register" class="btn_write"> <%-- a 태그로 변경 --%>
 							        <img src="${ctx}/resources/images/ic_write.png" alt="작성하기 버튼 아이콘">
 							        작성하기
 							    </a>
 							</div>
-                        </div>
 							<form action="${ctx}/journal/list" method="get"> <%-- 폼 태그 추가 --%>
 								<div class="search">
 									<div class="search_box">

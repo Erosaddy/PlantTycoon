@@ -2,7 +2,7 @@
 
 
 .list_top{width: 100%; display: flex; flex-wrap: wrap; align-items: flex-end; margin-top: 20px;}
-.list_top .total{font-size: 15px; color: #636e66;}
+.list_top .total{font-size: 15px; color: #636e66; margin-right: auto;}
 .list_top .total span{color: #40c866; font-weight: 600;}
 .list_top .btn_wrap{margin-left: auto; margin-right: 10px;}
 .list_top .btn_wrap .btn_write{width: 130px; height: 46px; display: flex; align-items: center; justify-content: center; border-radius: 5px; background: #40c866; color: #fff; font-weight: 600; box-shadow: 0 0 7px 0 rgba(107, 115, 137, .1);}
