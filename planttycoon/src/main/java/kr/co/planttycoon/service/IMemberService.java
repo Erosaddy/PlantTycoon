@@ -13,4 +13,5 @@ public interface IMemberService {
 	public int modifyEnabled(String enabled, String memberId);
 	public List<MemberDTO> memberList(Criteria cri);
 	public int getTotalCnt(Criteria cri);
+	public MemberDTO read(String memberId);
 }

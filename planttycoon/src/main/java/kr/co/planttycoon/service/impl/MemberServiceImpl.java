@@ -96,4 +96,9 @@ public class MemberServiceImpl implements IMemberService {
 	    return mapper.getTotalCnt(cri);
 	}
 
+    @Override
+    public MemberDTO read(String memberId) {
+        return mapper.read(memberId);
+    }
+	
 }
