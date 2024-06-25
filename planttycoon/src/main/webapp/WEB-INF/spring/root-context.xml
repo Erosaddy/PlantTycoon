@@ -19,7 +19,7 @@
 		<property name="driverClassName"
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<!-- 아래 내용은 새로운 원격 DB에 맞게 재설정해야 한다. -->
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.0.209:1521:XE"></property>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.219.104:1521:XE"></property>
 		<property name="username" value="scott"></property>
 		<property name="password" value="tiger"></property>
 	</bean>
@@ -46,11 +46,13 @@
 	</bean>
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:property-placeholder location="classpath:application.properties"/>
+	
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.naver.com" />
-		<property name="port" value="465" />
-		<property name="username" value="blackyokel@naver.com" />
-		<property name="password" value="VZBC6T8Z7HSF" />
+		<property name="host" value="${SMTP_HOST}"/>
+	    <property name="port" value="${SMTP_PORT}"/>
+	    <property name="username" value="${SMTP_USERNAME}"/>
+	    <property name="password" value="${SMTP_PASSWORD}"/>
 		<property name="defaultEncoding" value="utf-8" />
 
 		<property name="javaMailProperties">
