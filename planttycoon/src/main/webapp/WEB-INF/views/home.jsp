@@ -65,8 +65,9 @@
 					                
 					                <c:choose>
 						                <c:when test="${not empty latestMeasurement.temperature}">
+						                	<c:set var="temp" value="${latestMeasurement.temperature}"/>
 						                	<!-- Math.round가 jstl에서 작동하지 않아 수작업으로 반올림 처리 -->
-						                	<c:set var="roundedTemperature" value="${latestMeasurement.temperature+((latestMeasurement.temperature%1>0.5)?(1-(latestMeasurement.temperature%1))%1:-(latestMeasurement.temperature%1))}" />
+						                	<c:set var="roundedTemperature" value="${temp+((temp%1>0.5)?(1-(temp%1))%1:-(temp%1))}" />
 											<c:set var="formattedTemperature" value="${fn:replace(roundedTemperature, '.0', '')}" />
 							                <strong><span id="temperatureValue">${formattedTemperature}</span>˚C</strong>
 					                	</c:when>
@@ -88,7 +89,9 @@
 					                <p>대기 습도 <span class="status-indicator"></span></p>
 					                <c:choose>
 						                <c:when test="${not empty latestMeasurement.humidity}">
-						                	<c:set var="roundedHumidity" value="${latestMeasurement.humidity+((latestMeasurement.humidity%1>0.5)?(1-(latestMeasurement.humidity%1))%1:-(latestMeasurement.humidity%1))}" />
+						                	<c:set var="hum" value="${latestMeasurement.humidity}"/>
+						                	<!-- 대기 습도 반올림 -->
+						                	<c:set var="roundedHumidity" value="${hum+((hum%1>0.5)?(1-(hum%1))%1:-(hum%1))}" />
 											<c:set var="formattedHumidity" value="${fn:replace(roundedHumidity, '.0', '')}" />
 							                <strong><span id="humidityValue">${formattedHumidity}</span>%</strong>
 					                	</c:when>
@@ -132,7 +135,9 @@
 					                
 					                <c:choose>
 						                <c:when test="${not empty latestMeasurement.soilMoisture}">
-						                	<c:set var="roundedSoilMoisture" value="${latestMeasurement.soilMoisture+((latestMeasurement.soilMoisture%1>0.5)?(1-(latestMeasurement.soilMoisture%1))%1:-(latestMeasurement.soilMoisture%1))}" />
+						                	<c:set var="soilMo" value="${latestMeasurement.soilMoisture}"/>
+						                	<!-- 토양 습도 반올림 -->
+						                	<c:set var="roundedSoilMoisture" value="${soilMo+((soilMo%1>0.5)?(1-(soilMo%1))%1:-(soilMo%1))}" />
 											<c:set var="formattedSoilMoisture" value="${fn:replace(roundedSoilMoisture, '.0', '')}" />
 							                <strong><span id="soilMoistureValue">${formattedSoilMoisture}</span>%</strong>
 					                	</c:when>
