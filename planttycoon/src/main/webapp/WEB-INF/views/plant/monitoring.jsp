@@ -218,5 +218,20 @@ $(document).ready(function() {
     });
 });
 </script>
+<script>
+$(document).ready(function() {
+    $(".water").click(function() {
+        $.get("/plant/requestWatering", function(data, status) {
+            // 성공 시 처리 로직
+            alert("물주기 요청이 전송되었습니다.");
+        }).fail(function(xhr, status, error) {
+            // 실패 시 처리 로직
+            console.error("물주기 요청 실패:", error);
+            alert("물주기 요청을 처리하는 중 오류가 발생했습니다.");
+        });
+    });
+});
+</script>
+
 </body>
 </html>

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.planttycoon.domain.Criteria;
+import kr.co.planttycoon.domain.PageDTO;
 import kr.co.planttycoon.domain.WateringrecordDTO;
 import kr.co.planttycoon.service.IWateringService;
 import lombok.extern.log4j.Log4j;
@@ -26,13 +28,16 @@ public class WateringController {
 	}
 	
 	@GetMapping("/plant/watering")
-	public void plantwatering(Model model, Principal principal) {
+	public void plantwatering(Model model, Principal principal, Criteria cri) {
 		String memberId = principal.getName(); // 로그인 사용자 정보 가져오기
 		
-		List<WateringrecordDTO> records = service.getWateringRecordsByMemberId(memberId);
+		List<WateringrecordDTO> records = service.getWateringRecordsByMemberId(memberId, cri);
         int wateringInterval = service.getWateringIntervalByMemberId(memberId);
         model.addAttribute("records", records);
         model.addAttribute("wateringInterval", wateringInterval);
+        
+        int total = service.getTotalCnt(cri, memberId);
+        model.addAttribute("pageMaker", new PageDTO(total, cri));
 	}
 	
 	// 자동 물주기 주기 업데이트
@@ -43,4 +48,6 @@ public class WateringController {
 
         return "redirect:/plant/watering";
     }
+    
+    
 }

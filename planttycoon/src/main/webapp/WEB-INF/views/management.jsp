@@ -40,26 +40,25 @@
                     </div>
                     <div class="list_top">
                         <div class="total">총 <span>${pageMaker.total}</span>명</div>
-                        <div class="search">
-                            <div class="search_box">
-                            
-	                            <form id="searchForm" action="${ctx}/management" method="get">
-									<select name="type">
-										<option value=""   <c:out value="${pageMaker.cri.type == null ? 'selected' : ''}" />>-------</option>
-										<option value="N"  <c:out value="${pageMaker.cri.type eq 'N'  ? 'selected' : ''}" />>닉네임</option>
-										<option value="E"  <c:out value="${pageMaker.cri.type eq 'E'  ? 'selected' : ''}" />>이메일</option>
-									</select>
-									<input type="text" name="keyword" placeholder="검색어를 입력하세요" value="${pageMaker.cri.keyword }">
+                        <form id="searchForm" action="${ctx}/management" method="get">
+	                        <div class="search">
+	                            	<div class="search_box">
+	                            
+										<select name="type">
+											<option value=""   <c:out value="${pageMaker.cri.type == null ? 'selected' : ''}" />>-------</option>
+											<option value="N"  <c:out value="${pageMaker.cri.type eq 'N'  ? 'selected' : ''}" />>닉네임</option>
+											<option value="E"  <c:out value="${pageMaker.cri.type eq 'E'  ? 'selected' : ''}" />>이메일</option>
+										</select>
+	                            
+		                            </div>
+		                            <div class="search_box">
+										<input type="text" name="keyword" placeholder="검색어를 입력하세요" value="${pageMaker.cri.keyword }">
+										<button class="btn_search">Search</button>
+		                            </div>
 									<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
 									<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-									<button class="btn_search">Search</button>
-								</form>
-                            
-                            </div>
-                            <div class="search_box">
-                            	
-                            </div>
-                        </div>
+	                        </div>
+						</form>
                     </div>
                     <div class="list">
                         <ul class="list_head">

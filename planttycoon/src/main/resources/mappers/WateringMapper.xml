@@ -4,13 +4,27 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.planttycoon.mapper.WateringMapper">
 	<!-- 해당 memberId의 모든 물주기 기록 조회 -->
-    <select id="getWateringRecordsByMemberId" parameterType="string" resultType="kr.co.planttycoon.domain.WateringrecordDTO">
-        SELECT *
-        FROM wateringRecord
-        WHERE memberId = #{memberId}
-        ORDER BY wateredRegdate DESC
+    <select id="getWateringRecordsByMemberId" resultType="kr.co.planttycoon.domain.WateringrecordDTO">
+    	<![CDATA[
+	    SELECT  recordId,
+	    		wateredRegdate,
+	            wateringType,
+	            memberId
+	    FROM (SELECT
+	            rownum rn,
+	            recordId,
+	            wateredRegdate,
+	            wateringType,
+	            memberId
+	          FROM wateringRecord
+	          WHERE memberId = #{memberId}
+	          AND rownum <= #{cri.pageNum} * #{cri.amount}
+	          order by recordId desc
+	        )
+	    WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}
+	    ]]>
     </select>
-
+    
     <!-- 해당 memberId의 마지막 물주기 기록 날짜 조회 -->
     <select id="getLastWateringDate" parameterType="string" resultType="java.util.Date">
         SELECT wateredRegdate
@@ -45,4 +59,12 @@
 	    SET wateringInterval = #{wateringInterval}
 	    WHERE memberId = #{memberId}
 	</update>
+	
+	<select id="getTotalCnt" resultType="int">
+		SELECT	count(*)
+		FROM	wateringRecord	
+		WHERE memberId = #{memberId}
+	</select>
+	
+	
 </mapper>
