@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <link rel="stylesheet" href="${ctx}/resources/css/plant.css">   
 <link rel="stylesheet" href="${ctx}/resources/css/home.css">   
             <div class="side">
@@ -63,7 +65,10 @@
 					                
 					                <c:choose>
 						                <c:when test="${not empty latestMeasurement.temperature}">
-							                <strong><span id="temperatureValue">${Math.round(latestMeasurement.temperature)}</span>˚C</strong>
+						                	<!-- Math.round가 jstl에서 작동하지 않아 수작업으로 반올림 처리 -->
+						                	<c:set var="roundedTemperature" value="${latestMeasurement.temperature+((latestMeasurement.temperature%1>0.5)?(1-(latestMeasurement.temperature%1))%1:-(latestMeasurement.temperature%1))}" />
+											<c:set var="formattedTemperature" value="${fn:replace(roundedTemperature, '.0', '')}" />
+							                <strong><span id="temperatureValue">${formattedTemperature}</span>˚C</strong>
 					                	</c:when>
 					                	<c:otherwise>
 					                		<strong>N/A</strong>
@@ -83,7 +88,9 @@
 					                <p>대기 습도 <span class="status-indicator"></span></p>
 					                <c:choose>
 						                <c:when test="${not empty latestMeasurement.humidity}">
-							                <strong><span id="humidityValue">${Math.round(latestMeasurement.humidity)}</span>%</strong>
+						                	<c:set var="roundedHumidity" value="${latestMeasurement.humidity+((latestMeasurement.humidity%1>0.5)?(1-(latestMeasurement.humidity%1))%1:-(latestMeasurement.humidity%1))}" />
+											<c:set var="formattedHumidity" value="${fn:replace(roundedHumidity, '.0', '')}" />
+							                <strong><span id="humidityValue">${formattedHumidity}</span>%</strong>
 					                	</c:when>
 					                	<c:otherwise>
 					                		<strong>N/A</strong>
@@ -125,7 +132,9 @@
 					                
 					                <c:choose>
 						                <c:when test="${not empty latestMeasurement.soilMoisture}">
-							                <strong><span id="soilMoistureValue">${Math.round(latestMeasurement.soilMoisture)}</span>%</strong>
+						                	<c:set var="roundedSoilMoisture" value="${latestMeasurement.soilMoisture+((latestMeasurement.soilMoisture%1>0.5)?(1-(latestMeasurement.soilMoisture%1))%1:-(latestMeasurement.soilMoisture%1))}" />
+											<c:set var="formattedSoilMoisture" value="${fn:replace(roundedSoilMoisture, '.0', '')}" />
+							                <strong><span id="soilMoistureValue">${formattedSoilMoisture}</span>%</strong>
 					                	</c:when>
 					                	<c:otherwise>
 					                		<strong>N/A</strong>
