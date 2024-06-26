@@ -40,12 +40,12 @@
 			  const listItems = listBody.querySelectorAll('li');
 			  let num = ${total} - ((${pageMaker.cri.pageNum} - 1) * ${pageMaker.cri.amount}); 
 
-			  listItems.forEach(function(item) {
+			  /* listItems.forEach(function(item) {
 			    const numElement = item.querySelector('.num');
 			    numElement.textContent = num;
 			    numElement.classList.add('js-numbered');
 			    num--; 
-			  });
+			  }); */
 			}
 		</script>
 			<c:if test="${not empty result}">
@@ -132,9 +132,9 @@
                            <li>작성일</li> 
                         </ul>
                    		<ul class="list_body">
-			                <c:forEach items="${list}" var="notice" varStatus="status"> <%-- notice 객체 사용 --%>
+			                <c:forEach items="${list}" var="notice"> <%-- notice 객체 사용 --%>
 			                    <li>
-			                        <div class="num"></div>
+			                        <div class="num">${notice.noticeId}</div>
 			                        <div class="tit">
 			                            <a href="${ctx}/notice/get?noticeId=${notice.noticeId}" class="txt_cut1">${notice.noticeTitle}</a> <%-- noticeId 사용 --%>
 			                        </div>

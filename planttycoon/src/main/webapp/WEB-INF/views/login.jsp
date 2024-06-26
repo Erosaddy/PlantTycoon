@@ -31,6 +31,19 @@
             }
         });
     </script>
+    <style>
+    /* Chrome, Safari, Edge, Opera */
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+	  -webkit-appearance: none;
+	  margin: 0;
+	}
+	
+	/* Firefox  */
+	input[type='number'] {
+	  -moz-appearance: textfield;
+	}
+    </style>
 </head>
 <body>
     <div id="wrapper">
@@ -134,10 +147,7 @@
                     success: function(response) {
                     	console.log(response.num);
                         if (response.status) {
-                            $("#result").html(
-                            	"<p>인증번호가 전송되었습니다: " + response.num + "</p>" +
-                                "<p>이메일 주소: " + response.memberId + "</p>"
-                            );
+                            $("#result").html("인증번호가 전송되었습니다.");
                             $('#verifyAuthForm').css("display", "block");
                         } else {
                             $("#result").html("<p>Error: " + response.message + "</p>");

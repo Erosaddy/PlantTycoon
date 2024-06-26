@@ -39,7 +39,7 @@ public class NoticeController {
 	    String memberId = principal.getName(); // 로그인 사용자 정보 가져오기
 
 	    // 전체 게시글 수 조회 (한 번만 호출)
-	    int total = Service.getTotalCount(memberId, cri); 
+	    int total = Service.getTotalCount(cri); 
 
 	    // 페이징 처리
 	    PageDTO pageDTO = new PageDTO(total, cri); 
@@ -49,6 +49,8 @@ public class NoticeController {
 	    model.addAttribute("pageMaker", pageDTO);  // pageMaker 속성으로 PageDTO 객체 전달
 	    model.addAttribute("cri", cri); // 검색 조건 유지
 	    model.addAttribute("total", total); // total 속성으로 전체 게시글 수 전달
+	    
+	    log.info("pageDTO=============> " + pageDTO);
 
 	    return "notice/list";
 	    

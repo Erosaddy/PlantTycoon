@@ -165,7 +165,7 @@ public class MemberController {
 
             // 랜덤 인증번호 생성
             Random r = new Random();
-            int num = r.nextInt(999999);
+            int num = 100000 + r.nextInt(900000);
             
             // 인증번호를 세션에 저장
             session.setAttribute("authNumber", num);

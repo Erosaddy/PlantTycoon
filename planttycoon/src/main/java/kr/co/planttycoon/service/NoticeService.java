@@ -42,8 +42,8 @@ public class NoticeService {
         return mapper.delete(noticeId) == 1;
     }
 
-    public int getTotalCount(String memberId, Criteria cri) { // 메서드 통합
-        return mapper.getTotalCount(memberId, cri);
+    public int getTotalCount(Criteria cri) { // 메서드 통합
+        return mapper.getTotalCount(cri);
     }
 
     public List<NoticeDTO> getListWithPaging(Criteria cri) { // memberId 매개변수 제거

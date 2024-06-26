@@ -58,14 +58,13 @@
 <select id="getTotalCount" resultType="int">
     SELECT count(*)
     FROM notice
-    WHERE memberid = #{memberId}
     <if test="cri.type != null and cri.type != ''">
         <choose>
             <when test='cri.type == "T"'>
-                AND noticetitle LIKE '%' || #{cri.keyword} || '%'
+                WHERE noticetitle LIKE '%' || #{cri.keyword} || '%'
             </when>
             <when test='cri.type == "C"'>
-                AND noticecontent LIKE '%' || #{cri.keyword} || '%'
+                WHERE noticecontent LIKE '%' || #{cri.keyword} || '%'
             </when>
         </choose>
     </if>

@@ -31,7 +31,7 @@ public interface NoticeMapper {
 	@Delete("DELETE FROM notice WHERE noticeid = #{noticeId}")
     int delete(int noticeId);
 	
-    int getTotalCount(@Param("memberId") String memberId, @Param("cri") Criteria cri);
+    int getTotalCount(@Param("cri") Criteria cri);
 
 	List<NoticeDTO> getList(@Param("cri") Criteria cri, @Param("memberId") String memberId);
 
