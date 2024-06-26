@@ -27,6 +27,9 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- Add RestTemplate bean -->
+    <beans:bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
+    
 	<context:component-scan base-package="kr.co.planttycoon" />
 	<context:component-scan base-package="kr.co.planttycoon.controller" />
 	
