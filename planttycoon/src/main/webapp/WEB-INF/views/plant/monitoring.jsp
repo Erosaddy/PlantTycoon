@@ -92,7 +92,7 @@
                                 </div>
                             </div>
                             <div class="click_btn">
-                                <button type="button" class="water">물주기<img src="${ctx}/resources/images/ic_water.png" alt="물주기 아이콘"></button>
+                                <button type="button" class="water" onclick="startPump()">물주기<img src="${ctx}/resources/images/ic_water.png" alt="물주기 아이콘"></button>
                                 <button type="button" class="led" id="toggleLed">조명 켜기<img src="${ctx}/resources/images/ic_led.png" alt="조명 켜기 아이콘"></button>
 <%--                                 <button type="button" class="led">조명켜기<img src="${ctx}/resources/images/ic_led.png" alt="조명켜기 아이콘"></button> --%>
 <%--                                 <button type="button" class="img" id="btn_download">촬영하기<img src="${ctx}/resources/images/ic_img.png" alt="촬영하기 아이콘"></button> --%>
@@ -219,19 +219,12 @@ $(document).ready(function() {
 });
 </script>
 <script>
-$(document).ready(function() {
-    $(".water").click(function() {
-        $.get("/plant/requestWatering", function(data, status) {
-            // 성공 시 처리 로직
-            alert("물주기 요청이 전송되었습니다.");
-        }).fail(function(xhr, status, error) {
-            // 실패 시 처리 로직
-            console.error("물주기 요청 실패:", error);
-            alert("물주기 요청을 처리하는 중 오류가 발생했습니다.");
-        });
-    });
-});
-</script>
+        function startPump() {
+            fetch('<c:url value="/startPump"/>')
+                .then(response => response.text())
+                .then(data => alert(data));
+        }
+    </script>
 
 </body>
 </html>
