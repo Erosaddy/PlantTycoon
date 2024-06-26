@@ -209,20 +209,29 @@ public class MemberController {
     }
 	
 	@PostMapping("/verifyAuth")
-    public String verifyAuth(@RequestParam int authNumber, HttpSession session, RedirectAttributes rttr) {
+	@ResponseBody
+    public Map<String, Object> verifyAuth(@RequestParam int authNumber, HttpSession session, RedirectAttributes rttr) {
 		
+	    Map<String, Object> map = new HashMap<>();
         Integer sessionAuthNumber = (Integer) session.getAttribute("authNumber");
+        String sessionAuthUser = (String) session.getAttribute("authUser");
 
         if (sessionAuthNumber != null && sessionAuthNumber == authNumber) {
-        	String token = UUID.randomUUID().toString();
+            // 고유 토큰 생성
+            String token = UUID.randomUUID().toString();
             session.setAttribute("passwordChangeAllowed", true);
             session.setAttribute("authToken", token);
-        	rttr.addFlashAttribute("authResult", "success");
+            
+            map.put("status", true);
+            map.put("message", "인증에 성공했습니다.");
+            map.put("memberId", sessionAuthUser);
+            map.put("authToken", token);
         } else {
-        	rttr.addFlashAttribute("authResult", "failure");
+            map.put("status", false);
+            map.put("message", "인증번호가 일치하지 않습니다.");
         }
 
-        return "redirect:/changePassword";
+        return map;
     }
 	
 	@GetMapping("/changePassword")
@@ -231,9 +240,38 @@ public class MemberController {
 	     String sessionToken = (String) session.getAttribute("authToken");
 	     
 	     if (passwordChangeAllowed != null && passwordChangeAllowed && token.equals(sessionToken)) {
-            return "changePassword"; // 비밀번호 변경 폼 페이지로 이동
+            return "/changePassword"; // 비밀번호 변경 폼 페이지로 이동
          } else {
-            return "accessError"; // 접근이 허용되지 않음을 알리는 페이지로 이동
+            return "/accessError"; // 접근이 허용되지 않음을 알리는 페이지로 이동
          }
 	}
+	
+	@PostMapping("/changePassword")
+    public String changePassword(@RequestParam String newPassword, @RequestParam String token, HttpSession session, RedirectAttributes rttr) {
+        String sessionAuthUser = (String) session.getAttribute("authUser");
+        String sessionToken = (String) session.getAttribute("authToken");
+        
+        if (sessionAuthUser != null && sessionToken != null && sessionToken.equals(token)) {
+
+            int result = service.updatePassword(newPassword, sessionAuthUser);
+            
+            if (result == 1) {
+                rttr.addFlashAttribute("passwordChangeResult", "비밀번호가 변경되었습니다.");
+            } else {
+                rttr.addFlashAttribute("passwordChangeResult", "비밀번호 변경에 실패했습니다.");
+            }
+
+            
+        } else {
+            rttr.addFlashAttribute("passwordChangeResult", "비밀번호 변경 권한이 없습니다.");
+        }
+        
+        // 세션 데이터 삭제
+        session.removeAttribute("authUser");
+        session.removeAttribute("authToken");
+        session.removeAttribute("passwordChangeAllowed");
+
+        return "redirect:/login";
+	}
+	
 }

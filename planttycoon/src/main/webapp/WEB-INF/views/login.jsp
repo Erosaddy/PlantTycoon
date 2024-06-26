@@ -18,6 +18,19 @@
     <link rel="stylesheet" href="${ctx}/resources/css/login.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="${ctx}/resources/script/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // JSTL을 사용하여 Flash Attribute 값을 자바스크립트 변수로 설정
+            const flashMessage = "${passwordChangeResult}";
+
+            // Flash Message가 있는 경우 자바스크립트에서 처리
+            if (flashMessage) {
+                console.log(flashMessage);
+                // 예: 알림 표시
+                alert(flashMessage);
+            }
+        });
+    </script>
 </head>
 <body>
     <div id="wrapper">
@@ -40,7 +53,7 @@
                     </form>
                     <form id="verifyAuthForm" action="${ctx}/verifyAuth" method="POST" style="display: none;">
                     	<sec:csrfInput/>
-                    	<input type="number" name="authNumber" placeholder="인증번호를 입력하세요">
+                    	<input id="authNumber" type="number" name="authNumber" placeholder="인증번호를 입력하세요">
                     	<button type="submit">인증번호 제출</button>
                     </form>
                 </div>
@@ -127,11 +140,50 @@
                             );
                             $('#verifyAuthForm').css("display", "block");
                         } else {
-                            $("#result").html(`<p>Error: ${response.message}</p>`);
+                            $("#result").html("<p>Error: " + response.message + "</p>");
                         }
                     },
                     error: function(xhr, status, error) {
-                        $("#result").html(`<p>서버 오류가 발생했습니다.</p>`);
+                        $("#result").html("<p>서버 오류가 발생했습니다.</p>");
+                    }
+                });
+            });
+            
+            $("#verifyAuthForm").submit(function(e) {
+                e.preventDefault();
+                
+                function getCsrfToken() {
+    	    	    return $('meta[name="_csrf"]').attr('content');
+    	    	}
+
+    	    	function getCsrfHeader() {
+    	    	    return $('meta[name="_csrf_header"]').attr('content');
+    	    	}
+
+                const authNumberString = $("#authNumber").val();
+                const authNumber = parseInt(authNumberString);
+                
+                $.ajax({
+                    type: "POST",
+                    url: "${ctx}/verifyAuth",
+                    data: {
+                    	authNumber: authNumber
+                    },
+		            beforeSend: function(xhr) {
+		                xhr.setRequestHeader(getCsrfHeader(), getCsrfToken());
+		            },
+                    success: function(response) {
+                    	console.log(response.num);
+                    	if (response.status) {
+                            alert(response.message);
+                            authToken = response.authToken; // 토큰 저장
+                            window.location.href = "/changePassword?token=" + authToken;
+                        } else {
+                            $("#verifyResult").html("<p>Error: " + response.message + "</p>");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $("#verifyResult").html("<p>서버 오류가 발생했습니다.</p>");
                     }
                 });
             });

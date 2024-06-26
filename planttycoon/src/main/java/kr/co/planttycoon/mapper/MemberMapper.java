@@ -15,6 +15,7 @@ public interface MemberMapper {
 	public int idCheck(String memberId);
 	public int modifyMember(MemberDTO mDto);
 	public int modifyEnabled(@Param("enabled") String enabled, @Param("memberId") String memberId);
+	public int updatePassword(@Param("memberPw") String memberPw, @Param("memberId") String memberId);
 	public List<MemberDTO> memberList(Criteria cri);
 	public int getTotalCnt(Criteria cri);
 	
