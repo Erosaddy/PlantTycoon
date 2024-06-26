@@ -10,6 +10,6 @@ planttycoon/Sangjun/workspace/sts
 # Logs and temporary files
 *.log
 
-# JavaMailSend configuration
-src/main/resources/mail-config.properties
+# Ignore mail-config.properties file
+*/src/main/resources/mail-config.properties
 
