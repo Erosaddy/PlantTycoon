@@ -1,5 +1,5 @@
 # Build directories
-/target/
+*/target/*
 
 # Eclipse and IDE-specific files
 .classpath
@@ -9,4 +9,7 @@ planttycoon/Sangjun/workspace/sts
 
 # Logs and temporary files
 *.log
+
+# JavaMailSend configuration
+src/main/resources/mail-config.properties
 

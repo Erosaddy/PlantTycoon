@@ -4,11 +4,13 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -143,9 +145,9 @@ public class MemberController {
 		return cnt; 
 	}
 	
-	@RequestMapping("/findAuth")
+	@PostMapping("/findAuth")
     @ResponseBody
-    public Map<String, Object> findAuth(MemberDTO mDto) {
+    public Map<String, Object> findAuth(MemberDTO mDto, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
 
         try {
@@ -167,6 +169,10 @@ public class MemberController {
             // 랜덤 인증번호 생성
             Random r = new Random();
             int num = r.nextInt(999999);
+            
+            // 인증번호를 세션에 저장
+            session.setAttribute("authNumber", num);
+            session.setAttribute("authUser", isUser.getMemberId());
 
             // 이메일 내용 작성
             String setFrom = "blackyokel@naver.com";
@@ -190,6 +196,7 @@ public class MemberController {
             map.put("status", true);
             map.put("num", num);
             map.put("memberId", isUser.getMemberId());
+            map.put("message", "해당 메일로 인증 번호를 전송했습니다.");
         } catch (MessagingException e) {
             map.put("status", false);
             map.put("message", "메일 전송 중 오류가 발생했습니다.");
@@ -200,4 +207,33 @@ public class MemberController {
 
         return map;
     }
+	
+	@PostMapping("/verifyAuth")
+    public String verifyAuth(@RequestParam int authNumber, HttpSession session, RedirectAttributes rttr) {
+		
+        Integer sessionAuthNumber = (Integer) session.getAttribute("authNumber");
+
+        if (sessionAuthNumber != null && sessionAuthNumber == authNumber) {
+        	String token = UUID.randomUUID().toString();
+            session.setAttribute("passwordChangeAllowed", true);
+            session.setAttribute("authToken", token);
+        	rttr.addFlashAttribute("authResult", "success");
+        } else {
+        	rttr.addFlashAttribute("authResult", "failure");
+        }
+
+        return "redirect:/changePassword";
+    }
+	
+	@GetMapping("/changePassword")
+	public String changePassword(@RequestParam("token") String token, HttpSession session) {
+		 Boolean passwordChangeAllowed = (Boolean) session.getAttribute("passwordChangeAllowed");
+	     String sessionToken = (String) session.getAttribute("authToken");
+	     
+	     if (passwordChangeAllowed != null && passwordChangeAllowed && token.equals(sessionToken)) {
+            return "changePassword"; // 비밀번호 변경 폼 페이지로 이동
+         } else {
+            return "accessError"; // 접근이 허용되지 않음을 알리는 페이지로 이동
+         }
+	}
 }

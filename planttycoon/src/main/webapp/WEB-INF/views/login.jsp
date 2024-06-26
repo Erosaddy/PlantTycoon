@@ -8,6 +8,8 @@
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <title>식물타이쿤</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
 	<c:set var="ctx" value="${pageContext.request.contextPath == '/' ? '': pageContext.request.contextPath}" scope="application"/>
@@ -29,11 +31,17 @@
                     </a>
                 </div>
                 <div class="forgot_password">
-                    <form action="${ctx}/findAuth" method="post">
+                    <form id="findAuthForm">
                     	<sec:csrfInput/>
                         <p>기존에 가입한 이메일을 입력하면 인증용 메일을 보내드립니다.</p>
-                        <input type="text" name="memberId" placeholder="이메일을 입력하세요">
-                        <button type="submit">비밀번호 변경 메일 받기</button>
+                        <input id="memberId" type="text" name="memberId" placeholder="이메일을 입력하세요">
+                        <div id="result"></div>
+                        <button type="submit">인증번호 받기</button>
+                    </form>
+                    <form id="verifyAuthForm" action="${ctx}/verifyAuth" method="POST" style="display: none;">
+                    	<sec:csrfInput/>
+                    	<input type="number" name="authNumber" placeholder="인증번호를 입력하세요">
+                    	<button type="submit">인증번호 제출</button>
                     </form>
                 </div>
             </div>
@@ -86,5 +94,48 @@
     
     <script src="${ctx}/resources/script/login.js"></script>
     
+    <script>
+        $(document).ready(function() {
+            $("#findAuthForm").submit(function(e) {
+                e.preventDefault();
+                
+                function getCsrfToken() {
+    	    	    return $('meta[name="_csrf"]').attr('content');
+    	    	}
+
+    	    	function getCsrfHeader() {
+    	    	    return $('meta[name="_csrf_header"]').attr('content');
+    	    	}
+
+                const memberId = $("#memberId").val();
+                
+                $.ajax({
+                    type: "POST",
+                    url: "${ctx}/findAuth",
+                    data: {
+                        memberId: memberId
+                    },
+		            beforeSend: function(xhr) {
+		                xhr.setRequestHeader(getCsrfHeader(), getCsrfToken());
+		            },
+                    success: function(response) {
+                    	console.log(response.num);
+                        if (response.status) {
+                            $("#result").html(
+                            	"<p>인증번호가 전송되었습니다: " + response.num + "</p>" +
+                                "<p>이메일 주소: " + response.memberId + "</p>"
+                            );
+                            $('#verifyAuthForm').css("display", "block");
+                        } else {
+                            $("#result").html(`<p>Error: ${response.message}</p>`);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $("#result").html(`<p>서버 오류가 발생했습니다.</p>`);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
