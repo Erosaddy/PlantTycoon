@@ -12,42 +12,70 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- HikariCP Oracle 설정 -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<property name="driverClassName"
+			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<!-- 아래 내용은 새로운 원격 DB에 맞게 재설정해야 한다. -->
 		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.0.209:1521:XE"></property>
 		<property name="username" value="scott"></property>
 		<property name="password" value="tiger"></property>
 	</bean>
-	
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-		<constructor-arg ref="hikariConfig"/>
+
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
 	</bean>
-	
-	
-	
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-		<property name="configLocation" value="classpath:/mybatis-config.xml"/>
-		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"/>
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml" />
 	</bean>
-	
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-	
+
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<tx:annotation-driven/>
-	
-	<context:component-scan base-package="kr.co.planttycoon.service"/>
-	<context:component-scan base-package="kr.co.planttycoon.controller"/>
-	<context:component-scan base-package="kr.co.planttycoon.domain"/>
-	<mybatis-spring:scan base-package="kr.co.planttycoon.mapper"/>
-	
+	<!-- Property Placeholder Configuration -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:mail-config.properties" />
+        <property name="fileEncoding" value="UTF-8" />
+    </bean>
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${smtp.host}"/>
+        <property name="port" value="${smtp.port}"/>
+        <property name="username" value="${smtp.username}"/>
+        <property name="password" value="${smtp.password}"/>
+		<property name="defaultEncoding" value="utf-8" />
+
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.starttls.required">true</prop>
+				<prop key="mail.smtp.ssl.enable">true</prop>
+				<prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<tx:annotation-driven />
+
+	<context:component-scan base-package="kr.co.planttycoon.service" />
+	<context:component-scan base-package="kr.co.planttycoon.controller" />
+	<context:component-scan base-package="kr.co.planttycoon.domain" />
+	<mybatis-spring:scan base-package="kr.co.planttycoon.mapper" />
+
 </beans>

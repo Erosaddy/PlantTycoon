@@ -77,6 +77,23 @@ public class MemberJoinTest {
         Assertions.assertThat(member.getMemberId()).isEqualTo(mDto.getMemberId());
     }
 	
+	@Transactional
+	@Test
+	public void memberReadTest() {
+	    MemberDTO mDto = new MemberDTO();
+        
+        mDto.setMemberId("member2000@gmail.com");
+        mDto.setMemberPw("999999");
+        mDto.setNickname("member2000");
+        mDto.setPlant("산세비에리아 (Snake Plant)");
+        
+        service.join(mDto);
+        
+        MemberDTO findMemberById = service.read(mDto.getMemberId());
+        
+        Assertions.assertThat(findMemberById.getMemberId()).isEqualTo(mDto.getMemberId());
+	}
+	
 //	@Test
 //	public void memberListTest() {
 //		

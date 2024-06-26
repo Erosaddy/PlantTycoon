@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class UploadController {
 
-    @Value("${upload.path}")
+//    @Value("${upload.path}")
     private String uploadPath;
 
     @PostMapping("/journal/upload/image")

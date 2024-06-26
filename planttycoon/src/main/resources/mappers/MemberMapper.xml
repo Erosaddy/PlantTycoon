@@ -57,6 +57,12 @@
 		WHERE	memberId = #{memberId}
 	</update>
 	
+	<update id="updatePassword">
+		UPDATE	member
+		SET		memberPw = #{memberPw}
+		WHERE	memberId = #{memberId}
+	</update>
+	
     <select id="memberList" resultMap="memberMap">
         <![CDATA[
         SELECT * FROM (

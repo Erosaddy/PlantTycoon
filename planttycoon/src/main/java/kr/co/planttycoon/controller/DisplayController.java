@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class DisplayController {
 
-    @Value("${upload.path}")
+//    @Value("${upload.path}")
     private String uploadPath;
 
     @GetMapping("/display")

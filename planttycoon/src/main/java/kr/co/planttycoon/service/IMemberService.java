@@ -11,6 +11,8 @@ public interface IMemberService {
 	public int idCheck(String memberId);
 	public int modifyMember(MemberDTO mDto);
 	public int modifyEnabled(String enabled, String memberId);
+	public int updatePassword(String memberPw, String memberId);
 	public List<MemberDTO> memberList(Criteria cri);
 	public int getTotalCnt(Criteria cri);
+	public MemberDTO read(String memberId);
 }

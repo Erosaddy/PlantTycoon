@@ -87,6 +87,13 @@ public class MemberServiceImpl implements IMemberService {
 	}
 	
 	@Override
+	public int updatePassword(String memberPw, String memberId) {
+	    String hashedPw = pwencoder.encode(memberPw);
+	    
+	    return mapper.updatePassword(hashedPw, memberId);
+	}
+	
+	@Override
 	public List<MemberDTO> memberList(Criteria cri) {
 		return mapper.memberList(cri);
 	}
@@ -96,4 +103,10 @@ public class MemberServiceImpl implements IMemberService {
 	    return mapper.getTotalCnt(cri);
 	}
 
+    @Override
+    public MemberDTO read(String memberId) {
+        return mapper.read(memberId);
+    }
+
+	
 }
