@@ -1,7 +1,5 @@
 package kr.co.planttycoon.journal;
 
-import static org.junit.Assert.*;
-
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +13,6 @@ import kr.co.planttycoon.domain.MemberDTO;
 import kr.co.planttycoon.mapper.JournalMapper;
 import kr.co.planttycoon.service.IMemberService;
 import kr.co.planttycoon.service.JournalService;
-import kr.co.planttycoon.service.impl.MemberServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration ({
