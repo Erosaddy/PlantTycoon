@@ -60,14 +60,18 @@
                     <form id="findAuthForm">
                     	<sec:csrfInput/>
                         <p>기존에 가입한 이메일을 입력하면 인증용 메일을 보내드립니다.</p>
-                        <input id="memberId" type="text" name="memberId" placeholder="이메일을 입력하세요">
-                        <div id="result"></div>
-                        <button type="submit">인증번호 받기</button>
+                        <div class="input_wrap">
+	                        <input id="memberId" type="text" name="memberId" placeholder="이메일을 입력하세요">
+	                        <button type="submit">인증번호 받기</button>
+                        	<div id="result"></div>
+                        </div>
                     </form>
                     <form id="verifyAuthForm" action="${ctx}/verifyAuth" method="POST" style="display: none;">
                     	<sec:csrfInput/>
-                    	<input id="authNumber" type="number" name="authNumber" placeholder="인증번호를 입력하세요">
-                    	<button type="submit">인증번호 제출</button>
+                    	<div class="input_wrap">
+	                    	<input id="authNumber" type="number" name="authNumber" placeholder="인증번호를 입력하세요">
+	                    	<button type="submit">인증번호 제출</button>
+                    	</div>
                     </form>
                 </div>
             </div>
@@ -150,11 +154,11 @@
                             $("#result").html("인증번호가 전송되었습니다.");
                             $('#verifyAuthForm').css("display", "block");
                         } else {
-                            $("#result").html("<p>Error: " + response.message + "</p>");
+                            $("#result").html("<p class='font_red'>" + response.message + "</p>");
                         }
                     },
                     error: function(xhr, status, error) {
-                        $("#result").html("<p>서버 오류가 발생했습니다.</p>");
+                        $("#result").html("<p class='font_red'>서버 오류가 발생했습니다.</p>");
                     }
                 });
             });
@@ -189,11 +193,11 @@
                             authToken = response.authToken; // 토큰 저장
                             window.location.href = "/changePassword?token=" + authToken;
                         } else {
-                            $("#verifyResult").html("<p>Error: " + response.message + "</p>");
+                            $("#verifyResult").html("<p class='font_red'>" + response.message + "</p>");
                         }
                     },
                     error: function(xhr, status, error) {
-                        $("#verifyResult").html("<p>서버 오류가 발생했습니다.</p>");
+                        $("#verifyResult").html("<p class='font_red'>서버 오류가 발생했습니다.</p>");
                     }
                 });
             });
