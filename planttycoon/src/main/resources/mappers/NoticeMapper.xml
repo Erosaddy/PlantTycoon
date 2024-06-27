@@ -14,28 +14,50 @@
 		</resultMap>
 		
 <select id="getNoticeListWithPaging" resultMap="noticeResultMap">
-    SELECT *
-    FROM (
-        SELECT ROWNUM rn, notice.*
-        FROM (
-            SELECT * 
-            FROM notice
-            <if test="cri.type != null and cri.type != ''">
-                <choose>
-                    <when test='cri.type == "T"'>
-                        AND noticetitle LIKE '%' || #{cri.keyword} || '%'
-                    </when>
-                    <when test='cri.type == "C"'>
-                        AND noticecontent LIKE '%' || #{cri.keyword} || '%'
-                    </when>
-                </choose>
-            </if>
-            ORDER BY noticeid DESC
-        ) notice
-        WHERE ROWNUM &lt;= #{cri.pageNum} * #{cri.amount}
-    )
-    WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}
+    SELECT 
+        n.noticeid AS noticeId, 
+        n.noticetitle AS noticeTitle, 
+        n.regdate AS regdate, 
+        m.nickname AS nickname
+    FROM notice n
+    JOIN member m ON n.memberid = m.memberid
+    <if test="cri.type != null and cri.type != ''">
+        <choose>
+            <when test='cri.type == "T"'>
+                WHERE n.noticetitle LIKE '%' || #{cri.keyword} || '%'
+            </when>
+            <when test='cri.type == "C"'>
+                WHERE n.noticecontent LIKE '%' || #{cri.keyword} || '%'
+            </when>
+        </choose>
+    </if>
+    ORDER BY n.noticeid DESC
+    OFFSET (#{cri.pageNum} - 1) * #{cri.amount} ROWS FETCH NEXT #{cri.amount} ROWS ONLY
 </select>
+
+<!-- <select id="getNoticeListWithPaging" resultMap="noticeResultMap"> -->
+<!--     SELECT * -->
+<!--     FROM ( -->
+<!--         SELECT ROWNUM rn, notice.* -->
+<!--         FROM ( -->
+<!--             SELECT *  -->
+<!--             FROM notice -->
+<!--             <if test="cri.type != null and cri.type != ''"> -->
+<!--                 <choose> -->
+<!--                     <when test='cri.type == "T"'> -->
+<!--                         AND noticetitle LIKE '%' || #{cri.keyword} || '%' -->
+<!--                     </when> -->
+<!--                     <when test='cri.type == "C"'> -->
+<!--                         AND noticecontent LIKE '%' || #{cri.keyword} || '%' -->
+<!--                     </when> -->
+<!--                 </choose> -->
+<!--             </if> -->
+<!--             ORDER BY noticeid DESC -->
+<!--         ) notice -->
+<!--         WHERE ROWNUM &lt;= #{cri.pageNum} * #{cri.amount} -->
+<!--     ) -->
+<!--     WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount} -->
+<!-- </select> -->
 
 
 <select id="getList" resultMap="noticeResultMap">
