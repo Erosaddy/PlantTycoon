@@ -6,6 +6,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko">
 <head>
+	<sec:authorize access="isAuthenticated()">
+        <meta http-equiv="refresh" content="0;url=${ctx}/home" />
+    </sec:authorize>
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="_csrf" content="${_csrf.token}"/>
@@ -18,6 +21,7 @@
     <link rel="stylesheet" href="${ctx}/resources/css/login.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="${ctx}/resources/script/main.js"></script>
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // JSTL을 사용하여 Flash Attribute 값을 자바스크립트 변수로 설정
