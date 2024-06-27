@@ -19,7 +19,7 @@ import kr.co.planttycoon.service.impl.MemberServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration ({
-    "file:src/test/resources/root-context-test.xml",
+    "file:src/main/webapp/WEB-INF/spring/root-context.xml",
     "file:src/main/webapp/WEB-INF/spring/security-context.xml"
 })
 public class JournalTest {
