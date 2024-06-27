@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<sec:authorize access="isAuthenticated()">
+    <meta http-equiv="refresh" content="0;url=${ctx}/home" />
+</sec:authorize>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
