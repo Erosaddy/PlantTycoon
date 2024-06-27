@@ -1,30 +1,63 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ko">
 <head>
-    <title>Change Password</title>
-    <c:set var="ctx" value="${pageContext.request.contextPath == '/' ? '': pageContext.request.contextPath}" scope="application"/>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>식물타이쿤</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
+	<c:set var="ctx" value="${pageContext.request.contextPath == '/' ? '': pageContext.request.contextPath}" scope="application"/>
     <link rel="stylesheet" href="${ctx}/resources/css/layout.css">
+    <link rel="stylesheet" href="${ctx}/resources/css/reset.css">
+    <link rel="stylesheet" href="${ctx}/resources/css/join.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
-    <h1>Change Password</h1>
-    <!-- 비밀번호 변경 폼 -->
-    <form id="changePasswordForm" name="changePasswordForm" action="${ctx}/changePassword" method="post">
-    	<sec:csrfInput/>
-    	<div>
-	        <input type="password" id="newPassword" name="newPassword" placeholder="새로운 비밀번호를 입력하세요.">
-    	</div>
-    	<div>
-	        <input type="password" id="newPasswordCheck" placeholder="비밀번호를 다시 한 번 입력하세요.">
-    	</div>
-        <input type="hidden" name="token" value='<c:out value="${sessionScope.authToken}"/>'>
-        <span id="password_error_message"></span>
-        <span id="submit_password_error_message"></span>
-        <button id="resetPassword" type="button">Reset Password</button>
-    </form>
+	<div id="wrapper">
+		<div class="join_wrap">
+            <div class="join">
+                <div class="join_box">
+                    <div class="join_top">
+                        <div class="join_tit">
+                            <div class="logo">
+                                <img src="${ctx}/resources/images/login_logo.png" alt="로고 이미지">
+                            </div>
+                            <p>Change Password</p>
+                        </div>
+                        <form id="changePasswordForm" name="changePasswordForm" action="${ctx}/changePassword" method="post">
+                        	<sec:csrfInput/>
+                            <div class="pw_input">
+                                <p>New Password</p>
+                                <input type="password" id="newPassword" name="newPassword" placeholder="새로운 비밀번호를 입력하세요.">
+                            </div>
+                            <div class="pw_input2">
+                                <p>Confirm Password</p>
+                                <input type="password" id="newPasswordCheck" placeholder="비밀번호를 다시 한 번 입력하세요.">
+                                <span id="password_error_message"></span>
+                            </div>
+                            
+                            <input type="hidden" name="token" value='<c:out value="${sessionScope.authToken}"/>'>
+							<span id="submit_password_error_message" class="font_red" style="width: 100%; margin-top: 20px; text-align: center; font-size: 15px;"></span>
+                            <div class="join_btn">
+                                <button id="resetPassword" class="mt10" type="button">비밀번호 변경</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="join_bottom">
+                        <p>
+                            비밀번호 변경을 취소하고 싶으신가요?
+                            <a href="/login">로그인</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <script>
     $(document).ready(function() {
     	$('#newPassword, #newPasswordCheck').on("blur", async function() {

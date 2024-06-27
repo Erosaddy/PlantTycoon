@@ -167,7 +167,7 @@
                                 </div>
                                 <div class="plant_btn">
                                     <button type="button" class="water">물주기<img src="${ctx}/resources/images/ic_water.png" alt="물주기 아이콘"></button>
-                                <button type="button" class="led">조명켜기<img src="${ctx}/resources/images/ic_led.png" alt="조명켜기 아이콘"></button>
+                                	<button type="button" class="led" id="toggleLed">조명 켜기<img src="${ctx}/resources/images/ic_led.png" alt="조명 켜기 아이콘"></button>
                                 </div>
                             </div>
                             <div class="home_right">
@@ -182,60 +182,48 @@
                                             <li>급수타입</li>
                                         </ul>
                                         <ul class="log_body">
-                                            <li>
-                                                <div>2024.05.28 15:33:02</div>
-                                                <div>자동</div>
-                                            </li>
-                                            <li>
-                                                <div>2024.05.28 15:33:02</div>
-                                                <div>자동</div>
-                                            </li>
-                                            <li>
-                                                <div>2024.05.28 15:33:02</div>
-                                                <div>자동</div>
-                                            </li>
-                                            <li>
-                                                <div>2024.05.28 15:33:02</div>
-                                                <div>자동</div>
-                                            </li>
-                                            <li>
-                                                <div>2024.05.28 15:33:02</div>
-                                                <div>자동</div>
-                                            </li>
-                                            <li>
-                                                <div>2024.05.28 15:33:02</div>
-                                                <div>자동</div>
-                                            </li>
-                                            <li>
-                                                <div>2024.05.28 15:33:02</div>
-                                                <div>자동</div>
-                                            </li>
-                                            <li>
-                                                <div>2024.05.28 15:33:02</div>
-                                                <div>자동</div>
-                                            </li>
-                                            <li>
-                                                <div>2024.05.28 15:33:02</div>
-                                                <div>자동</div>
-                                            </li>
-                                            <li>
-                                                <div>2024.05.28 15:33:02</div>
-                                                <div>자동</div>
-                                            </li>
-                                        </ul>
-                                        <div class="paging">
-                                            <p>
-                                                <!-- <span class="numPN m_ar"><a href="#" data-page="1" title="처음 페이지로 이동하기"><img src="image/ic_prev2.png" alt="처음 페이지"></a></span> -->
-                                                <span class="numPN over left"><a href="#" data-page="1" title="이전 페이지로 이동하기"><img src="${ctx}/resources/images/ic_prev.png" alt="이전 페이지"></a></span>
-                                                <span class="Present"><a class="on" href="#" data-page="1">1</a></span>
-                                                <span><a href="#" data-page="2">2</a></span>
-                                                <span><a href="#" data-page="3">3</a></span>
-                                                <span><a href="#" data-page="4">4</a></span>
-                                                <span><a href="#" data-page="5">5</a></span>
-                                                <span class="numPN  over right"><a href="#" data-page="11" title="다음 페이지로 이동하기"><img src="${ctx}/resources/images/ic_next.png" alt="다음 페이지"></a></span>
-                                                <!-- <span class="numPN m_ar"><a href="#" data-page="14" title="마지막 페이지로 이동하기"><img src="image/ic_next2.png" alt="마지막 페이지"></a></span> -->
-                                            </p>
-                                        </div>
+		                                    <c:forEach var="record" items="${records}">
+				                                <li>
+				                                    <div><fmt:formatDate value="${record.wateredRegdate}" pattern="yyyy.MM.dd HH:mm:ss"/></div>
+				                                    <div>${record.wateringType}</div>
+				                                </li>
+				                            </c:forEach>
+	<!--                                         <li> -->
+	<!--                                             <div>2024.05.28 15:33:02</div> -->
+	<!--                                             <div>자동</div> -->
+	<!--                                         </li> -->
+	                                        
+	                                    </ul>
+	                                    <div class="paging">
+							                <p>
+					                            	
+				                           		<c:if test="${pageMaker.prev }">
+				                           			<span class="paginate_button numPN over left">
+				                           				<a href="${pageMaker.startPage - 1}"> 
+															<img src="${ctx}/resources/images/ic_prev.png" alt="이전 페이지">
+														</a>
+				                           			</span>
+				                           		</c:if>
+				                           		
+				                        		<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+				                        			<span class="paginate_button ${pageMaker.cri.pageNum == num ? 'Present' : '' }"><a href="${num }">${num }</a></span>
+				                        		</c:forEach>
+				                          			
+				                          		<c:if test="${pageMaker.next }">
+				                           			<span class="paginate_button numPN over right">
+				                           				<a href="${pageMaker.endPage + 1}"> 
+															<img src="${ctx}/resources/images/ic_next.png" alt="다음 페이지">
+														</a>
+				                           			</span>
+				                           		</c:if>
+							                
+							                	<form id="actionForm" action="${ctx }/home" method="get">
+													<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">                            
+													<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+					                            </form>
+							                
+							                </p>
+							            </div>
                                     </div>
                                 </div>
                             </div>
@@ -380,5 +368,49 @@
 	            .catch(error => console.error('Error fetching data:', error));
 	    });
     </script>
+    <script>
+    $(document).ready(function() {
+	    var actionForm = $("#actionForm");
+		
+		$(".paginate_button a").on("click", function(e) {
+			e.preventDefault();
+			
+			console.log("click");
+			
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			actionForm.submit();
+		});
+    });
+</script>
+<script>
+$(document).ready(function() {
+    $('#toggleLed').click(function() {
+        // CSRF 토큰 가져오기
+        const csrfToken = $('meta[name="_csrf"]').attr('content');
+        const csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+        
+        // LED 상태 토글 API 호출
+        $.ajax({
+            url: "${ctx}/led/toggle",
+            type: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                [csrfHeader]: csrfToken // CSRF 토큰 추가
+            },
+            success: function(data) {
+                // 성공적으로 LED 상태를 토글한 경우, 버튼 텍스트를 업데이트
+                if (data === "T") {
+                    $('#toggleLed').html('조명 끄기 <img src="${ctx}/resources/images/ic_led.png" alt="조명 끄기 아이콘">');
+                } else {
+                    $('#toggleLed').html('조명 켜기 <img src="${ctx}/resources/images/ic_led.png" alt="조명 켜기 아이콘">');
+                }
+            },
+            error: function() {
+                alert('LED 상태를 변경하는 중 오류가 발생했습니다.');
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>

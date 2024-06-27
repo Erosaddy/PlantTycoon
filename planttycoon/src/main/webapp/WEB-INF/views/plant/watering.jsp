@@ -74,35 +74,35 @@
                                         
                                     </ul>
                                     <div class="paging">
-					                <p>
-			                            	
-		                           		<c:if test="${pageMaker.prev }">
-		                           			<span class="paginate_button numPN over left">
-		                           				<a href="${pageMaker.startPage - 1}"> 
-													<img src="${ctx}/resources/images/ic_prev.png" alt="이전 페이지">
-												</a>
-		                           			</span>
-		                           		</c:if>
-		                           		
-		                        		<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-		                        			<span class="paginate_button ${pageMaker.cri.pageNum == num ? 'Present' : '' }"><a href="${num }">${num }</a></span>
-		                        		</c:forEach>
-		                          			
-		                          		<c:if test="${pageMaker.next }">
-		                           			<span class="paginate_button numPN over right">
-		                           				<a href="${pageMaker.endPage + 1}"> 
-													<img src="${ctx}/resources/images/ic_next.png" alt="다음 페이지">
-												</a>
-		                           			</span>
-		                           		</c:if>
-					                
-					                	<form id="actionForm" action="${ctx }/plant/watering" method="get">
-											<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">                            
-											<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-			                            </form>
-					                
-					                </p>
-					            </div>
+						                <p>
+				                            	
+			                           		<c:if test="${pageMaker.prev }">
+			                           			<span class="paginate_button numPN over left">
+			                           				<a href="${pageMaker.startPage - 1}"> 
+														<img src="${ctx}/resources/images/ic_prev.png" alt="이전 페이지">
+													</a>
+			                           			</span>
+			                           		</c:if>
+			                           		
+			                        		<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+			                        			<span class="paginate_button ${pageMaker.cri.pageNum == num ? 'Present' : '' }"><a href="${num }">${num }</a></span>
+			                        		</c:forEach>
+			                          			
+			                          		<c:if test="${pageMaker.next }">
+			                           			<span class="paginate_button numPN over right">
+			                           				<a href="${pageMaker.endPage + 1}"> 
+														<img src="${ctx}/resources/images/ic_next.png" alt="다음 페이지">
+													</a>
+			                           			</span>
+			                           		</c:if>
+						                
+						                	<form id="actionForm" action="${ctx }/plant/watering" method="get">
+												<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">                            
+												<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+				                            </form>
+						                
+						                </p>
+						            </div>
                                 </div>
                             </div>
                         </div>

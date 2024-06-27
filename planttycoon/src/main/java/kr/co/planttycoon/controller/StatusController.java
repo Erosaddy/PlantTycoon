@@ -50,7 +50,7 @@ public class StatusController {
         }
     }
 	
-	@GetMapping({"/plant/status", "/home"})
+	@GetMapping("/plant/status")
 	public void plantstatus(HttpSession session, Principal principal) {
 		String memberId = principal.getName();
 		
