@@ -6,7 +6,7 @@
 
 	<insert id="insertLedControl">
         INSERT INTO control (ledId, ledStatus, memberId, wateringInterval)
-        VALUES (LEDCONTROL_SEQ.nextval, DEFAULT, #{memberId}, DEFAULT)
+        VALUES (CONTROL_SEQ.nextval, DEFAULT, #{memberId}, DEFAULT)
     </insert>
     
     <select id="selectLedControlByMemberId" resultType="java.lang.String">

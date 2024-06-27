@@ -22,13 +22,13 @@ public class PageDTO {
 		
 		//끝페이지
 		this.endPage = (int)(Math.ceil(cri.getPageNum() / 5.0)) * 5;
-		log.info("endPage =============> " + endPage);
+		
 		//시작페이지
 		this.startPage = this.endPage - 4;
 		
 		//찐 끝페이지
 		this.realEnd = (int) (Math.ceil((total * 1.0) / cri.getAmount()));
-		log.info("realEnd==========>" + realEnd);
+		
 		//찐 끝페이지 보정
 		if(realEnd < this.endPage) {
 			this.endPage = realEnd;

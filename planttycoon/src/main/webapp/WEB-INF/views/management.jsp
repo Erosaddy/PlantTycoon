@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${ctx}/resources/css/management.css">
             <div class="side">
                 <ul class="gnb">
-                    <li> <!--메뉴 선택 시 on클래스 붙음-->
+                    <li> <!--메뉴 선택 시 on클래스 붙음요-->
                         <a href="${ctx}/home" class="menu1 nolnb">홈</a> <!--2뎁스 메뉴 없을 때 nolnb클래스 붙음-->
                     </li>
                     <li>
