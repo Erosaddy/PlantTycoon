@@ -50,8 +50,6 @@ public class NoticeController {
 	    model.addAttribute("cri", cri); // 검색 조건 유지
 	    model.addAttribute("total", total); // total 속성으로 전체 게시글 수 전달
 	    
-	    log.info("pageDTO=============> " + pageDTO);
-
 	    return "notice/list";
 	    
 	}
@@ -71,7 +69,6 @@ public class NoticeController {
 
     @PostMapping("/notice/register")
     public String registerPOST(NoticeDTO notice, RedirectAttributes rttr, Principal principal) {
-        log.info("noticeDTO: " + notice);
 
         String memberId = principal.getName(); // 로그인된 사용자 ID 가져오기
         notice.setMemberId(memberId); // JournalDTO에 memberId 설정
@@ -85,7 +82,6 @@ public class NoticeController {
    
     @GetMapping("/notice/modify")
     public void modify(@RequestParam("noticeId") int noticeId, Model model, Principal principal) {
-        log.info("modify: " + noticeId);
 
         // 로그인 사용자 정보 가져오기
         String memberId = principal.getName();
@@ -104,7 +100,6 @@ public class NoticeController {
 
     @PostMapping("/notice/modify")
     public String modifyPost(@ModelAttribute("notice") NoticeDTO notice, RedirectAttributes rttr, Principal principal) {
-        log.info("modifyPost: " + notice);
 
         // 작성자 확인
         String principalMemberId = principal.getName();
