@@ -56,7 +56,7 @@
                 <div class="container_inner">
                     <div class="sub_title">
                         <h3>관찰일지</h3>
-                        	<button type="button" onclick="history.back()"> 
+                        	<button type="button" onclick="location.href='${ctx}/journal/list'"> 
 				                <span><img src="${ctx}/resources/images/ic_backlist.png" alt="목록으로 돌아가기 아이콘"></span>
 				                목록으로 돌아가기
 				            </button>

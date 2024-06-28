@@ -50,7 +50,7 @@
 			            </button>
                     </div>
                     <div class="write_form">
-                        <form action="${ctx}/journal/modify" method="post">
+                        <form id="journalForm" action="${ctx}/journal/modify" method="post">
                         	<sec:csrfInput/>
                         	
 							<input type="hidden" name="memberId" value="<sec:authentication property='principal.member.memberId'/>">			           				
@@ -81,20 +81,94 @@
     </div>
     <!-- 헤더 연결 div 마무리 -->
     <script>
-	    ClassicEditor
-	    .create(document.querySelector('#editor'), {
-	    	 ckfinder: {
-	             uploadUrl: '${ctx}/journal/upload/image',
-	             withCredentials: true, // CSRF 토큰을 쿠키로 전송하도록 설정
-	             headers: {
-	            	  '${_csrf.headerName}': document.querySelector('meta[name="_csrf"]').getAttribute('content')  // CSRF 토큰 헤더 추가
-	                /*  'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').getAttribute('content') // CSRF 토큰 헤더 추가 */
-	              }
-	         }
-	     })
-	    .catch(error => {
-	        console.error(error);
-	    }); 
-	</script>
+// CSRF 토큰 추출 함수
+function getCsrfToken() {
+    const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+    return { token, header };
+}
+
+// CKEditor5 생성
+let editor;
+ClassicEditor
+    .create(document.querySelector('#editor'), {
+        language: 'ko',
+        ckfinder: {
+            uploadUrl: '/ajax/image'
+        }
+    })
+    .then(newEditor => {
+        editor = newEditor;
+
+        editor.plugins.get('FileRepository').createUploadAdapter = loader => {
+            return new UploadAdapter(loader);
+        };
+    })
+    .catch(error => {
+        console.error('CKEditor5 초기화 중 오류 발생:', error);
+    });
+
+// 이미지 업로드 어댑터 클래스
+class UploadAdapter {
+    constructor(loader) {
+        this.loader = loader;
+    }
+
+    upload() {
+        return this.loader.file
+            .then(file => {
+                const formData = new FormData();
+                formData.append('upload', file);
+
+                // CSRF 토큰 가져오기
+                const csrf = getCsrfToken();
+
+                return fetch('/ajax/image', {
+                    method: 'POST',
+                    headers: {
+                        [csrf.header]: csrf.token // 헤더에 CSRF 토큰 추가
+                    },
+                    body: formData
+                });
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('이미지 업로드 실패');
+                }
+                return response.json(); // JSON 형식으로 응답 파싱
+            })
+            .then(result => {
+                if (result && result.url) {
+                    return { default: result.url };
+                } else {
+                    throw new Error('이미지 업로드에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('이미지 업로드 오류:', error);
+                throw error;
+            });
+    }
+}
+
+document.getElementById('saveButton').addEventListener('click', function (event) {
+    event.preventDefault(); // 기본 폼 제출을 막습니다.
+    const title = document.getElementById('journalTitle').value;
+    const editorContent = editor.getData();
+
+    if (!title.trim()) {
+        alert('제목을 입력하세요.');
+        return;
+    }
+
+    if (!editorContent.trim()) {
+        alert('내용을 입력하세요.');
+        return;
+    }
+
+    // 제목과 내용이 모두 입력된 경우 폼을 제출합니다.
+    document.getElementById('journalForm').submit();
+});
+</script>
 </body>
 </html>
