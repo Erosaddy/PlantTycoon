@@ -1,5 +1,7 @@
 package kr.co.planttycoon.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,23 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Controller
 public class ManualWateringController {
+	private final IWateringService service;
+//  private final RestTemplate restTemplate;
+//  
+  @Autowired
+  public ManualWateringController(IWateringService service) {
+     this.service = service;
+//     this.restTemplate = restTemplate;
+  }
+
+
+  @GetMapping("/startPump")
+  @ResponseBody
+   public String requestWatering(Principal principal) {
+       String memberId = principal.getName(); // 로그인 사용자 정보 가져오기
+       service.addManualWateringRecord(memberId); // 수동 물주기 기록 추가 메서드 호출
+       return "success"; // 요청이 성공했음을 응답으로 전송
+   }
 //	private final IWateringService service;
 //	private final RestTemplate restTemplate;
 //	

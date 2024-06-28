@@ -3,17 +3,17 @@ package kr.co.planttycoon.controller;
 import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -80,24 +80,47 @@ public class NoticeController {
         return "redirect:/notice/list"; // 목록 페이지로 리다이렉트
     }
    
+//    @GetMapping("/notice/modify")
+//    public void modify(@RequestParam("noticeId") int noticeId, Model model, Principal principal) {
+//
+//        // 로그인 사용자 정보 가져오기
+//        String memberId = principal.getName();
+//
+//        // 게시글 정보 조회
+//        NoticeDTO nDto = Service.get(noticeId);
+//
+//        // 작성자 확인
+//        if(nDto != null && nDto.getMemberId().equals(memberId)) {
+//            model.addAttribute("nDto", nDto);
+//        } else {
+//            throw new AccessDeniedException("수정 권한이 없습니다."); // 접근 권한 예외 발생
+//        }
+//        model.addAttribute("notice", Service.get(noticeId)); // 게시글 정보를 "journal"이라는 이름으로 모델에 추가
+//    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/notice/modify")
-    public void modify(@RequestParam("noticeId") int noticeId, Model model, Principal principal) {
+    public String modify(@RequestParam("noticeId") int noticeId, Model model) {
 
         // 로그인 사용자 정보 가져오기
-        String memberId = principal.getName();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String memberId = ((UserDetails) authentication.getPrincipal()).getUsername();
 
         // 게시글 정보 조회
         NoticeDTO nDto = Service.get(noticeId);
 
-        // 작성자 확인
-        if(nDto != null && nDto.getMemberId().equals(memberId)) {
+        // 작성자 확인 (관리자는 모두 수정 가능)
+        if(nDto != null && (nDto.getMemberId().equals(memberId) || authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN")))) {
             model.addAttribute("nDto", nDto);
         } else {
             throw new AccessDeniedException("수정 권한이 없습니다."); // 접근 권한 예외 발생
         }
-        model.addAttribute("notice", Service.get(noticeId)); // 게시글 정보를 "journal"이라는 이름으로 모델에 추가
-    }
 
+        model.addAttribute("notice", Service.get(noticeId));
+        
+        return "notice/modify"; // 수정 페이지로 이동
+    }
+    
     @PostMapping("/notice/modify")
     public String modifyPost(@ModelAttribute("notice") NoticeDTO notice, RedirectAttributes rttr, Principal principal) {
 
