@@ -62,4 +62,12 @@ $(function() {
       $('.my_popup .popup_close').click(function(){
         $('.my_popup').css('display','none');
       });
+      
+        //로그아웃 팝업
+    $('.myinfo, .mypage').click(function(){
+        $('.my_popup').css('display','block');
+      });
+      $('.my_popup .popup_close').click(function(){
+        $('.my_popup').css('display','none');
+      });
 });

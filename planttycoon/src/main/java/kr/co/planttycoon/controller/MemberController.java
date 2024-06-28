@@ -50,18 +50,18 @@ public class MemberController {
 		this.mailSender = mailSender;
 	}
 
-	@GetMapping({"/login", "/"})
-	public String loginInput(String error, String logout, Model model) {
+	@GetMapping("/login")
+	public void loginInput(String error, String logout, Model model) {
 		
-		if (error != null) {
-			model.addAttribute("error", "아이디 혹은 비밀번호가 일치하지 않습니다.");
-		}
-		
-		if (logout != null) {
-			model.addAttribute("logout", "로그아웃 되었습니다.");
-		}
-		
-		return "/login";
+	    if (error != null) {
+	        if (error.equals("true")) {
+	            model.addAttribute("error", "아이디 혹은 비밀번호가 일치하지 않습니다.");
+	        } else if (error.equals("disabled")) {
+	            model.addAttribute("error", "비활성화된 계정입니다.");
+	        }
+	    } else if (logout != null) {
+            model.addAttribute("logout", "로그아웃 되었습니다.");
+        }
 	}
 	
 	@GetMapping("/customLogout")

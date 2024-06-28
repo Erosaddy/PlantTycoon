@@ -28,8 +28,8 @@ public class HomeController {
 		this.Wservice = Wservice;
 	}
 	
-	@GetMapping("/home")
-	public void plantwatering(HttpSession session, Model model, Principal principal, Criteria cri) {
+	@GetMapping({"/home", "/"})
+	public String plantwatering(HttpSession session, Model model, Principal principal, Criteria cri) {
 		String memberId = principal.getName(); // 로그인 사용자 정보 가져오기
 		
 		List<WateringrecordDTO> records = Wservice.getWateringRecordsByMemberId(memberId, cri);
@@ -41,5 +41,7 @@ public class HomeController {
         // 최근 측정값을 가져와서 모델에 추가
         MeasurementDTO latestMeasurement = Mservice.getLatestMeasurement(memberId);
         session.setAttribute("latestMeasurement", latestMeasurement);
+        
+        return "/home";
 	}
 }

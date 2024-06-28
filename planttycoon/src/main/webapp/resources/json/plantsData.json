@@ -322,29 +322,5 @@
         "max_light_lux": 10000,
         "min_soil_moisture_percentage": 10,
         "max_soil_moisture_percentage": 30
-    },
-    {
-        "plant_name": "장미허브 (Rosemary)",
-        "watering_cycle_days": 7,
-        "min_temperature_celcius": 10,
-        "max_temperature_celcius": 25,
-        "min_humidity_percentage": 30,
-        "max_humidity_percentage": 50,
-        "min_light_lux": 1000,
-        "max_light_lux": 5000,
-        "min_soil_moisture_percentage": 20,
-        "max_soil_moisture_percentage": 40
-    },
-    {
-        "plant_name": "라벤더 (Lavender)",
-        "watering_cycle_days": 14,
-        "min_temperature_celcius": 10,
-        "max_temperature_celcius": 24,
-        "min_humidity_percentage": 30,
-        "max_humidity_percentage": 50,
-        "min_light_lux": 2000,
-        "max_light_lux": 10000,
-        "min_soil_moisture_percentage": 10,
-        "max_soil_moisture_percentage": 30
     }
 ]

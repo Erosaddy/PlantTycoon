@@ -1,6 +1,7 @@
 package kr.co.planttycoon.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,12 +21,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-		log.warn("Load User By UserName : " + userName);
-		
 		// userName means userid
 		MemberDTO dto = memberMapper.read(userName);
 		
-		log.warn("queried by member mapper : " + dto);
+		if (dto == null) {
+            throw new UsernameNotFoundException("User not found");
+        } 
 		
 		return dto == null ? null : new CustomUser(dto);
 	}

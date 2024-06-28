@@ -9,6 +9,7 @@
 	<bean id="customLoginSuccess" class="kr.co.planttycoon.security.CustomLoginSuccessHandler"/>
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	<bean id="customUserDetailsService" class="kr.co.planttycoon.security.CustomUserDetailsService"/>
+	<bean id="customAuthenticationFailureHandler" class="kr.co.planttycoon.security.CustomAuthenticationFailureHandler"/>
 
 	<security:http>
       
@@ -26,7 +27,9 @@
    
 	<security:access-denied-handler ref="customAccessDenied"/>   
       
-	<security:form-login login-page="/login" authentication-success-handler-ref="customLoginSuccess"/>
+	<security:form-login login-page="/login"
+						 authentication-success-handler-ref="customLoginSuccess"
+						 authentication-failure-handler-ref="customAuthenticationFailureHandler"/>
 	<security:logout logout-url="/customLogout" invalidate-session="true"/>
 	<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
       
