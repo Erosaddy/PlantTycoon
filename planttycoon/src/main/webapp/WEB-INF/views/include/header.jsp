@@ -125,6 +125,23 @@
                 </div>
             </div>
         </div>
+        
+        <!-- 로그아웃 모달 -->
+        <div class="logout_popup">
+            <div class="white_box">
+                <div class="logout_confirm_message">
+	                <p>정말 로그아웃 하시겠습니까?</p>
+                </div>
+		        <div class="logout_con">
+		        	<form action="${ctx}/customLogout" method="post">
+						<sec:csrfInput/>
+						<button class="btn_white">로그아웃</button>
+						<button type="button" class="btn_white logout_popup_close">취소</button>
+					</form>
+		        </div>
+	        </div>
+        </div>
+        
         <div class="header">
             <div class="mobile_menu">
                 <div class="header_btn not-active">
@@ -144,10 +161,7 @@
                         <a href="javascript:void(0);" class="myinfo">내 정보</a>      
                     </li>
                     <li>
-                        <form action="${ctx}/customLogout" method="post">
-							<sec:csrfInput/>
-							<button>로그아웃</button>
-						</form>
+                    	<a href="javascript:void(0);" class="logout">로그아웃</a>
                     </li>
                 </ul>
             </div>
@@ -179,10 +193,7 @@
 		                    </sec:authorize>
                             <li class="btn_zone">
                                 <a href="javascript:void(0);" class="mypage btn_green">내 정보</a>
-                                <form action="${ctx}/customLogout" method="post">
-									<sec:csrfInput/>
-									<button class="btn_white">로그아웃</button>
-								</form>
+                                <a href="javascript:void(0);" class="mobileLogout btn_green">로그아웃</a>
                             </li>
                         </ul>
                     </div>

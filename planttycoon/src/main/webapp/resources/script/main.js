@@ -64,10 +64,10 @@ $(function() {
       });
       
         //로그아웃 팝업
-    $('.myinfo, .mypage').click(function(){
-        $('.my_popup').css('display','block');
+    $('.logout, .mobileLogout').click(function(){
+        $('.logout_popup').css('display','block');
       });
-      $('.my_popup .popup_close').click(function(){
-        $('.my_popup').css('display','none');
+      $('.logout_popup .logout_popup_close').click(function(){
+        $('.logout_popup').css('display','none');
       });
 });
