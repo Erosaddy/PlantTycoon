@@ -131,14 +131,17 @@
 		                if(cnt == 0){ // cnt가 1이 아니면(=0일 경우) -> 사용 가능한 이메일
 		                	if (email == "") {
 		                		$('#join_id_error_message').text('');
+		                		idIsAvailable = false;
 		                	} else if (!idRegEx.test(email)) {
 		                		$('#join_id_error_message').text('올바른 이메일 형식을 입력해 주세요.').attr('class', 'font_red');
+		                		idIsAvailable = false;
 		                	} else {
 		                		$('#join_id_error_message').text('사용 가능한 이메일입니다.').attr('class', 'font_green');
 		                		idIsAvailable = true;
 		                	}
 		                } else { // cnt가 1일 경우 -> 이미 존재하는 이메일
 		                	$('#join_id_error_message').text("이미 사용중인 이메일입니다.").attr('class', 'font_red');
+		                	idIsAvailable = false;
 		                }
 		            },
 		            error:function(){
