@@ -5,23 +5,55 @@
 <mapper namespace="kr.co.planttycoon.mapper.WateringMapper">
 	<!-- 해당 memberId의 모든 물주기 기록 조회 -->
     <select id="getWateringRecordsByMemberId" resultType="kr.co.planttycoon.domain.WateringrecordDTO">
-    	<![CDATA[
-	    SELECT  recordId,
-	    		wateredRegdate,
-	            wateringType,
-	            memberId
-	    FROM (SELECT
-	            rownum rn,
+<!--     	<![CDATA[ -->
+<!-- 	    SELECT  recordId, -->
+<!-- 	    		wateredRegdate, -->
+<!-- 	            wateringType, -->
+<!-- 	            memberId -->
+<!-- 	    FROM (SELECT -->
+<!-- 	            rownum rn, -->
+<!-- 	            recordId, -->
+<!-- 	            wateredRegdate, -->
+<!-- 	            wateringType, -->
+<!-- 	            memberId -->
+<!-- 	          FROM wateringRecord -->
+<!-- 	          WHERE memberId = #{memberId} -->
+<!-- 	          AND rownum <= #{cri.pageNum} * #{cri.amount} -->
+<!-- 	          order by recordId desc -->
+<!-- 	        ) -->
+<!-- 	    WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount} -->
+<!-- 	    ]]> -->
+		<![CDATA[
+	    SELECT 
+	        recordId,
+	        wateredRegdate,
+	        wateringType,
+	        memberId
+	    FROM 
+	        (SELECT 
 	            recordId,
 	            wateredRegdate,
 	            wateringType,
-	            memberId
-	          FROM wateringRecord
-	          WHERE memberId = #{memberId}
-	          AND rownum <= #{cri.pageNum} * #{cri.amount}
-	          order by recordId desc
+	            memberId,
+	            rownum AS rn
+	        FROM 
+	            (SELECT 
+	                recordId,
+	                wateredRegdate,
+	                wateringType,
+	                memberId
+	            FROM 
+	                wateringRecord
+	            WHERE 
+	                memberId = #{memberId}
+	            ORDER BY 
+	                recordId DESC
+	            )
+	        WHERE 
+	            rownum <= #{cri.pageNum} * #{cri.amount}
 	        )
-	    WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}
+	    WHERE 
+	        rn > (#{cri.pageNum} - 1) * #{cri.amount}
 	    ]]>
     </select>
     
