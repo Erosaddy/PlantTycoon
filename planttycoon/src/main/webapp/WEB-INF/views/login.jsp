@@ -76,6 +76,7 @@
 	                    	<input id="authNumber" type="number" name="authNumber" placeholder="인증번호를 입력하세요">
 	                    	<button type="submit">인증번호 제출</button>
                     	</div>
+                    	<div id="verifyResult"></div>
                     </form>
                 </div>
             </div>
