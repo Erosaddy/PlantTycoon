@@ -47,7 +47,7 @@
                                 <form action="${ctx}/plant/updateInterval" method="post">
                                 	<sec:csrfInput/>
                                     <div class="wataring_input">
-                                        <input type="text" placeholder="7" name="wateringInterval" value="${wateringInterval}">
+                                        <input type="number" min="1" max="999" placeholder="7" name="wateringInterval" value="${wateringInterval}" required>
                                         <p>일 마다 급수합니다. <span>(미입력시 7일)</span></p>
                                     </div>
                                     <button type="submit">저장</button>
@@ -131,5 +131,16 @@
 		});
     });
 </script>
+<!-- <script> -->
+//     document.querySelector('.auto_watering form').addEventListener('submit', function(event) {
+//         const input = document.querySelector('input[name="wateringInterval"]');
+//         const value = parseInt(input.value, 10);
+
+//         if (isNaN(value) || value < 1 || value > 999) {
+//             alert('1에서 999 사이의 숫자를 입력해주세요.');
+//             event.preventDefault(); // 폼 제출을 막음
+//         }
+//     });
+<!-- </script> -->
 </body>
 </html>

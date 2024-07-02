@@ -26,6 +26,10 @@ input[type=checkbox]:checked{border: 4px solid #40c866; background: url(../image
 input[type=radio]{width: 14px; height: 14px; margin-right: 5px; border-radius: 50%; background-color: #fff; border: 1px solid #dedede; display: inline-flex; align-items: center; justify-content: center; transition: all .2s;}
 input[type=radio]:checked{border: 4px solid #6064d1;}
 
+/* number */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none;-moz-appearance: none;appearance: none;}
+input[type=number] {-moz-appearance: textfield;}
 
 
 /* 내정보 팝업 */
