@@ -65,4 +65,9 @@ public class WateringServiceImpl implements IWateringService {
 		return mapper.getMonthlyWateringData(memberId);
 	}
 
+	@Override
+	public Date getMemberJoinDate(String memberId) {
+		return mapper.getMemberJoinDate(memberId);
+	}
+
 }

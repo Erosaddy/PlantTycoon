@@ -22,4 +22,6 @@ public interface IWateringService {
 	public int getTotalCnt(Criteria cri, String memberId);
 	
 	public List<WateringrecordDTO> getMonthlyWateringData(String memberId);
+	
+	public Date getMemberJoinDate(String memberId);
 }

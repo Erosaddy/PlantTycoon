@@ -166,13 +166,13 @@
                                     </div>
                                 </div>
                                 <div class="plant_btn">
-                                    <button type="button" class="water">물주기<img src="${ctx}/resources/images/ic_water.png" alt="물주기 아이콘"></button>
+                                    <button type="button" class="water" onclick="startPump()">물주기<img src="${ctx}/resources/images/ic_water.png" alt="물주기 아이콘"></button>
                                 	<button type="button" class="led" id="toggleLed">조명 켜기<img src="${ctx}/resources/images/ic_led.png" alt="조명 켜기 아이콘"></button>
                                 </div>
                             </div>
                             <div class="home_right">
                                 <div class="wataring_dday">
-                                    <p>다음 급수일까지<span><strong>6</strong>일 <strong>21</strong>시간</span>남았습니다.</p>
+                                    <p>다음 급수일까지<span><strong>${daysLeft}</strong>일 <strong>${hoursLeft}</strong>시간 <strong>${minutesLeft}</strong>분</span>남았습니다.</p>
                                 </div>
                                 <div class="watering_log">
                                     <h4>급수기록</h4>
@@ -420,6 +420,13 @@ $(document).ready(function() {
         });
     });
 });
+</script>
+<script>
+    function startPump() {
+        fetch('<c:url value="/startPump"/>')
+            .then(response => response.text())
+            .then(data => alert(data));
+    }
 </script>
 </body>
 </html>

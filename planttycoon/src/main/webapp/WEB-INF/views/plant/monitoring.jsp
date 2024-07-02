@@ -219,12 +219,12 @@ $(document).ready(function() {
 });
 </script>
 <script>
-        function startPump() {
-            fetch('<c:url value="/startPump"/>')
-                .then(response => response.text())
-                .then(data => alert(data));
-        }
-    </script>
+    function startPump() {
+        fetch('<c:url value="/startPump"/>')
+            .then(response => response.text())
+            .then(data => alert(data));
+    }
+</script>
 
 </body>
 </html>

@@ -24,4 +24,6 @@ public interface WateringMapper {
 	public int getTotalCnt(Criteria cri, @Param("memberId") String memberId);
 	
 	public List<WateringrecordDTO> getMonthlyWateringData(@Param("memberId") String memberId);
+	
+	public Date getMemberJoinDate(@Param("memberId") String memberId);
 }
