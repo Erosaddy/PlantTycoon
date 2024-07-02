@@ -110,17 +110,27 @@
                            <li>작성일</li> 
                         </ul>
                         <ul class="list_body">
-	                        <c:forEach items="${list}" var="journal" varStatus="status">
-							    <li>
-							        <div class="num">${pageMaker.total - (pageMaker.cri.skip + status.index)}</div> 
-							        <div class="tit">
-							            <a href="${ctx}/journal/get?journalId=${journal.journalId}" class="txt_cut1">${journal.journalTitle}</a>
-							        </div>
-							        <div class="date">
-							            <fmt:formatDate pattern="yyyy.MM.dd" value="${journal.journalRegdate}" />
-							        </div>
-							    </li>
-							</c:forEach>
+	                        <c:choose>
+				                <c:when test="${empty list}">
+
+				                	<div class="nodata">등록된 게시물이 없습니다</div>
+
+				                </c:when>
+				                <c:otherwise>
+				                    <c:forEach items="${list}" var="journal" varStatus="status">
+									    <li>
+									        <div class="num">${pageMaker.total - (pageMaker.cri.skip + status.index)}</div> 
+									        <div class="tit">
+									            <a href="${ctx}/journal/get?journalId=${journal.journalId}" class="txt_cut1">${journal.journalTitle}</a>
+									        </div>
+									        <div class="date">
+									            <fmt:formatDate pattern="yyyy.MM.dd" value="${journal.journalRegdate}" />
+									        </div>
+									    </li>
+									</c:forEach>
+				                </c:otherwise>
+				            </c:choose>
+	                        
                         </ul>
                         <div class="paging">
 						    <p>

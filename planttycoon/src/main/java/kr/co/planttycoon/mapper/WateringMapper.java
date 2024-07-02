@@ -22,4 +22,6 @@ public interface WateringMapper {
 	public void updateWateringInterval(@Param("memberId") String memberId, @Param("wateringInterval") int wateringInterval);
 	
 	public int getTotalCnt(Criteria cri, @Param("memberId") String memberId);
+	
+	public List<WateringrecordDTO> getMonthlyWateringData(@Param("memberId") String memberId);
 }

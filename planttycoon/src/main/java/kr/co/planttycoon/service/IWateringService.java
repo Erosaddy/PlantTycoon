@@ -20,4 +20,6 @@ public interface IWateringService {
 	public void updateWateringInterval(String memberId, int wateringInterval);
 	
 	public int getTotalCnt(Criteria cri, String memberId);
+	
+	public List<WateringrecordDTO> getMonthlyWateringData(String memberId);
 }

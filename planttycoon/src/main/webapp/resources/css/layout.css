@@ -7,7 +7,7 @@
 input::placeholder{color:#969ea5;}
 input::-webkit-input-placeholder{color:#969ea5;}
 div input:-ms-input-placeholder{color:#969ea5;}
-
+.nodata{width: 100% !important; padding: 100px 0 !important; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #eef2f0;}
 
 .btn_green{background: #40c866; color: #fff;}
 .btn_white{background: #fff; border: 1px solid #d4d9dc;}
