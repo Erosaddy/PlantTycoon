@@ -105,7 +105,31 @@ function getCsrfToken() {
 let editor;
 ClassicEditor
     .create(document.querySelector('#editor'), {
+    	// 여기 툴바 부분의 옵션명을 넣어주면 원하는 설정을 할수 있습니다. 
+		toolbar: [ 'undo', 'redo', '|', 'bold', 'italic', '|', 'link', 'imageUpload', 'mediaEmbed', '|', 'bulletedList', 'numberedList', 'blockQuote'], 
+		//---------------------------------------------------------------- 
+		language: 'ko',
+		image: {
+			resizeUnit: 'px',
+			toolbar: [
+				'imageTextAlternative',
+				'imageStyle:alignLeft',
+				'imageStyle:full',
+				'imageStyle:side'
+			],
+			styles: [ 'full','alignLeft','alignRight','side' ]
+		},
+		table: {
+			contentToolbar: [
+				'tableColumn',
+				'tableRow',
+				'mergeTableCells'
+			]
+		},
         language: 'ko',
+        mediaEmbed: {
+            previewsInData: true
+        },
         ckfinder: {
             uploadUrl: '/ajax/image'
         }
