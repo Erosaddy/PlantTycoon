@@ -50,7 +50,7 @@
                     <div class="join_bottom">
                         <p>
                             비밀번호 변경을 취소하고 싶으신가요?
-                            <a href="/login">로그인</a>
+                            <a href="/login?resetSession=true">로그인</a>
                         </p>
                     </div>
                 </div>
@@ -63,8 +63,6 @@
     	$('#newPassword, #newPasswordCheck').on("blur", async function() {
             const password = $('#newPassword').val();
             const passwordCheck = $('#newPasswordCheck').val();
-
-            // 비동기 함수 호출
             await checkPasswords(password, passwordCheck);
         });
 

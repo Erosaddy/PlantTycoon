@@ -34,17 +34,14 @@ import lombok.extern.log4j.Log4j;
 	"file:src/main/webapp/WEB-INF/spring/security-context.xml"
 })
 @Log4j
+@RequiredArgsConstructor
 public class MemberJoinTest {
 
-	@Autowired private MemberMapper mapper;
-	
-	@Autowired private IMemberService service;
-	
-	@Autowired private CustomUserDetailsService detailsService;
-	
-	@Autowired private DataSource ds;
-	
-	@Autowired private PasswordEncoder pwencoder;
+	private final MemberMapper mapper;
+	private final IMemberService service;
+	private final CustomUserDetailsService detailsService;
+	private final DataSource ds;
+	private final PasswordEncoder pwencoder;
 	
 //	@Test
 //	public void memberCreateLoadsTest() {
