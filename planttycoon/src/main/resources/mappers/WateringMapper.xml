@@ -66,5 +66,15 @@
 		WHERE memberId = #{memberId}
 	</select>
 	
-	
+	<select id="getMonthlyWateringData"  resultType="kr.co.planttycoon.domain.WateringrecordDTO">
+		<![CDATA[
+			SELECT TO_CHAR(wateredRegdate, 'MM') AS month,
+	               SUM(CASE WHEN wateringType = '자동' THEN 1 ELSE 0 END) AS autoCount,
+	               SUM(CASE WHEN wateringType = '수동' THEN 1 ELSE 0 END) AS manualCount
+	        FROM wateringRecord
+	        WHERE memberId = #{memberId}
+	        AND   TO_CHAR(wateredRegdate, 'YYYY') = '2024'
+	        GROUP BY TO_CHAR(wateredRegdate, 'MM')
+        ]]>
+	</select>
 </mapper>

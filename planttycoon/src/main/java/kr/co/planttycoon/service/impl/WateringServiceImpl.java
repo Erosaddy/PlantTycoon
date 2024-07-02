@@ -60,4 +60,9 @@ public class WateringServiceImpl implements IWateringService {
 	    return mapper.getTotalCnt(cri, memberId);
 	}
 
+	@Override
+	public List<WateringrecordDTO> getMonthlyWateringData(String memberId) {
+		return mapper.getMonthlyWateringData(memberId);
+	}
+
 }

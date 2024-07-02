@@ -182,12 +182,21 @@
                                             <li>급수타입</li>
                                         </ul>
                                         <ul class="log_body">
-		                                    <c:forEach var="record" items="${records}">
-				                                <li>
-				                                    <div><fmt:formatDate value="${record.wateredRegdate}" pattern="yyyy.MM.dd HH:mm:ss"/></div>
-				                                    <div>${record.wateringType}</div>
-				                                </li>
-				                            </c:forEach>
+		                                    <c:choose>
+								                <c:when test="${empty records}">
+	
+								                	<div class="nodata">데이터가 없습니다</div>
+	
+								                </c:when>
+								                <c:otherwise>
+								                    <c:forEach var="record" items="${records}">
+								                        <li>
+								                            <div><fmt:formatDate value="${record.wateredRegdate}" pattern="yyyy.MM.dd HH:mm:ss"/></div>
+								                            <div>${record.wateringType}</div>
+								                        </li>
+								                    </c:forEach>
+								                </c:otherwise>
+								            </c:choose>
 	<!--                                         <li> -->
 	<!--                                             <div>2024.05.28 15:33:02</div> -->
 	<!--                                             <div>자동</div> -->

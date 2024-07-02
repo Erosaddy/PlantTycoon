@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <link rel="stylesheet" href="${ctx}/resources/css/watering.css">   
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
             <div class="side">
                 <ul class="gnb">
                     <li> <!--메뉴 선택 시 on클래스 붙음-->
@@ -61,12 +62,21 @@
                                         <li>급수타입</li>
                                     </ul>
                                     <ul class="log_body">
-	                                    <c:forEach var="record" items="${records}">
-			                                <li>
-			                                    <div><fmt:formatDate value="${record.wateredRegdate}" pattern="yyyy.MM.dd HH:mm:ss"/></div>
-			                                    <div>${record.wateringType}</div>
-			                                </li>
-			                            </c:forEach>
+	                                    <c:choose>
+							                <c:when test="${empty records}">
+
+							                	<div class="nodata">데이터가 없습니다</div>
+
+							                </c:when>
+							                <c:otherwise>
+							                    <c:forEach var="record" items="${records}">
+							                        <li>
+							                            <div><fmt:formatDate value="${record.wateredRegdate}" pattern="yyyy.MM.dd HH:mm:ss"/></div>
+							                            <div>${record.wateringType}</div>
+							                        </li>
+							                    </c:forEach>
+							                </c:otherwise>
+							            </c:choose>
 <!--                                         <li> -->
 <!--                                             <div>2024.05.28 15:33:02</div> -->
 <!--                                             <div>자동</div> -->
@@ -109,7 +119,7 @@
                         <div class="watering_right">
                             <h4>월별 급수 현황</h4>
                             <div class="chart">
-                                <!-- 차트 들어갈 영역 -->
+                                <canvas id="monthlyWatering"></canvas>
                             </div>
                         </div>
                     </div>
@@ -129,18 +139,81 @@
 			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 			actionForm.submit();
 		});
+		
+		// 월별 급수 현황 데이터 가져오기
+		$.ajax({
+		    url: '${ctx}/api/monthlyWateringData',
+		    type: 'GET',
+		    dataType: 'json',
+		    success: function(data) {
+		        var today = new Date();
+		        var currentMonth = today.getMonth() + 1; // 현재 월
+		        var months = [];
+		        
+		        // 1월부터 현재 월까지의 월 데이터 생성
+		        for (var i = 1; i <= currentMonth; i++) {
+		            months.push(i + '월');
+		        }
+		        
+		        // 데이터 처리
+		        var autoCounts = Array.from({ length: currentMonth }, () => 0);
+		        var manualCounts = Array.from({ length: currentMonth }, () => 0);
+		        
+		        if (data && data.length > 0) {
+		            // 서버에서 받은 데이터를 월별 카운트에 반영
+		            data.forEach(function(item) {
+		                var index = parseInt(item.month) - 1; // month는 1부터 시작하므로 -1 해줍니다.
+		                autoCounts[index] = item.autoCount;
+		                manualCounts[index] = item.manualCount;
+		            });
+		        }
+		        
+		        // Chart.js 설정
+		        const ctx = document.getElementById('monthlyWatering').getContext('2d');
+		        new Chart(ctx, {
+		            type: 'bar',
+		            data: {
+		                labels: months,
+		                datasets: [
+		                    {
+		                        label: '자동 급수',
+		                        data: autoCounts,
+		                        backgroundColor: 'rgba(254, 97, 130, 0.5)',
+		                        borderColor: 'rgba(254, 97, 130, 1)',
+		                        borderWidth: 1
+		                    },
+		                    {
+		                        label: '수동 급수',
+		                        data: manualCounts,
+		                        backgroundColor: 'rgba(48, 160, 234, 0.5)',
+		                        borderColor: 'rgba(48, 160, 234, 1)',
+		                        borderWidth: 1
+		                    }
+		                ]
+		            },
+		            options: {
+		                maintainAspectRatio: false,
+		                responsive: true,
+		                scales: {
+		                    x: {
+		                        stacked: true,
+		                    },
+		                    y: {
+		                        stacked: true,
+		                        ticks: {
+		                            beginAtZero: true,
+		                            stepSize: 1,
+		                        },
+		                    }
+		                }
+		            }
+		        });
+		    },
+		    error: function(jqXHR, textStatus, errorThrown) {
+		        console.error('AJAX error:', textStatus, errorThrown);
+		    }
+		});
     });
 </script>
-<!-- <script> -->
-//     document.querySelector('.auto_watering form').addEventListener('submit', function(event) {
-//         const input = document.querySelector('input[name="wateringInterval"]');
-//         const value = parseInt(input.value, 10);
-
-//         if (isNaN(value) || value < 1 || value > 999) {
-//             alert('1에서 999 사이의 숫자를 입력해주세요.');
-//             event.preventDefault(); // 폼 제출을 막음
-//         }
-//     });
-<!-- </script> -->
 </body>
 </html>

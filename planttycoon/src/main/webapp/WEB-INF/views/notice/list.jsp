@@ -132,16 +132,26 @@
                            <li>작성일</li> 
                         </ul>
                    		<ul class="list_body">
-			                <c:forEach items="${list}" var="notice"> <%-- notice 객체 사용 --%>
-			                    <li>
-			                        <div class="num">${notice.noticeId}</div>
-			                        <div class="tit">
-			                            <a href="${ctx}/notice/get?noticeId=${notice.noticeId}" class="txt_cut1">${notice.noticeTitle}</a> <%-- noticeId 사용 --%>
-			                        </div>
-			                       <div class="name">${notice.nickname}</div> <%-- nickname 출력 --%>
-			                        <div class="date"><fmt:formatDate pattern="yyyy.MM.dd" value="${notice.regdate}" /></div> <%-- regdate 사용 --%>
-			                    </li>
-			                </c:forEach>
+	                   		<c:choose>
+				                <c:when test="${empty list}">
+
+				                	<div class="nodata">등록된 게시물이 없습니다</div>
+
+				                </c:when>
+				                <c:otherwise>
+				                    <c:forEach items="${list}" var="notice"> <%-- notice 객체 사용 --%>
+					                    <li>
+					                        <div class="num">${notice.noticeId}</div>
+					                        <div class="tit">
+					                            <a href="${ctx}/notice/get?noticeId=${notice.noticeId}" class="txt_cut1">${notice.noticeTitle}</a> <%-- noticeId 사용 --%>
+					                        </div>
+					                       <div class="name">${notice.nickname}</div> <%-- nickname 출력 --%>
+					                        <div class="date"><fmt:formatDate pattern="yyyy.MM.dd" value="${notice.regdate}" /></div> <%-- regdate 사용 --%>
+					                    </li>
+					                </c:forEach>
+				                </c:otherwise>
+				            </c:choose>
+			                
 			            </ul>
                         <div class="paging">
 						    <p>
