@@ -62,6 +62,7 @@
         SELECT wateredRegdate
         FROM wateringRecord
         WHERE memberId = #{memberId}
+        AND   wateringType = '자동'
         ORDER BY wateredRegdate DESC
         FETCH FIRST 1 ROWS ONLY
     </select>
@@ -109,4 +110,11 @@
 	        GROUP BY TO_CHAR(wateredRegdate, 'MM')
         ]]>
 	</select>
+	
+	<!-- 자동 물주기 기록이 없을 때 가입날짜 조회 -->
+    <select id="getMemberJoinDate" parameterType="string" resultType="java.util.Date">
+        SELECT regDate
+        FROM member
+        WHERE memberId = #{memberId}
+    </select>
 </mapper>
