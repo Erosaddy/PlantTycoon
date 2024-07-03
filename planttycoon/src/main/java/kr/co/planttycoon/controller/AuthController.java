@@ -99,13 +99,6 @@ public class AuthController {
                 return map;
             }
 
-            // 이메일 주소 확인
-            if (!isUser.getMemberId().equals(mDto.getMemberId())) {
-                map.put("status", false);
-                map.put("message", "이메일 주소가 일치하지 않습니다.");
-                return map;
-            }
-
             // 랜덤 인증번호 생성
             Random r = new Random();
             int num = 100000 + r.nextInt(900000);

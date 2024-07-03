@@ -5,6 +5,7 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps: 
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -19,7 +20,7 @@ jobs:
         run: sudo apt-get install -y maven
         
       - name: Build with Maven
-        run: mvn -f planttycoon/pom.xml clean install
+        run: mvn -Pgithub -f planttycoon/pom.xml clean install
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
@@ -29,6 +30,7 @@ jobs:
   test: 
     needs: build
     runs-on: ubuntu-latest
+
     steps: 
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -46,7 +48,7 @@ jobs:
         run: env
         
       - name: Run tests with Maven
-        run: mvn -f planttycoon/pom.xml test
+        run: mvn -Pgithub -f planttycoon/pom.xml test
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
