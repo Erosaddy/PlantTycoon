@@ -20,6 +20,7 @@ jobs:
         run: sudo apt-get install -y maven
         
       - name: Build with Maven
+        working-directory: ./planttycoon/pom.xml
         run: mvn clean install -Dspring.profiles.active=github
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
@@ -48,6 +49,7 @@ jobs:
         run: env
         
       - name: Run tests with Maven
+        working-directory: ./planttycoon/pom.xml
         run: mvn test -Dspring.profiles.active=github
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
