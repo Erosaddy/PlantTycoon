@@ -278,6 +278,7 @@
 		</dependency>
 
 	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -316,4 +317,26 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+        <!-- 로컬 환경 프로파일 -->
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profiles.active>local</spring.profiles.active>
+            </properties>
+        </profile>
+
+        <!-- GitHub Actions 환경 프로파일 -->
+        <profile>
+            <id>github</id>
+            <properties>
+                <spring.profiles.active>github</spring.profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+	
 </project>
