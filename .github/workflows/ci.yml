@@ -19,12 +19,6 @@ jobs:
       - name: Install Maven
         run: sudo apt-get install -y maven
         
-      - name: Print working directory
-        run: pwd
-        
-      - name: List files in working directory
-        run: ls -al
-        
       - name: Build with Maven
         working-directory: ./planttycoon  # 'pom.xml' 파일이 있는 경로로 설정
         run: mvn clean install -Dspring.profiles.active=github
@@ -50,12 +44,6 @@ jobs:
           
       - name: Install Maven
         run: sudo apt-get install -y maven
-        
-      - name: Print working directory
-        run: pwd
-        
-      - name: List files in working directory
-        run: ls -al
         
       - name: Run tests with Maven
         working-directory: ./planttycoon  # 'pom.xml' 파일이 있는 경로로 설정
