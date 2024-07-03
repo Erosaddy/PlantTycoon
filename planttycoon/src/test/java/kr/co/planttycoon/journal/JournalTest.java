@@ -22,14 +22,9 @@ import kr.co.planttycoon.service.JournalService;
 })
 public class JournalTest {
 	
-	@Autowired
-	private JournalService Service;
-	
-	@Autowired
-	private JournalMapper Mapper;
-	
-	@Autowired
-	private IMemberService memberService;
+	@Autowired private JournalService Service;
+	@Autowired private JournalMapper Mapper;
+	@Autowired private IMemberService memberService;
 	
 	@Transactional
     @Test
