@@ -1,5 +1,7 @@
 package kr.co.planttycoon.member;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.assertj.core.api.Assertions;
@@ -7,11 +9,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.MemberDTO;
 import kr.co.planttycoon.mapper.MemberMapper;
 import kr.co.planttycoon.security.CustomUserDetailsService;
@@ -20,7 +22,8 @@ import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({
-	"file:src/test/resources/root-context-test.xml",
+    "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+//	"file:src/test/resources/root-context-test.xml",
 	"file:src/main/webapp/WEB-INF/spring/security-context.xml"
 })
 @Log4j
@@ -32,20 +35,33 @@ public class MemberJoinTest {
 	@Autowired private DataSource ds;
 	@Autowired private PasswordEncoder pwencoder;
 	
-//	@Test
-//	public void memberCreateLoadsTest() {
-//		
-//		MemberDTO mDto = new MemberDTO();
-//		
-//		for (int i=1; i <= 100; i++) {
-//			
-//			mDto.setMemberId("member" + i + "@gmail.com");
-//			mDto.setMemberPw("999999");
-//			mDto.setNickname("member" + i);
-//			
-//			service.join(mDto);
-//		}
-//	}
+	@Transactional
+	@Test
+	public void readMembersTest() {
+		//given
+		MemberDTO mDto = new MemberDTO();
+		Criteria cri = new Criteria();
+		
+		//when
+			
+		mDto.setMemberId("member1@gmail.com");
+		mDto.setMemberPw("999999");
+		mDto.setNickname("member1");
+		
+		service.join(mDto);
+		
+		mDto.setMemberId("member2@gmail.com");
+        mDto.setMemberPw("999999");
+        mDto.setNickname("member2");
+        
+        service.join(mDto);
+		
+		List<MemberDTO> members = service.memberList(cri);
+		
+		//then
+		Assertions.assertThat(members.size()).isEqualTo(10);
+	}
+	
 	@Transactional
 	@Test
     public void memberCreateTest() {
