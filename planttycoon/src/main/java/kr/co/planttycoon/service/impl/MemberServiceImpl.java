@@ -37,29 +37,26 @@ public class MemberServiceImpl implements IMemberService {
 	}
 	
 	@Transactional
-    @Override
-    public int join(MemberDTO mDto) {
-        try {
-        	
-        	mDto.setMemberPw(pwencoder.encode(mDto.getMemberPw()));
-        	
-            mapper.createMember(mDto);
-            
-            int result = mapper.createMemberAuthority(mDto.getMemberId());
-            
-            // LED 상태 추가
-            ControlDTO ledControlDTO = new ControlDTO();
-            ledControlDTO.setMemberId(mDto.getMemberId());
-            //ledControlDTO.setLedStatus("F"); // 초기 LED 상태 설정
-            ledmapper.insertLedControl(ledControlDTO);
-            
-            return result;
-        } catch (Exception e) {
-            e.getStackTrace();
-            throw new RuntimeException("회원가입 중 예외가 발생했습니다.");
-        }
-		
-    }
+	@Override
+	public int join(MemberDTO mDto) {
+	    try {
+	        mDto.setMemberPw(pwencoder.encode(mDto.getMemberPw()));
+	        mapper.createMember(mDto);
+
+	        int result = mapper.createMemberAuthority(mDto.getMemberId());
+
+	        // LED 상태 추가
+	        ControlDTO ledControlDTO = new ControlDTO();
+	        ledControlDTO.setMemberId(mDto.getMemberId());
+	        //ledControlDTO.setLedStatus("F"); // 초기 LED 상태 설정
+	        ledmapper.insertLedControl(ledControlDTO);
+
+	        return result;
+	    } catch (Exception e) {
+	        e.printStackTrace(); // 상세한 예외 메시지를 출력
+	        throw new RuntimeException("회원가입 중 예외가 발생했습니다: " + e.getMessage(), e);
+	    }
+	}
 	
 	@Override
 	public int idCheck(String memberId) {
