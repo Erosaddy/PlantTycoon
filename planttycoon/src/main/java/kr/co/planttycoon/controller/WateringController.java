@@ -94,6 +94,9 @@ public class WateringController {
     public void startAutomaticWatering() {
         String memberId = "hanul301@gmail.com"; // 물주기를 실행할 회원의 ID
 
+        // 스케줄러가 실행되는지 로그로 확인
+        System.out.println("자동 물주기 스케줄러가 실행되었습니다.");
+        
         // 마지막 자동 물주기 시간 조회
         Date lastAutoWateringDate = service.getLastWateringDate(memberId);
         log.info("마지막 자동 물주기 시간 : " + lastAutoWateringDate);
