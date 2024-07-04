@@ -68,7 +68,7 @@ public class UploadController {
     
 
 	private String saveUrl = "C:\\Users\\hanul\\git\\PlantTycoon\\planttycoon\\src\\main\\webapp\\resources\\fileUpload\\";
-    private String loadUrl = "http://localhost:9090/resources/fileUpload/";
+    private String loadUrl = "http://192.168.0.213:9090/resources/fileUpload/";
 
     @PostMapping("/ajax/image")
     public ResponseEntity<Map<String, Object>> image(MultipartHttpServletRequest request) {
