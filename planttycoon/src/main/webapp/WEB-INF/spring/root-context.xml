@@ -6,14 +6,12 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
-		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- HikariCP Oracle 설정 -->
@@ -49,7 +47,7 @@
 	
 	<!-- Property Placeholder Configuration -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:application-local.properties" />
+        <property name="location" value="classpath:application-${spring.profiles.active}.properties" />
         <property name="fileEncoding" value="UTF-8" />
     </bean>
 
@@ -79,8 +77,5 @@
 	<context:component-scan base-package="kr.co.planttycoon.controller" />
 	<context:component-scan base-package="kr.co.planttycoon.domain" />
 	<mybatis-spring:scan base-package="kr.co.planttycoon.mapper" />
-	
-	<!-- task 네임스페이스를 이용한 스케줄링 활성화 -->
-	<task:annotation-driven/>
 
 </beans>

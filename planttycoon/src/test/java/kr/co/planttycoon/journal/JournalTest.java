@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,14 +22,9 @@ import kr.co.planttycoon.service.JournalService;
 })
 public class JournalTest {
 	
-	@Autowired
-	private JournalService Service;
-	
-	@Autowired
-	private JournalMapper Mapper;
-	
-	@Autowired
-	private IMemberService memberService;
+	@Autowired private JournalService Service;
+	@Autowired private JournalMapper Mapper;
+	@Autowired private IMemberService memberService;
 	
 	@Transactional
     @Test

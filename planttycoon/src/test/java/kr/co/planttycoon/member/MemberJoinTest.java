@@ -1,31 +1,21 @@
 package kr.co.planttycoon.member;
 
-import static org.junit.Assert.*;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-
 import javax.sql.DataSource;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.co.planttycoon.domain.AuthorityDTO;
-import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.MemberDTO;
 import kr.co.planttycoon.mapper.MemberMapper;
 import kr.co.planttycoon.security.CustomUserDetailsService;
 import kr.co.planttycoon.service.IMemberService;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,14 +24,13 @@ import lombok.extern.log4j.Log4j;
 	"file:src/main/webapp/WEB-INF/spring/security-context.xml"
 })
 @Log4j
-@RequiredArgsConstructor
 public class MemberJoinTest {
 
-	private final MemberMapper mapper;
-	private final IMemberService service;
-	private final CustomUserDetailsService detailsService;
-	private final DataSource ds;
-	private final PasswordEncoder pwencoder;
+	@Autowired private MemberMapper mapper;
+	@Autowired private IMemberService service;
+	@Autowired private CustomUserDetailsService detailsService;
+	@Autowired private DataSource ds;
+	@Autowired private PasswordEncoder pwencoder;
 	
 //	@Test
 //	public void memberCreateLoadsTest() {
