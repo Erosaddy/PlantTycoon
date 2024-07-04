@@ -187,6 +187,7 @@ public class MemberJoinTest {
 //		}
 //	}
 	
+	@Transactional
 	@Test
 	public void joinTest() {
 		MemberDTO mDto = new MemberDTO();
