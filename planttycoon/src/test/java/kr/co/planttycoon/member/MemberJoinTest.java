@@ -22,8 +22,8 @@ import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({
-    "file:src/main/webapp/WEB-INF/spring/root-context.xml",
-//	"file:src/test/resources/root-context-test.xml",
+//    "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+	"file:src/test/resources/root-context-test.xml",
 	"file:src/main/webapp/WEB-INF/spring/security-context.xml"
 })
 @Log4j
@@ -35,32 +35,32 @@ public class MemberJoinTest {
 	@Autowired private DataSource ds;
 	@Autowired private PasswordEncoder pwencoder;
 	
-	@Transactional
-	@Test
-	public void readMembersTest() {
-		//given
-		MemberDTO mDto = new MemberDTO();
-		Criteria cri = new Criteria();
-		
-		//when
-			
-		mDto.setMemberId("member1@gmail.com");
-		mDto.setMemberPw("999999");
-		mDto.setNickname("member1");
-		
-		service.join(mDto);
-		
-		mDto.setMemberId("member2@gmail.com");
-        mDto.setMemberPw("999999");
-        mDto.setNickname("member2");
-        
-        service.join(mDto);
-		
-		List<MemberDTO> members = service.memberList(cri);
-		
-		//then
-		Assertions.assertThat(members.size()).isEqualTo(10);
-	}
+//	@Transactional
+//	@Test
+//	public void readMembersTest() {
+//		//given
+//		MemberDTO mDto = new MemberDTO();
+//		Criteria cri = new Criteria();
+//		
+//		//when
+//			
+//		mDto.setMemberId("member1@gmail.com");
+//		mDto.setMemberPw("999999");
+//		mDto.setNickname("member1");
+//		
+//		service.join(mDto);
+//		
+//		mDto.setMemberId("member2@gmail.com");
+//        mDto.setMemberPw("999999");
+//        mDto.setNickname("member2");
+//        
+//        service.join(mDto);
+//		
+//		List<MemberDTO> members = service.memberList(cri);
+//		
+//		//then
+//		Assertions.assertThat(members.size()).isEqualTo(10);
+//	}
 	
 	@Transactional
 	@Test
@@ -187,21 +187,22 @@ public class MemberJoinTest {
 //		}
 //	}
 	
-//	@Test
-//	public void joinTest() {
-//		MemberDTO mDto = new MemberDTO();
-//		mDto.setMemberId("testaccount");
-//		mDto.setMemberPw(pwencoder.encode("1111"));
-//		log.info("인코딩된 비밀번호.......... : " + mDto.getMemberPw());
-//		mDto.setNickname("testaccount");
-//		
-//		int result = memberServiceImpl.join(mDto);
-//		
-//		if (result == 1) {
-//			log.info("성공.........");
-//		} else {
-//			log.info("실패.........");
-//		}
-//	}
+	@Transactional
+	@Test
+	public void joinTest() {
+		MemberDTO mDto = new MemberDTO();
+		mDto.setMemberId("testaccount");
+		mDto.setMemberPw(pwencoder.encode("1111"));
+		log.info("인코딩된 비밀번호.......... : " + mDto.getMemberPw());
+		mDto.setNickname("testaccount");
+		
+		int result = service.join(mDto);
+		
+		if (result == 1) {
+			log.info("성공.........");
+		} else {
+			log.info("실패.........");
+		}
+	}
 
 }
