@@ -3,7 +3,7 @@
 <%@ include file="../include/header.jsp" %>
 <link rel="stylesheet" href="${ctx}/resources/css/detail.css">
 			<script>
-				function confirmDelete(journalId) {
+				function confirmDelete(noticeId) {
 				    if (confirm("정말 삭제하시겠습니까?")) {
 				        location.href = "${ctx}/notice/remove?noticeId=" + noticeId;
 				    }

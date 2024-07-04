@@ -141,21 +141,30 @@ public class NoticeController {
         return "redirect:/notice/get";
     }
     
-    @GetMapping("/notice/remove") // GET 방식으로 삭제 요청 처리
+    @GetMapping("/notice/remove")
     public String remove(@RequestParam("noticeId") int noticeId, RedirectAttributes rttr, Principal principal) {
-        String memberId = principal.getName(); // 로그인 사용자 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String memberId = principal.getName();
+
+        log.info("User: " + memberId + " attempting to delete noticeId: " + noticeId);
+
         NoticeDTO notice = Service.get(noticeId);
 
-        if (notice != null && notice.getMemberId().equals(memberId)) { // 작성자 확인
-            if (Service.remove(noticeId)) { // 삭제 성공 시
+        if (notice != null && (notice.getMemberId().equals(memberId) ||
+                authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN")))) {
+            log.info("Authorization check passed.");
+            if (Service.remove(noticeId)) {
                 rttr.addFlashAttribute("result", "success");
+                log.info("Notice deleted successfully.");
             } else {
                 rttr.addFlashAttribute("result", "fail");
+                log.info("Notice deletion failed.");
             }
         } else {
-            rttr.addFlashAttribute("result", "notAuthorized"); // 삭제 권한 없음
+            rttr.addFlashAttribute("result", "notAuthorized");
+            log.info("User not authorized to delete this notice.");
         }
 
-        return "redirect:/notice/list"; // 목록 페이지로 리다이렉트
+        return "redirect:/notice/list";
     }
 }
