@@ -65,7 +65,7 @@
                     	<sec:csrfInput/>
                         <p>기존에 가입한 이메일을 입력하면 인증용 메일을 보내드립니다.</p>
                         <div class="input_wrap">
-	                        <input id="memberId" type="text" name="memberId" placeholder="이메일을 입력하세요">
+	                        <input id="memberId" type="text" name="memberId" placeholder="이메일을 입력하세요" required>
 	                        <button type="submit">인증번호 받기</button>
                         	<div id="result"></div>
                         </div>
@@ -73,7 +73,7 @@
                     <form id="verifyAuthForm" action="${ctx}/verifyAuth" method="POST" style="display: none;">
                     	<sec:csrfInput/>
                     	<div class="input_wrap">
-	                    	<input id="authNumber" type="number" name="authNumber" placeholder="인증번호를 입력하세요">
+	                    	<input id="authNumber" type="number" name="authNumber" placeholder="인증번호 6자리를 입력하세요" required oninput="this.value = this.value.slice(0, 6);">
 	                    	<button type="submit">인증번호 제출</button>
                     		<div id="verifyResult"></div>
                     	</div>
@@ -131,16 +131,19 @@
     
     <script>
         $(document).ready(function() {
+        	
+        	function getCsrfToken() {
+	    	    return $('meta[name="_csrf"]').attr('content');
+	    	}
+
+	    	function getCsrfHeader() {
+	    	    return $('meta[name="_csrf_header"]').attr('content');
+	    	}
+        	
             $("#findAuthForm").submit(function(e) {
                 e.preventDefault();
                 
-                function getCsrfToken() {
-    	    	    return $('meta[name="_csrf"]').attr('content');
-    	    	}
-
-    	    	function getCsrfHeader() {
-    	    	    return $('meta[name="_csrf_header"]').attr('content');
-    	    	}
+                $("#result").html("");
 
                 const memberId = $("#memberId").val();
                 
@@ -171,14 +174,8 @@
             $("#verifyAuthForm").submit(function(e) {
                 e.preventDefault();
                 
-                function getCsrfToken() {
-    	    	    return $('meta[name="_csrf"]').attr('content');
-    	    	}
-
-    	    	function getCsrfHeader() {
-    	    	    return $('meta[name="_csrf_header"]').attr('content');
-    	    	}
-
+                $("#verifyResult").html("");
+                
                 const authNumberString = $("#authNumber").val();
                 const authNumber = parseInt(authNumberString);
                 

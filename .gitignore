@@ -11,5 +11,5 @@ planttycoon/Sangjun/workspace/sts
 *.log
 
 # Ignore mail-config.properties file
-*/src/main/resources/mail-config.properties
+*/src/main/resources/application-local.properties
 
