@@ -92,7 +92,7 @@ public class WateringController {
     
     @Scheduled(cron = "0 * * * * *") // 분마다 실행
     public void startAutomaticWatering() {
-        String memberId = "ledtest01@naver.com"; // 물주기를 실행할 회원의 ID
+        String memberId = "hanul301@gmail.com"; // 물주기를 실행할 회원의 ID
 
         // 마지막 자동 물주기 시간 조회
         Date lastAutoWateringDate = service.getLastWateringDate(memberId);
