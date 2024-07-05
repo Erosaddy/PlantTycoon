@@ -112,59 +112,47 @@ CREATE TABLE persistent_logins (
 /* Create Foreign Keys */
 
 ALTER TABLE memberAuthority
-	ADD FOREIGN KEY (authority)
-	REFERENCES authority (authority)
-;
-
+ADD CONSTRAINT memberAuthority_authority_authority_FK
+FOREIGN KEY (authority)
+REFERENCES authority (authority)
+ON DELETE CASCADE;
 
 ALTER TABLE journal
-	ADD FOREIGN KEY (memberId)
-	REFERENCES member (memberId)
-;
-
+ADD CONSTRAINT journal_member_memberId_FK
+FOREIGN KEY (memberId)
+REFERENCES member (memberId)
+ON DELETE CASCADE;
 
 ALTER TABLE Control
-	ADD FOREIGN KEY (memberId)
-	REFERENCES member (memberId)
-;
-
+ADD CONSTRAINT Control_member_memberId_FK
+FOREIGN KEY (memberId)
+REFERENCES member (memberId)
+ON DELETE CASCADE;
 
 ALTER TABLE measurement
-	ADD FOREIGN KEY (memberId)
-	REFERENCES member (memberId)
-;
-
+ADD CONSTRAINT measurement_member_memberId_FK
+FOREIGN KEY (memberId)
+REFERENCES member (memberId)
+ON DELETE CASCADE;
 
 ALTER TABLE memberAuthority
-	ADD FOREIGN KEY (memberId)
-	REFERENCES member (memberId)
-;
-
+ADD CONSTRAINT memberAuthority_member_memberId_FK
+FOREIGN KEY (memberId)
+REFERENCES member (memberId)
+ON DELETE CASCADE;
 
 ALTER TABLE notice
-	ADD FOREIGN KEY (memberId)
-	REFERENCES member (memberId)
-;
-
+ADD CONSTRAINT notice_member_memberId_FK
+FOREIGN KEY (memberId)
+REFERENCES member (memberId)
+ON DELETE CASCADE;
 
 ALTER TABLE wateringRecord
-	ADD FOREIGN KEY (memberId)
-	REFERENCES member (memberId)
-;
+ADD CONSTRAINT wateringRecord_member_memberId_FK
+FOREIGN KEY (memberId)
+REFERENCES member (memberId)
+ON DELETE CASCADE;
 
-
-
-ALTER TABLE memberAuthority
-	ADD FOREIGN KEY (memberId)
-	REFERENCES member (memberId)
-;
-
-ALTER TABLE memberAuthority
-	ADD FOREIGN KEY (authority)
-	REFERENCES authority (authority)
-;
-
-COMMIT;
 
 /* 시퀀스 삭제 및 생성 */
 
