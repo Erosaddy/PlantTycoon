@@ -56,8 +56,8 @@
         "max_humidity_percentage": 60,
         "min_light_lux": 1000,
         "max_light_lux": 5000,
-        "min_soil_moisture_percentage": 20,
-        "max_soil_moisture_percentage": 40
+        "min_soil_moisture_percentage": 10,
+        "max_soil_moisture_percentage": 20
     },
     {
         "plant_name": "평화 백합 (Peace Lily)",
@@ -74,14 +74,14 @@
     {
         "plant_name": "포토스 (Pothos)",
         "watering_cycle_days": 7,
-        "min_temperature_celcius": 18,
-        "max_temperature_celcius": 24,
-        "min_humidity_percentage": 40,
-        "max_humidity_percentage": 60,
+        "min_temperature_celcius": 10,
+        "max_temperature_celcius": 30,
+        "min_humidity_percentage": 20,
+        "max_humidity_percentage": 80,
         "min_light_lux": 500,
         "max_light_lux": 3000,
-        "min_soil_moisture_percentage": 40,
-        "max_soil_moisture_percentage": 60
+        "min_soil_moisture_percentage": 10,
+        "max_soil_moisture_percentage": 80
     },
     {
         "plant_name": "떡갈 고무나무 (Fiddle Leaf Fig)",
