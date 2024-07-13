@@ -18,7 +18,7 @@ Plan Tycoon 은 IT 기술을 활용하여 '반려식물'의 건강 상태를 정
 
 ## ⚙️ 기술 스택
 - **DataBase** : Oracle 21C Express Edition
-- **Language** : JAVA, Javascript, HTML5, CSS3, jQuery 
+- **Language** : JAVA, Javascript(jQuery)
 - **Server** : Tomcat
 - **아이디어 회의** : Notion
 
