@@ -1,21 +1,14 @@
 package kr.co.planttycoon.controller;
 
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,9 +24,7 @@ import kr.co.planttycoon.domain.PageDTO;
 import kr.co.planttycoon.security.CustomUserDetailsService;
 import kr.co.planttycoon.security.domain.CustomUser;
 import kr.co.planttycoon.service.IMemberService;
-import lombok.extern.log4j.Log4j;
 
-@Log4j
 @Controller
 public class MemberController {
 	
@@ -70,7 +61,7 @@ public class MemberController {
 		
 		CustomUser updatedMember = (CustomUser) detailsService.loadUserByUsername(memberId);
 		
-		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(updatedMember, updatedMember.getPassword(), updatedMember.getAuthorities());
+		Authentication newAuth = new UsernamePasswordAuthenticationToken(updatedMember, null, updatedMember.getAuthorities());
 		
 		SecurityContextHolder.getContext().setAuthentication(newAuth);
 		

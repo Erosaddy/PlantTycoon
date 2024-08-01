@@ -10,9 +10,7 @@ import kr.co.planttycoon.domain.MemberDTO;
 import kr.co.planttycoon.mapper.MemberMapper;
 import kr.co.planttycoon.security.domain.CustomUser;
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 
-@Log4j
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Setter(onMethod_ = @Autowired)
@@ -28,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         } 
 		
-		return dto == null ? null : new CustomUser(dto);
+		return new CustomUser(dto);
 	}
 
 }

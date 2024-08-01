@@ -24,7 +24,9 @@
 	
 	<select id="read" resultMap="memberMap">
 		SELECT	mem.memberId, memberPw, nickname, plant, enabled, lastLogin, regDate, authority
-		FROM	member mem LEFT OUTER JOIN memberAuthority auth on mem.memberId = auth.memberId
+		FROM	member mem
+		LEFT OUTER JOIN memberAuthority auth 
+		ON mem.memberId = auth.memberId
 		WHERE	mem.memberId = #{memberId}
 	</select>
 	

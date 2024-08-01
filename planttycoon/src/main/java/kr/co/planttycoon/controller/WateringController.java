@@ -90,7 +90,7 @@ public class WateringController {
         return new ResponseEntity<>(monthlyWateringData, HttpStatus.OK);
     }
     
-    @Scheduled(cron = "0 * * * * *") // 분마다 실행
+//    @Scheduled(cron = "0 * * * * *") // 분마다 실행
     public void startAutomaticWatering() {
         String memberId = "hanul301@gmail.com"; // 물주기를 실행할 회원의 ID
 
