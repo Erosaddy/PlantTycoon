@@ -121,7 +121,6 @@
                         <button id="memberModify" type="button">내 정보 수정</button>
                     </form>
                     <input type="hidden" id="currentPlant" value='<sec:authentication property='principal.member.plant'/>'>
-                    <input type="hidden" id="temperature" value='${latestMeasurement.temperature}'>
                 </div>
             </div>
         </div>

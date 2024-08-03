@@ -46,7 +46,7 @@ public class HomeController {
         
         // 최근 측정값을 가져와서 모델에 추가
         MeasurementDTO latestMeasurement = Mservice.getLatestMeasurement(memberId);
-        session.setAttribute("latestMeasurement", latestMeasurement);
+        model.addAttribute("latestMeasurement", latestMeasurement);
         
         // 마지막 자동 물주기 시간 조회
         Date lastAutoWateringDate = Wservice.getLastWateringDate(memberId);

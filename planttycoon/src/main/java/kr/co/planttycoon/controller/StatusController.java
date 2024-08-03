@@ -51,12 +51,12 @@ public class StatusController {
     }
 	
 	@GetMapping("/plant/status")
-	public void plantstatus(HttpSession session, Principal principal) {
+	public void plantstatus(Model model, Principal principal) {
 		String memberId = principal.getName();
 		
 		// 최근 측정값을 가져와서 모델에 추가
         MeasurementDTO latestMeasurement = service.getLatestMeasurement(memberId);
-        session.setAttribute("latestMeasurement", latestMeasurement);
+        model.addAttribute("latestMeasurement", latestMeasurement);
 	}
 	
 	@GetMapping("/api/measurements")
