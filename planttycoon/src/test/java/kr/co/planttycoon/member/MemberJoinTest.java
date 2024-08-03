@@ -1,11 +1,10 @@
 package kr.co.planttycoon.member;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.util.Iterator;
+import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.MemberDTO;
 import kr.co.planttycoon.mapper.MemberMapper;
 import kr.co.planttycoon.security.CustomUserDetailsService;
@@ -35,49 +35,45 @@ public class MemberJoinTest {
 	@Autowired private DataSource ds;
 	@Autowired private PasswordEncoder pwencoder;
 	
-//	@Transactional
-//	@Test
-//	public void readMembersTest() {
-//		//given
-//		MemberDTO mDto = new MemberDTO();
-//		Criteria cri = new Criteria();
-//		
-//		//when
-//			
-//		mDto.setMemberId("member1@gmail.com");
-//		mDto.setMemberPw("999999");
-//		mDto.setNickname("member1");
-//		
-//		service.join(mDto);
-//		
-//		mDto.setMemberId("member2@gmail.com");
-//        mDto.setMemberPw("999999");
-//        mDto.setNickname("member2");
-//        
-//        service.join(mDto);
-//		
-//		List<MemberDTO> members = service.memberList(cri);
-//		
-//		//then
-//		Assertions.assertThat(members.size()).isEqualTo(10);
-//	}
-	
-//	@Transactional
+	@Transactional
 	@Test
-    public void memberCreateTest() {
-        
-		for (int i = 0; i < 100; i++) {		
-			
-			MemberDTO mDto = new MemberDTO();
-			
-			mDto.setMemberId("member" + i + "@gmail.com");
-			mDto.setMemberPw("691103Zxz!" + i);
+	public void readMembersTest() {
+		//given
+		MemberDTO mDto = new MemberDTO();
+		Criteria cri = new Criteria();
+		
+		//when
+		
+		for(int i = 0; i < 10; i++) {
+			mDto.setMemberId("testMember" + i + "@gmail.com");
+			mDto.setMemberPw("999999");
 			mDto.setNickname("member" + i);
-			mDto.setPlant("산세비에리아 (Sansevieria)");
 			
 			service.join(mDto);
 		}
-    }
+			
+		List<MemberDTO> members = service.memberList(cri);
+		
+		//then
+		Assertions.assertThat(members.size()).isEqualTo(10);
+	}
+	
+//	@Transactional
+//	@Test
+//    public void memberCreateTest() {
+//        
+//		for (int i = 0; i < 100; i++) {		
+//			
+//			MemberDTO mDto = new MemberDTO();
+//			
+//			mDto.setMemberId("member" + i + "@gmail.com");
+//			mDto.setMemberPw("691103Zxz!" + i);
+//			mDto.setNickname("member" + i);
+//			mDto.setPlant("산세비에리아 (Sansevieria)");
+//			
+//			service.join(mDto);
+//		}
+//    }
 	
 //	@Transactional
 //	@Test
