@@ -10,7 +10,7 @@
 
 Plan Tycoon 은 IT 기술을 활용하여 '반려식물'의 건강 상태를 정확하게 파악하고, 맞춤형 관리 가이드를 제공함으로써, 시들어가는 '반려식물'에 새로운 생명을 불어넣고, 사용자에게 더 큰 행복과 만족감을 선사할 것입니다.
 
-## 💻 개발환경
+## 💻 개발 환경
 - **Version** : Java 11
 - **IDE** : STS, Arduino IDE, Android Studio, Visual Studio Code
 - **Framework** : Spring 4.3.8.RELEASE
@@ -18,7 +18,7 @@ Plan Tycoon 은 IT 기술을 활용하여 '반려식물'의 건강 상태를 정
 
 ## ⚙️ 기술 스택
 - **DataBase** : Oracle 21C Express Edition
-- **Language** : JAVA, Javascript, HTML5, CSS3, jQuery 
+- **Language** : JAVA, Javascript(jQuery)
 - **Server** : Tomcat
 - **아이디어 회의** : Notion
 
