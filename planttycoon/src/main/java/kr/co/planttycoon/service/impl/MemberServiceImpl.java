@@ -3,16 +3,13 @@ package kr.co.planttycoon.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.session.SessionInformation;
-import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.ControlDTO;
+import kr.co.planttycoon.domain.Criteria;
 import kr.co.planttycoon.domain.MemberDTO;
 import kr.co.planttycoon.mapper.LedcontrolMapper;
 import kr.co.planttycoon.mapper.MemberMapper;
@@ -48,14 +45,16 @@ public class MemberServiceImpl implements IMemberService {
 	        // LED 상태 추가
 	        ControlDTO ledControlDTO = new ControlDTO();
 	        ledControlDTO.setMemberId(mDto.getMemberId());
-	        //ledControlDTO.setLedStatus("F"); // 초기 LED 상태 설정
 	        ledmapper.insertLedControl(ledControlDTO);
 
 	        return result;
-	    } catch (Exception e) {
-	        e.printStackTrace(); // 상세한 예외 메시지를 출력
-	        throw new RuntimeException("회원가입 중 예외가 발생했습니다: " + e.getMessage(), e);
-	    }
+	    } catch (DataAccessException e) {
+            log.error("데이터베이스 연산 중 오류 발생: {}", e);
+            throw new RuntimeException("회원가입 중 데이터베이스 오류가 발생했습니다.");
+        } catch (Exception e) {
+            log.error("회원가입 중 예외 발생: {}", e);
+            throw new RuntimeException("회원가입 중 예외가 발생했습니다.");
+        }
 	}
 	
 	@Override
@@ -67,13 +66,15 @@ public class MemberServiceImpl implements IMemberService {
 	public int modifyMember(MemberDTO mDto) {
 	    
 	    try {
-            
 	        int result = mapper.modifyMember(mDto);
 	        
 	        return result;
 	        
+        } catch (DataAccessException e) {
+            log.error("회원 정보 수정 중 데이터베이스 오류 발생: {}", e);
+            throw new RuntimeException("회원 정보 수정 중 데이터베이스 오류가 발생했습니다.");
         } catch (Exception e) {
-            e.getStackTrace();
+            log.error("회원 정보 수정 중 예외 발생: {}", e);
             throw new RuntimeException("회원 정보 수정 중 예외가 발생했습니다.");
         }
 	}
