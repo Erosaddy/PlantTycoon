@@ -10,11 +10,17 @@
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	<bean id="customUserDetailsService" class="kr.co.planttycoon.security.CustomUserDetailsService"/>
 	<bean id="customAuthenticationFailureHandler" class="kr.co.planttycoon.security.CustomAuthenticationFailureHandler"/>
+	<bean id="loginRedirectFilter" class="kr.co.planttycoon.security.LoginRedirectFilter"/>
 
 	<security:http>
-      
+    
+    <security:custom-filter before="FORM_LOGIN_FILTER" ref="loginRedirectFilter"/>
+    
 	<security:intercept-url pattern="/api/data"     access="permitAll" />
 	<security:intercept-url pattern="/ajax/image" 	access="permitAll" />
+	
+	<security:intercept-url pattern="/login" 		access="isAnonymous()" />
+    <security:intercept-url pattern="/join" 		access="isAnonymous()" />
 	
 	<security:intercept-url pattern="/"             access="hasRole('ROLE_MEMBER')"/>
 	<security:intercept-url pattern="/home"         access="hasRole('ROLE_MEMBER')"/>
@@ -28,6 +34,7 @@
 	<security:access-denied-handler ref="customAccessDenied"/>   
       
 	<security:form-login login-page="/login"
+						 default-target-url="/home"
 						 authentication-success-handler-ref="customLoginSuccess"
 						 authentication-failure-handler-ref="customAuthenticationFailureHandler"/>
 	<security:logout logout-url="/customLogout" invalidate-session="true"/>
