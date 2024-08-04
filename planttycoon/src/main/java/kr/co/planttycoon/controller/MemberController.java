@@ -40,7 +40,7 @@ public class MemberController {
 
 	@PostMapping("/idCheck")
 	@ResponseBody
-	public int idCheck(@RequestParam("memberId") String memberId) throws Exception {
+	public int idCheck(@RequestParam("memberId") String memberId) {
 		int cnt = service.idCheck(memberId);
 		
 		return cnt;
@@ -83,7 +83,7 @@ public class MemberController {
 	@PostMapping("/toggleEnabled")
 	@ResponseBody
 	public int toggleEnabled(@RequestParam("enabled") String enabled, 
-							 @RequestParam("memberId") String memberId) throws Exception {
+							 @RequestParam("memberId") String memberId) {
 		
 		int cnt = service.modifyEnabled(enabled, memberId);
 		
