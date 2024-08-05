@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,13 +30,13 @@ import kr.co.planttycoon.service.IMemberService;
 public class MemberController {
 	
 	private final IMemberService service;
-	private final CustomUserDetailsService detailsService;
+	private final CustomUserDetailsService customUserDetailsService;
 	
 	
 	@Autowired
-	public MemberController(IMemberService service, CustomUserDetailsService detailsService, JavaMailSender mailSender) {
+	public MemberController(IMemberService service, CustomUserDetailsService customUserDetailsService, JavaMailSender mailSender) {
 		this.service = service;
-		this.detailsService = detailsService;
+		this.customUserDetailsService = customUserDetailsService;
 	}
 
 	@PostMapping("/idCheck")
@@ -59,11 +60,15 @@ public class MemberController {
 			rttr.addFlashAttribute("modifyMemberResult", "failure");
 		}
 		
-		CustomUser updatedMember = (CustomUser) detailsService.loadUserByUsername(memberId);
+		CustomUser updatedMember = (CustomUser) customUserDetailsService.loadUserByUsername(memberId);
 		
-		Authentication newAuth = new UsernamePasswordAuthenticationToken(updatedMember, null, updatedMember.getAuthorities());
+		SecurityContext context = SecurityContextHolder.createEmptyContext();
+		Authentication authentication = new UsernamePasswordAuthenticationToken(updatedMember, null, updatedMember.getAuthorities());
+		context.setAuthentication(authentication);
+		SecurityContextHolder.setContext(context);
 		
-		SecurityContextHolder.getContext().setAuthentication(newAuth);
+//		기존에 사용했던 방법. 그러나 이처럼 객체 생성 없이 처리하면 thread-safe하지 않다.
+//		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		String referer = request.getHeader("Referer");
 		
