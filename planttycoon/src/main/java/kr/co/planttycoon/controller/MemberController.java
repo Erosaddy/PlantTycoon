@@ -67,9 +67,6 @@ public class MemberController {
 		context.setAuthentication(authentication);
 		SecurityContextHolder.setContext(context);
 		
-//		기존에 사용했던 방법. 그러나 이처럼 객체 생성 없이 처리하면 thread-safe하지 않다.
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
 		String referer = request.getHeader("Referer");
 		
 		return "redirect:" + (referer != null ? referer : "/home");
